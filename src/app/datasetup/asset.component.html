@@ -1,0 +1,9 @@
+<div id="search-component">
+  <h4>Asset Search</h4>
+  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+  <div class="scrollbar">
+    <div *ngFor="let asset of assets | async" class="search-result">
+      <span>{{asset.Code}}</span> <span>{{asset.Name}}</span>
+    </div>
+  </div>
+</div>

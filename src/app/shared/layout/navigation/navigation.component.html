@@ -1,0 +1,54 @@
+<aside id="left-panel">
+
+  <!-- User info -->
+  <sa-login-info></sa-login-info>
+  <!-- end user info -->
+
+  <nav>
+    <!-- NOTE: Notice the gaps after each icon usage <i></i>..
+    Please note that these links work a bit different than
+    traditional href="" links. See documentation for details.
+    -->
+
+    <ul saSmartMenu>
+
+      <li routerLinkActive="active">
+        <a routerLink="/home" title="Home">
+          <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">{{'Home' | i18n}}</span></a>
+      </li>
+
+      <li routerLinkActive="active">
+        <a routerLink="/home" title="Corporate Actions">
+          <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">{{'Corporate Actions'}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+              <a routerLink="/corporateaction-add">Add New</a>
+          </li>
+          <li routerLinkActive="active">
+              <a routerLink="/corporateaction-list">Show All</a>
+          </li>
+        </ul>
+      </li>
+
+      <li routerLinkActive="active">
+        <a title="Static Data">
+          <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">Static Data</span></a>
+        <ul>
+          <li routerLinkActive="active">
+              <a routerLink="/staticdata-asset">Asset</a>
+          </li>
+          <li routerLinkActive="active">
+              <a routerLink="/staticdata-issuer">Issuer</a>
+          </li>
+          <li routerLinkActive="active">
+              <a routerLink="/staticdata-eventtypes">Event Types</a>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+  </nav>
+
+  <sa-minify-menu></sa-minify-menu>
+
+</aside>

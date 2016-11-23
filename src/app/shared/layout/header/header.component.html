@@ -1,0 +1,33 @@
+<header id="header">
+  <div id="logo-group">
+
+    <!-- PLACE YOUR LOGO HERE -->
+    <span id="logo"> <img src="assets/img/logo.png" alt="Ausmaq Operations"></span>    
+    <!-- END LOGO PLACEHOLDER -->
+
+  </div>
+
+  <!-- pulled right: nav area -->
+  <div class="pull-right">
+
+    <sa-collapse-menu></sa-collapse-menu>
+
+    <!-- input: search field -->
+    <form #searchForm="ngForm" (ngSubmit)="onSubmit()" class="header-search pull-right">
+      <input id="search-fld" type="text" name="param" required
+             placeholder="Find reports and more">
+      <button type="submit">
+        <i class="fa fa-search"></i>
+      </button>
+      <a id="cancel-search-js" (click)="toggleSearchMobile()" title="Cancel Search"><i class="fa fa-times"></i></a>
+    </form>
+    <!-- end input: search field -->
+
+    <!-- fullscreen button -->
+    <sa-full-screen></sa-full-screen>
+    <!-- end fullscreen button -->
+
+  </div>
+  <!-- end pulled right: nav area -->
+
+</header>

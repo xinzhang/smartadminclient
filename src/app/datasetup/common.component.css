@@ -1,0 +1,22 @@
+.search-result{
+  border-bottom: 1px solid gray;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
+  width:700px;
+  height: 20px;
+  padding: 5px;
+  background-color: white;
+  cursor: pointer;
+}
+#search-box{
+  width: 200px;
+  height: 20px;
+}
+
+.scrollbar {
+    float:left;
+    width:800px;
+    overflow-y: auto;
+    height: 400px;
+    margin-top: 40px;
+}
