@@ -1,4 +1,4 @@
-import {Component, OnInit, ElementRef} from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild} from '@angular/core';
 import {CorporateActionModel} from '../models/corporateactions.model';
 
 import {CorporateActionService} from '../services/corporateaction.service';
@@ -7,6 +7,8 @@ import {StaticDataService} from '../services/staticdata.service';
 import {Animations} from '../shared/animations';
 import * as moment from 'moment';
 import { NgForm } from '@angular/forms';
+
+declare var $:any;
 
 @Component({
   selector: 'corp-action-add',
@@ -23,28 +25,33 @@ export class CorpActionAddComponent implements OnInit{
 
     eventTypes = [];
     
-    formIssuerCode:Control;
+    corporateAction = new CorporateActionModel("", "", "", "", "");
+    @ViewChild('issuerCodeInput') issuerCodeInput;
 
-    corporateAction = new CorporateActionModel(new Date(), "", "", "", "");
-
-    ajaxAutocompleteOptions = {
-
+    ajaxAutocompleteOptions = {        
         source: (request, response) => {
-          console.log("form issuer code" + this.formIssuerCode.value);
+          var lookupValue:string = this.issuerCodeInput.nativeElement.value;
 
           jQuery.ajax({
-            url: "/api/issuer/" + this.corporateAction.issuerCode,
+            url: "/api/issuer/" + lookupValue,
             method: "GET",
-            //dataType: "jsonp",
             success: (data) => {
-              response(data);
+              console.log('returned values:');
+              console.log(data);
+              response($.map(data, function(item){
+                return {
+                  label: item.Code,
+                  value: item.Name
+                }
+              })
+              );
             }
           });
         },
         minLength: 2,
         select: (event, ui) => {
-          console.log("Selected: " + ui.item.Code + " name: " + ui.item.Name);
-          this.corporateaction.IssuerName = ui.item.Name;
+          //console.log("Selected: " + ui.item.label + " name: " + ui.item.value);
+          this.corporateAction.IssuerName = ui.item.value;
         }
       };
 
@@ -55,6 +62,7 @@ export class CorpActionAddComponent implements OnInit{
 
     ngOnInit() {
       this.loadEventTypes();
+      console.log('started');
     }
 
     addAPIR() {      

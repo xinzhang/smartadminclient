@@ -21,10 +21,16 @@
         <div class="form-group">
             <label class="col-sm-2 control-lable">Issuer Code:</label>
             <div class="col-sm-10">
-                <!--<input type="text" class="form-control" name="issuerCode" [(ngModel)]="corporateAction.IssuerCode" placeholder="Issuer Code" />-->
-                <input class="form-control" placeholder="Issuer Code..." [saJquiAutocomplete]="ajaxAutocompleteOptions" type="text" id="issuerCode" name="issuerCode"  [(ngModel)]="corporateAction.IssuerCode" #issuercode="ngModel">
-                <br/>
-                <span>{{corporateAction.IssuerCode}}</span>
+                <input type="text" class="form-control" name="issuerCode" 
+                    [ngModel]="corporateAction.IssuerCode" placeholder="Issuer Code"
+                    [saJquiAutocomplete]="ajaxAutocompleteOptions"
+                    #issuerCodeInput
+                    />
+                <!--<input class="form-control" placeholder="Issuer Code..." [saJquiAutocomplete]="ajaxAutocompleteOptions" type="text" 
+                    id="issuerCode" name="issuerCode" #issuercode
+                    (change)="fetchData($event)"
+                {{#issuercode | json}}
+                <br/>-->
             </div>
         </div>
 
