@@ -22,13 +22,16 @@ declare var $:any;
 export class CorpActionAddComponent implements OnInit{
     numberOfDaysToDue = 14;
     currentAPIR = "";
+    currentAPIRLabel = "";
 
     eventTypes = [];
     
     corporateAction = new CorporateActionModel("", "", "", "", "");
-    @ViewChild('issuerCodeInput') issuerCodeInput;
 
-    ajaxAutocompleteOptions = {        
+    @ViewChild('issuerCodeInput') issuerCodeInput;
+    @ViewChild('apirCodeInput') apirCodeInput;
+
+    ajaxIssuerAutocompleteOptions = {        
         source: (request, response) => {
           var lookupValue:string = this.issuerCodeInput.nativeElement.value;
 
@@ -40,8 +43,9 @@ export class CorpActionAddComponent implements OnInit{
               console.log(data);
               response($.map(data, function(item){
                 return {
-                  label: item.Code,
-                  value: item.Name
+                  label: item.Code + " - " + item.Name,
+                  value: item.Code,
+                  name: item.Name
                 }
               })
               );
@@ -50,8 +54,39 @@ export class CorpActionAddComponent implements OnInit{
         },
         minLength: 2,
         select: (event, ui) => {
-          //console.log("Selected: " + ui.item.label + " name: " + ui.item.value);
-          this.corporateAction.IssuerName = ui.item.value;
+          console.log("Selected: ");
+          console.log(ui.item);
+          this.corporateAction.IssuerName = ui.item.name;          
+        }
+      };
+
+      ajaxAPIRAutocompleteOptions = {        
+        source: (request, response) => {
+          var lookupValue:string = this.apirCodeInput.nativeElement.value;
+
+          jQuery.ajax({
+            url: "/api/asset/" + lookupValue,
+            method: "GET",
+            success: (data) => {
+              console.log('returned values:');
+              console.log(data);
+              response($.map(data, function(item){
+                return {
+                  label: item.Code + " - " + item.Name,
+                  value: item.Code,
+                  name: item.Name
+                }
+              })
+              );
+            }
+          });
+        },
+        minLength: 2,
+        select: (event, ui) => {
+          console.log("Selected: ");
+          console.log(ui.item);
+          this.currentAPIR = ui.item.value;  
+          this.currentAPIRLabel = ui.item.name;        
         }
       };
 
