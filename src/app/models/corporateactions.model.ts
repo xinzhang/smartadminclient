@@ -3,6 +3,8 @@ export class CorporateActionModel {
     public APIRCodes : string[] = [];
     public APIRLabels: string[] = [];
 
+    public Documents: string[] = [];
+
     constructor(
         public DueDate : string,        
         public IssuerCode: string,

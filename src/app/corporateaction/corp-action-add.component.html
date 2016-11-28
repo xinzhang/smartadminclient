@@ -87,6 +87,24 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label class="col-sm-2 control-lable">Documents:</label>
+            <div class="col-sm-10">
+                <file type="upload"></file>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-lable"></label>
+            <div class="col-sm-10">
+                <ul class="tag">
+                    <li *ngFor="let d of corporateAction.Documents;let i=index" class="tag">
+                        {{ d }} <span (click)="removeDocument(i)"class="glyphicon glyphicon-remove"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>        
+
         <div class="form-gorup">
             <label class="col-sm-2 control-lable"></label>
             <div class="col-sm-10">

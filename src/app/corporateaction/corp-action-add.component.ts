@@ -59,7 +59,7 @@ export class CorpActionAddComponent implements OnInit{
           this.corporateAction.IssuerCode = ui.item.value;
           this.corporateAction.IssuerName = ui.item.name;          
         }
-        
+
       };
 
       ajaxAPIRAutocompleteOptions = {        
@@ -139,6 +139,10 @@ export class CorpActionAddComponent implements OnInit{
             values => console.log('success'),
             error => console.log(error) 
           )
+    }
+
+    removeDocument(idx : number) {
+      this.corporateAction.Documents.splice(idx, 1);
     }
 
 }
