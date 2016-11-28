@@ -26,7 +26,7 @@ export class CorpActionAddComponent implements OnInit{
 
     eventTypes = [];
     
-    corporateAction = new CorporateActionModel("", "", "", "", "");
+    corporateAction = new CorporateActionModel("", "", "", "", "", "");
 
     @ViewChild('issuerCodeInput') issuerCodeInput;
     @ViewChild('apirCodeInput') apirCodeInput;
@@ -56,8 +56,10 @@ export class CorpActionAddComponent implements OnInit{
         select: (event, ui) => {
           console.log("Selected: ");
           console.log(ui.item);
+          this.corporateAction.IssuerCode = ui.item.value;
           this.corporateAction.IssuerName = ui.item.name;          
         }
+        
       };
 
       ajaxAPIRAutocompleteOptions = {        
@@ -86,7 +88,7 @@ export class CorpActionAddComponent implements OnInit{
           console.log("Selected: ");
           console.log(ui.item);
           this.currentAPIR = ui.item.value;  
-          this.currentAPIRLabel = ui.item.name;        
+          this.currentAPIRLabel = ui.item.value + " - " + ui.item.name;        
         }
       };
 
@@ -103,13 +105,16 @@ export class CorpActionAddComponent implements OnInit{
     addAPIR() {      
       if (this.currentAPIR != "") {
         this.corporateAction.APIRCodes.push(this.currentAPIR);
+        this.corporateAction.APIRLabels.push(this.currentAPIRLabel);
         this.currentAPIR = "";
+        this.currentAPIRLabel = "";
       }
     }
 
     removeAPIR(val:any) {
       let index = this.corporateAction.APIRCodes.indexOf(val);
       this.corporateAction.APIRCodes.splice(index, 1);
+      this.corporateAction.APIRLabels.splice(index, 1);
     }
 
     loadEventTypes() {
@@ -124,5 +129,16 @@ export class CorpActionAddComponent implements OnInit{
     public assets = [];
     public filteredAssets = [];
     public elementRef;
+
+    submitCorporateAction() {
+        console.log('service add');
+        console.log(this.corporateAction);
+
+      this.corporateActionService.addCorpAction(this.corporateAction)
+        .subscribe(
+            values => console.log('success'),
+            error => console.log(error) 
+          )
+    }
 
 }
