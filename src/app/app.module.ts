@@ -28,13 +28,15 @@ import { DatepickerModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { CorporateActionService} from './services/corporateaction.service';
 import { StaticDataService} from './services/staticdata.service';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
     AboutComponent, 
     //CorpActionAddComponent, CorpActionListComponent, CorpActionDetailComponent, 
     AssetComponent, IssuerComponent, EventTypesComponent,
-    ArchiveComponent, TradeComponent, TransferComponent,
+    ArchiveComponent, TradeComponent, TransferComponent    
   ],
   imports: [
     BrowserModule,

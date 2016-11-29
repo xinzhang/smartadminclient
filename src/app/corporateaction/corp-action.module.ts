@@ -9,6 +9,9 @@ import {CorpActionAddComponent} from './corp-action-add.component';
 import {CorpActionDetailComponent} from './corp-action-detail.component';
 import {CorpActionListComponent} from './corp-action-list.component';
 
+import {UploaderComponent} from '../shared/uploader/uploader.component';
+import {FileSelectDirective} from 'ng2-file-upload';
+
 @NgModule({
   imports: [
     CommonModule,    
@@ -16,6 +19,6 @@ import {CorpActionListComponent} from './corp-action-list.component';
     SmartadminInputModule,
     JqueryUiModule
   ],
-  declarations: [CorpActionAddComponent, CorpActionDetailComponent, CorpActionListComponent]
+  declarations: [CorpActionAddComponent, CorpActionDetailComponent, CorpActionListComponent, UploaderComponent, FileSelectDirective]
 })
 export class CorpActionModule { }

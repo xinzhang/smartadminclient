@@ -8,6 +8,8 @@ import {Animations} from '../shared/animations';
 import * as moment from 'moment';
 import { NgForm } from '@angular/forms';
 
+import {UploaderComponent} from '../shared/uploader/uploader.component';
+
 declare var $:any;
 
 @Component({
