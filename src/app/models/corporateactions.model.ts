@@ -4,6 +4,7 @@ export class CorporateActionModel {
     public APIRLabels: string[] = [];
 
     public Documents: string[] = [];
+    public ClientCodes: string[] = [];
 
     constructor(
         public DueDate : string,        

@@ -13,6 +13,7 @@ export class StaticDataService {
     eventTypesUrl:string = '/api/eventtypes';
     assetUrl:string = '/api/asset'
     issuerUrl:string = '/api/issuer'
+    clientUrl:string = '/api/portalclient'
 
     getEventTypes():Observable<string[]> {
         return this.http.get(this.eventTypesUrl).map( data => data.json());
@@ -45,5 +46,10 @@ export class StaticDataService {
         var url:string = this.assetUrl+ "/" + search;
         return this.http.get(url).map( data => data.json());
     }
+
+    getPortalClient():Observable<any> {
+        return this.http.get(this.clientUrl).map( data => data.json());
+    }
+
 
 }

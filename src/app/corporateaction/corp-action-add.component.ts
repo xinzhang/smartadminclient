@@ -25,8 +25,10 @@ export class CorpActionAddComponent implements OnInit{
     numberOfDaysToDue = 14;
     currentAPIR = "";
     currentAPIRLabel = "";
+    selectedClientCode = "";
 
     eventTypes = [];
+    clientCodes = [];
     
     corporateAction = new CorporateActionModel("", "", "", "", "", "");
 
@@ -41,8 +43,6 @@ export class CorpActionAddComponent implements OnInit{
             url: "/api/issuer/" + lookupValue,
             method: "GET",
             success: (data) => {
-              console.log('returned values:');
-              console.log(data);
               response($.map(data, function(item){
                 return {
                   label: item.Code + " - " + item.Name,
@@ -56,12 +56,9 @@ export class CorpActionAddComponent implements OnInit{
         },
         minLength: 2,
         select: (event, ui) => {
-          console.log("Selected: ");
-          console.log(ui.item);
           this.corporateAction.IssuerCode = ui.item.value;
           this.corporateAction.IssuerName = ui.item.name;          
         }
-
       };
 
       ajaxAPIRAutocompleteOptions = {        
@@ -72,9 +69,12 @@ export class CorpActionAddComponent implements OnInit{
             url: "/api/asset/" + lookupValue,
             method: "GET",
             success: (data) => {
-              console.log('returned values:');
-              console.log(data);
-              response($.map(data, function(item){
+              //also can limit number here
+              var selection = data.slice(0,15);
+              if (data.length > 15) {
+                selection.push({"Code":"(More...)", "Name":""});
+              }          
+              response($.map(selection, function(item){
                 return {
                   label: item.Code + " - " + item.Name,
                   value: item.Code,
@@ -87,8 +87,6 @@ export class CorpActionAddComponent implements OnInit{
         },
         minLength: 2,
         select: (event, ui) => {
-          console.log("Selected: ");
-          console.log(ui.item);
           this.currentAPIR = ui.item.value;  
           this.currentAPIRLabel = ui.item.value + " - " + ui.item.name;        
         }
@@ -100,8 +98,7 @@ export class CorpActionAddComponent implements OnInit{
     }
 
     ngOnInit() {
-      this.loadEventTypes();
-      console.log('started');
+      this.loadLookupData();            
     }
 
     addAPIR() {      
@@ -119,12 +116,22 @@ export class CorpActionAddComponent implements OnInit{
       this.corporateAction.APIRLabels.splice(index, 1);
     }
 
-    loadEventTypes() {
+    loadLookupData() {
       this.staticDataService.getEventTypes()
         .subscribe(
           values => this.eventTypes = values,
           error => console.log(error)
+        );
+      this.staticDataService.getPortalClient()
+        .subscribe(
+          values => this.clientCodes = values,
+          error => console.log(error)
         )
+    }
+
+    setClientCode($event:any) {
+      this.corporateAction.ClientCodes = [];
+      this.corporateAction.ClientCodes.push($event.target.value);
     }
 
     public currentAsset = '';
@@ -133,8 +140,6 @@ export class CorpActionAddComponent implements OnInit{
     public elementRef;
 
     submitCorporateAction() {
-        console.log('service add');
-        console.log(this.corporateAction);
 
       this.corporateActionService.addCorpAction(this.corporateAction)
         .subscribe(

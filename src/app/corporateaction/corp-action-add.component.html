@@ -4,6 +4,18 @@
 
     <form #form="ngForm" class="form-horizontal" novalidate>
 
+        <div class="form-group">            
+            <label class="col-sm-2 control-lable">Client Code:</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <select class="form-control col-sm-2" name="client-code" id="client-code" [ngModel]="corporateAction.ClientCodes[0]" (change)="setClientCode($event)" required>
+                        <option value="" disabled selected>Select ...</option>
+                        <option *ngFor="let c of clientCodes" value="{{c}}">{{c}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
        <div class="form-group">            
             <label class="col-sm-2 control-lable">Due Date:</label>
             <div class="col-sm-9">
