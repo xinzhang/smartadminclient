@@ -10,6 +10,8 @@ import { NgForm } from '@angular/forms';
 
 import {UploaderComponent} from '../shared/uploader/uploader.component';
 
+import { LocalStorageService } from 'angular-2-local-storage';
+
 declare var $:any;
 
 @Component({
@@ -92,7 +94,10 @@ export class CorpActionAddComponent implements OnInit{
         }
       };
 
-    constructor(private corporateActionService: CorporateActionService, private staticDataService: StaticDataService, myElement: ElementRef) {                  
+    constructor(private corporateActionService: CorporateActionService, 
+                private staticDataService: StaticDataService,
+                private localStorageService: LocalStorageService, 
+                myElement: ElementRef) {                  
       this.corporateAction.DueDate = moment().add(7, 'days').format("DD-MM-YYYY");
       this.elementRef = myElement;
     }
@@ -152,4 +157,9 @@ export class CorpActionAddComponent implements OnInit{
       this.corporateAction.Documents.splice(idx, 1);
     }
 
+    saveCorporateAction() {
+      this.localStorageService.remove("corporateAction");
+      this.localStorageService.add("corporateAction",JSON.stringify(this.corporateAction) );
+    }
+    
 }

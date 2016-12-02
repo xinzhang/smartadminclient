@@ -70,7 +70,7 @@
 
         <div class="form-group has-feedback">
             <label class="col-sm-2 control-lable">APIR Codes:</label>
-            <div class="col-sm-10">
+            <div class="col-sm-6">
                 <input type="text" class="form-control" name="apircodes"
                     [(ngModel)]="currentAPIR" placeholder="Enter the APIR"
                     [saJquiAutocomplete]="ajaxAPIRAutocompleteOptions"
@@ -78,6 +78,9 @@
                     (keyup.enter)="addAPIR()" />
 
                 <span (click)="addAPIR()" class="glyphicon glyphicon-plus form-control-feedback"></span>
+            </div>
+            <div class="col-sm-4">
+                <button saJquiDialogLauncher="#dialog-simple" class="btn btn-info"> Add APIR </button>
             </div>
         </div>
 
@@ -123,6 +126,7 @@
             <label class="col-sm-2 control-lable"></label>
             <div class="col-sm-10">
                 <button type="button" (click)="submitCorporateAction()">Submit</button>
+                <button type="button" (click)="saveCorporateAction()">Save</button>
             </div>
         </div>
         
@@ -131,3 +135,30 @@
     <!--<input auto-complete [(ngModel)]="myData" [source]="fruits" />-->
 
 </div>
+
+<!-- ui-dialog -->
+  <div id="dialog-simple" [saJquiDialog]="{
+    autoOpen: false
+  }">
+
+    <!-- dialog header // removing on compile-->
+    <div data-dialog-title="">
+      <div class="widget-header"><h4><i class="fa fa-warning"></i> APIR</h4></div>
+    </div>
+
+    <div class="row">
+        
+    </div>
+
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat.
+    </p>
+
+    <!-- dialog buttons // transform to jquery dialog buttons -->
+    <div data-dialog-buttons="">
+      <button class="btn btn-danger" data-action="modalDemo1()"><i class="fa fa-trash-o"></i>&nbsp; Delete all items</button>
+      <button class="btn btn-default" data-action="modalDemo2()"><i class="fa fa-times"></i>&nbsp; Cancel</button>
+    </div>
+  </div>

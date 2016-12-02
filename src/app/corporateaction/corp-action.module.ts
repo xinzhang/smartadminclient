@@ -12,13 +12,27 @@ import {CorpActionListComponent} from './corp-action-list.component';
 import {UploaderComponent} from '../shared/uploader/uploader.component';
 import {FileSelectDirective} from 'ng2-file-upload';
 
+import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
+
+// Create config options (see ILocalStorageServiceConfigOptions) for deets:
+let localStorageServiceConfig = {
+    prefix: 'amq-ops',
+    storageType: 'sessionStorage'
+};
+ 
 @NgModule({
   imports: [
     CommonModule,    
     SmartadminModule,
     SmartadminInputModule,
-    JqueryUiModule
+    JqueryUiModule 
   ],
-  declarations: [CorpActionAddComponent, CorpActionDetailComponent, CorpActionListComponent, UploaderComponent, FileSelectDirective]
+  declarations: [CorpActionAddComponent, CorpActionDetailComponent, CorpActionListComponent, UploaderComponent, FileSelectDirective],
+  providers: [
+    LocalStorageService,
+        {
+            provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
+        }
+  ]
 })
 export class CorpActionModule { }
