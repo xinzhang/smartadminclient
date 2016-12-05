@@ -13,16 +13,27 @@ import { LocalStorageService } from 'angular-2-local-storage';
   host: { '[@routeAnimation]': 'true' },  
   animations: Animations.page  
 })
-export class CorpActionOfflineListComponent{
+export class CorpActionOfflineListComponent implements OnInit{
 
     constructor(private corporateActionService:CorporateActionService,
                 private localStorageService: LocalStorageService
                 ){
+                
     }
 
+    public offlineCorpActionList : Array<CorporateActionModel> = new Array<CorporateActionModel>();
+
+    ngOnInit() {
+         this.loadOfflineCorporateAction();
+    } 
+
     loadOfflineCorporateAction() {
-      this.localStorageService.get("corporateAction");
-      //this.localStorageService.add("corporateAction",JSON.stringify(this.corporateAction) );
+
+      if (this.localStorageService.get("offline-corporateAction") != null) {
+        this.offlineCorpActionList = JSON.parse(this.localStorageService.get("offline-corporateAction").toString());
+      }     
+
+      console.log(this.offlineCorpActionList);
     } 
 
 }

@@ -10,6 +10,8 @@ import {AuthLayoutComponent} from "./shared/layout/app-layouts/auth-layout.compo
 import {AboutComponent} from './about/about.component';
 
 import {CorpActionListComponent} from './corporateaction/corp-action-list.component';
+import {CorpActionOfflineListComponent} from './corporateaction/corp-action-offline-list.component';
+
 import {CorpActionDetailComponent} from './corporateaction/corp-action-detail.component';
 import {CorpActionAddComponent} from './corporateaction/corp-action-add.component';
 
@@ -37,7 +39,8 @@ export const routes: Routes = [
             {path: 'about', component: AboutComponent},
             {path: 'corporateaction-add', component: CorpActionAddComponent},
             {path: 'corporateaction-list', component: CorpActionListComponent},
-            
+            {path: 'corporateaction-offline-list', component: CorpActionOfflineListComponent},
+
             {path: 'staticdata-asset', component: AssetComponent},
             {path: 'staticdata-issuer', component: IssuerComponent},
             {path: 'staticdata-eventtypes', component: EventTypesComponent},

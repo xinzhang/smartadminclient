@@ -103,6 +103,7 @@ export class CorpActionAddComponent implements OnInit{
     }
 
     ngOnInit() {
+      this.getReference();
       this.loadLookupData();            
     }
 
@@ -134,6 +135,14 @@ export class CorpActionAddComponent implements OnInit{
         )
     }
 
+    getReference() {
+      this.corporateActionService.getReference()
+        .subscribe(
+          val => this.corporateAction.Reference = val,
+          error => console.log(error)
+        );
+    }
+
     setClientCode($event:any) {
       this.corporateAction.ClientCodes = [];
       this.corporateAction.ClientCodes.push($event.target.value);
@@ -157,9 +166,25 @@ export class CorpActionAddComponent implements OnInit{
       this.corporateAction.Documents.splice(idx, 1);
     }
 
-    saveCorporateAction() {
-      this.localStorageService.remove("corporateAction");
-      this.localStorageService.add("corporateAction",JSON.stringify(this.corporateAction) );
+    saveDraftCorporateAction() {
+      let corpactions = new Array<CorporateActionModel>();
+      if (this.localStorageService.get("offline-corporateAction") != null) {
+        corpactions = JSON.parse(this.localStorageService.get("offline-corporateAction").toString());
+      }     
+      
+      console.log(this.corporateAction);
+
+      let idx = corpactions.findIndex(x => x.Reference == this.corporateAction.Reference);
+      console.log(idx);
+
+      if (idx >= 0) {
+        corpactions[idx] = this.corporateAction;
+      }
+      else {
+        corpactions.push(this.corporateAction);
+      }
+
+      this.localStorageService.set("offline-corporateAction",JSON.stringify(corpactions) );
     }
     
 }

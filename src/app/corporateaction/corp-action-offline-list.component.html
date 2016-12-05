@@ -1,0 +1,58 @@
+<div id="content">
+
+  <div class="row">      
+  </div>
+
+  <div class="row">
+      <article class="col-sm-12">
+
+
+        <sa-widget [editbutton]="false" color="darken">
+            <header>
+            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+            <h2>No Padding</h2>
+          </header>              
+
+
+            <div class="widget-body no-padding">
+              <alert type="info" class="no-margin fade in" dismisser="">
+                <i class="fa-fw fa fa-info"></i>                
+                offlined corporate actions
+              </alert>
+              
+              <div class="table-responsive">
+
+                <table class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Reference</th>
+                    <th>Event Type</th>
+                    <th>Subject</th>
+                    <th>Due Date</th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>                      
+                  <tr *ngFor="let c of offlineCorpActionList">
+                    <td>{{c.Reference}}</td>
+                    <td>{{c.EventType}}</td>
+                    <td>{{c.DueDate}}</td>
+                    <td>{{c.Subject}}</td>
+                    <td>
+                        <a href="#" class="">Continue</a>
+                        <a href="#" class="">Remove</a>
+                    </td>
+                  </tr>
+                  </tbody>                  
+                </table>
+
+              </div>
+            
+          </div>            
+          
+        </sa-widget>
+
+      </article>
+  </div>
+
+</div>

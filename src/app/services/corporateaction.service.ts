@@ -14,6 +14,11 @@ export class CorporateActionService {
 
     corpActionUrl:string = '/api/corporateaction';
 
+    getReference():Observable<any> {
+        var url:string = this.corpActionUrl + "/reference";
+        return this.http.get(url).map( data => data.json());
+    }
+
     addCorpAction(corpAction : CorporateActionModel) : Observable<any> {
 
         let data = JSON.stringify(corpAction);

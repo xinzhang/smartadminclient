@@ -8,6 +8,7 @@ import {JqueryUiModule} from "../shared/ui/jquery-ui/jquery-ui.module";
 import {CorpActionAddComponent} from './corp-action-add.component';
 import {CorpActionDetailComponent} from './corp-action-detail.component';
 import {CorpActionListComponent} from './corp-action-list.component';
+import {CorpActionOfflineListComponent } from './corp-action-offline-list.component';
 
 import {UploaderComponent} from '../shared/uploader/uploader.component';
 import {FileSelectDirective} from 'ng2-file-upload';
@@ -17,7 +18,7 @@ import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-loc
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
 let localStorageServiceConfig = {
     prefix: 'amq-ops',
-    storageType: 'sessionStorage'
+    storageType: 'localStorage'
 };
  
 @NgModule({
@@ -27,7 +28,10 @@ let localStorageServiceConfig = {
     SmartadminInputModule,
     JqueryUiModule 
   ],
-  declarations: [CorpActionAddComponent, CorpActionDetailComponent, CorpActionListComponent, UploaderComponent, FileSelectDirective],
+  declarations: [
+      CorpActionAddComponent, CorpActionDetailComponent, CorpActionListComponent, CorpActionOfflineListComponent, 
+      UploaderComponent, FileSelectDirective
+  ],
   providers: [
     LocalStorageService,
         {
