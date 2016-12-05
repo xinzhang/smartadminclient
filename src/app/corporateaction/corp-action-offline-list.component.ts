@@ -34,6 +34,14 @@ export class CorpActionOfflineListComponent implements OnInit{
       }     
 
       console.log(this.offlineCorpActionList);
+    }
+
+    removeFromOffline(reference) {
+        let idx :number = this.offlineCorpActionList.findIndex(x => x.Reference == reference);
+        if (idx > -1) {
+            this.offlineCorpActionList.splice(idx, 1);
+        }
+        this.localStorageService.set("offline-corporateAction",JSON.stringify(this.loadOfflineCorporateAction) );
     } 
 
 }
