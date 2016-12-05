@@ -10,7 +10,6 @@ import {CorporateActionService} from '../services/corporateaction.service';
 })
 export class CorpActionDetailComponent{
     constructor(private corporateActionService:CorporateActionService){
-
     }
     
 }

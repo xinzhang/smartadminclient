@@ -12,6 +12,9 @@ import {UploaderComponent} from '../shared/uploader/uploader.component';
 
 import { LocalStorageService } from 'angular-2-local-storage';
 
+import {ActivatedRoute} from '@angular/router';
+import 'rxjs/add/operator/map';
+
 declare var $:any;
 
 @Component({
@@ -94,17 +97,29 @@ export class CorpActionAddComponent implements OnInit{
         }
       };
 
+    
     constructor(private corporateActionService: CorporateActionService, 
                 private staticDataService: StaticDataService,
-                private localStorageService: LocalStorageService, 
+                private localStorageService: LocalStorageService,
+                private route:ActivatedRoute, 
                 myElement: ElementRef) {                  
       this.corporateAction.DueDate = moment().add(7, 'days').format("DD-MM-YYYY");
-      this.elementRef = myElement;
+      this.elementRef = myElement;      
     }
 
-    ngOnInit() {
-      this.getReference();
-      this.loadLookupData();            
+    ngOnInit() {      
+      this.loadLookupData();
+
+      this.route.params.subscribe( params => {
+        let offlineReference = params['offlineReference'];   
+        console.log(offlineReference);     
+        if (offlineReference != null) {
+          this.getCorpActionFromOffline(offlineReference);
+        } else {
+          this.getReference();
+        }
+      }); 
+            
     }
 
     addAPIR() {      
@@ -172,11 +187,7 @@ export class CorpActionAddComponent implements OnInit{
         corpactions = JSON.parse(this.localStorageService.get("offline-corporateAction").toString());
       }     
       
-      console.log(this.corporateAction);
-
-      let idx = corpactions.findIndex(x => x.Reference == this.corporateAction.Reference);
-      console.log(idx);
-
+      let idx = corpactions.findIndex(x => x.Reference == this.corporateAction.Reference);      
       if (idx >= 0) {
         corpactions[idx] = this.corporateAction;
       }
@@ -185,6 +196,19 @@ export class CorpActionAddComponent implements OnInit{
       }
 
       this.localStorageService.set("offline-corporateAction",JSON.stringify(corpactions) );
+    }
+
+    getCorpActionFromOffline(reference: string) {
+        let corpactions = new Array<CorporateActionModel>();
+        if (this.localStorageService.get("offline-corporateAction") != null) {
+          corpactions = JSON.parse(this.localStorageService.get("offline-corporateAction").toString());
+        }     
+
+        let idx = corpactions.findIndex(x => x.Reference == reference);
+        if (idx >= 0) {
+          this.corporateAction = corpactions[idx];
+          console.log(this.corporateAction);
+        }  
     }
     
 }

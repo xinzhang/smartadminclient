@@ -32,7 +32,7 @@
                     <td>{{c.DueDate}}</td>
                     <td>{{c.Subject}}</td>
                     <td>
-                        <a href="#" class="">Continue</a>
+                        <a [routerLink]="['/corporateaction-add-offline', c.Reference]" class="">Continue</a>                        
                     </td>
                     <td>
                         <a (click)="removeFromOffline(c.Reference)" class="">Remove</a>

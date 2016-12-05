@@ -38,6 +38,7 @@ export const routes: Routes = [
             },
             {path: 'about', component: AboutComponent},
             {path: 'corporateaction-add', component: CorpActionAddComponent},
+            {path: 'corporateaction-add-offline/:offlineReference', component: CorpActionAddComponent},
             {path: 'corporateaction-list', component: CorpActionListComponent},
             {path: 'corporateaction-offline-list', component: CorpActionOfflineListComponent},
 
