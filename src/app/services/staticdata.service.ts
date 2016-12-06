@@ -43,6 +43,7 @@ export class StaticDataService {
     }
 
     searchAssets(search:string):Observable<any> {
+        console.log("search asset servce: " + search);
         var url:string = this.assetUrl+ "/" + search;
         return this.http.get(url).map( data => data.json());
     }

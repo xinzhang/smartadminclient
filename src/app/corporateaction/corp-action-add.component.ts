@@ -1,21 +1,26 @@
-import {Component, OnInit, ElementRef, ViewChild} from '@angular/core';
-import {CorporateActionModel} from '../models/corporateactions.model';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { CorporateActionModel } from '../models/corporateactions.model';
 
-import {CorporateActionService} from '../services/corporateaction.service';
-import {StaticDataService} from '../services/staticdata.service';
+import { CorporateActionService } from '../services/corporateaction.service';
+import { StaticDataService } from '../services/staticdata.service';
 
-import {Animations} from '../shared/animations';
+import { Animations } from '../shared/animations';
 import * as moment from 'moment';
 import { NgForm } from '@angular/forms';
 
-import {UploaderComponent} from '../shared/uploader/uploader.component';
+import { UploaderComponent } from '../shared/uploader/uploader.component';
 
 import { LocalStorageService } from 'angular-2-local-storage';
 
-import {ActivatedRoute} from '@angular/router';
-import 'rxjs/add/operator/map';
+import { ActivatedRoute } from '@angular/router';
 
-declare var $:any;
+import 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+
+//import 'rxjs/add/operator/map';
+
+declare var $: any;
 
 @Component({
   selector: 'corp-action-add',
@@ -24,191 +29,260 @@ declare var $:any;
   templateUrl: './corp-action-add.component.html',
   host: { '[@routeAnimation]': 'true' },
 
-  animations: Animations.page  
+  animations: Animations.page
 })
-export class CorpActionAddComponent implements OnInit{
-    numberOfDaysToDue = 14;
-    currentAPIR = "";
-    currentAPIRLabel = "";
-    selectedClientCode = "";
+export class CorpActionAddComponent implements OnInit {
+  numberOfDaysToDue = 14;
+  currentAPIR = "";
+  currentAPIRLabel = "";
+  selectedClientCode = "";
 
-    eventTypes = [];
-    clientCodes = [];
-    
-    corporateAction = new CorporateActionModel("", "", "", "", "", "");
+  eventTypes = [];
+  clientCodes = [];
 
-    @ViewChild('issuerCodeInput') issuerCodeInput;
-    @ViewChild('apirCodeInput') apirCodeInput;
+   multipleSelectAPIRFrom: any[] = [];
+  // searchTerms = new Subject<string>();
+    observableAssets: Observable<any>;
+    private searchTerms = new Subject<string>();
 
-    ajaxIssuerAutocompleteOptions = {        
-        source: (request, response) => {
-          var lookupValue:string = this.issuerCodeInput.nativeElement.value;
+  multipleSelectAPIRTo: any[] = [];
 
-          jQuery.ajax({
-            url: "/api/issuer/" + lookupValue,
-            method: "GET",
-            success: (data) => {
-              response($.map(data, function(item){
-                return {
-                  label: item.Code + " - " + item.Name,
-                  value: item.Code,
-                  name: item.Name
-                }
-              })
-              );
+  corporateAction = new CorporateActionModel("", "", "", "", "", "");
+
+  @ViewChild('issuerCodeInput') issuerCodeInput;
+  @ViewChild('apirCodeInput') apirCodeInput;
+  @ViewChild('multiSelectAPIRInputLeft') multiSelectAPIRInputLeft;
+  @ViewChild('multiSelectAPIRInputRight') multiSelectAPIRInputRight;
+
+  ajaxIssuerAutocompleteOptions = {
+    source: (request, response) => {
+      var lookupValue: string = this.issuerCodeInput.nativeElement.value;
+
+      jQuery.ajax({
+        url: "/api/issuer/" + lookupValue,
+        method: "GET",
+        success: (data) => {
+          response($.map(data, function (item) {
+            return {
+              label: item.Code + " - " + item.Name,
+              value: item.Code,
+              name: item.Name
             }
-          });
-        },
-        minLength: 2,
-        select: (event, ui) => {
-          this.corporateAction.IssuerCode = ui.item.value;
-          this.corporateAction.IssuerName = ui.item.name;          
+          })
+          );
         }
-      };
+      });
+    },
+    minLength: 2,
+    select: (event, ui) => {
+      this.corporateAction.IssuerCode = ui.item.value;
+      this.corporateAction.IssuerName = ui.item.name;
+    }
+  };
 
-      ajaxAPIRAutocompleteOptions = {        
-        source: (request, response) => {
-          var lookupValue:string = this.apirCodeInput.nativeElement.value;
+  ajaxAPIRAutocompleteOptions = {
+    source: (request, response) => {
+      var lookupValue: string = this.apirCodeInput.nativeElement.value;
 
-          jQuery.ajax({
-            url: "/api/asset/" + lookupValue,
-            method: "GET",
-            success: (data) => {
-              //also can limit number here
-              var selection = data.slice(0,15);
-              if (data.length > 15) {
-                selection.push({"Code":"(More...)", "Name":""});
-              }          
-              response($.map(selection, function(item){
-                return {
-                  label: item.Code + " - " + item.Name,
-                  value: item.Code,
-                  name: item.Name
-                }
-              })
-              );
+      jQuery.ajax({
+        url: "/api/asset/" + lookupValue,
+        method: "GET",
+        success: (data) => {
+          //also can limit number here
+          var selection = data.slice(0, 15);
+          if (data.length > 15) {
+            selection.push({ "Code": "(More...)", "Name": "" });
+          }
+          response($.map(selection, function (item) {
+            return {
+              label: item.Code + " - " + item.Name,
+              value: item.Code,
+              name: item.Name
             }
-          });
-        },
-        minLength: 2,
-        select: (event, ui) => {
-          this.currentAPIR = ui.item.value;  
-          this.currentAPIRLabel = ui.item.value + " - " + ui.item.name;        
+          })
+          );
         }
-      };
+      });
+    },
+    minLength: 2,
+    select: (event, ui) => {
+      this.currentAPIR = ui.item.value;
+      this.currentAPIRLabel = ui.item.value + " - " + ui.item.name;
+    }
+  };
+
+
+  constructor(private corporateActionService: CorporateActionService,
+    private staticDataService: StaticDataService,
+    private localStorageService: LocalStorageService,
+    private route: ActivatedRoute,
+    myElement: ElementRef) {
+    this.corporateAction.DueDate = moment().add(7, 'days').format("DD-MM-YYYY");
+    this.elementRef = myElement;
+  }
+
+  search(term: string): void {
+    //console.log(term);
+    //this.searchTerms.next(term)
+    this.staticDataService.searchAssets(term)
+      .subscribe( data => this.multipleSelectAPIRFrom = data);      
+  }
+
+  ngOnInit() {
+    this.loadLookupData();
+
+    this.route.params.subscribe(params => {
+      let offlineReference = params['offlineReference'];
+      console.log(offlineReference);
+      if (offlineReference != null) {
+        this.getCorpActionFromOffline(offlineReference);
+      } else {
+        this.getReference();
+      }
+    });
 
     
-    constructor(private corporateActionService: CorporateActionService, 
-                private staticDataService: StaticDataService,
-                private localStorageService: LocalStorageService,
-                private route:ActivatedRoute, 
-                myElement: ElementRef) {                  
-      this.corporateAction.DueDate = moment().add(7, 'days').format("DD-MM-YYYY");
-      this.elementRef = myElement;      
+
+    // this.observableAssets = this.searchTerms
+    //         .debounceTime(300)
+    //         .distinctUntilChanged()
+    //         .switchMap( term =>                
+    //           term 
+    //             ? this.staticDataService.searchAssets(term)
+    //             : Observable.of<any>([])
+    //         )
+    //         .catch(error => {
+    //             console.log(error);
+    //             return Observable.of<any>([]);
+    //         })
+
+    // this.multipleSelectAPIRFrom = this.searchTerms
+    //   .debounceTime(300)
+    //   .distinctUntilChanged()
+    //   .switchMap(term => term
+    //     ? this.staticDataService.searchAssets(term)
+    //     : Observable.of<any>([]))
+    //   .catch(error => {
+    //     console.log(error);
+    //     return Observable.of<any>([]);
+    //   });
+
+  }
+
+  addAPIR() {
+    if (this.currentAPIR != "") {
+      this.corporateAction.APIRCodes.push(this.currentAPIR);
+      this.corporateAction.APIRLabels.push(this.currentAPIRLabel);
+      this.currentAPIR = "";
+      this.currentAPIRLabel = "";
+    }
+  }
+
+  removeAPIR(val: any) {
+    let index = this.corporateAction.APIRCodes.indexOf(val);
+    this.corporateAction.APIRCodes.splice(index, 1);
+    this.corporateAction.APIRLabels.splice(index, 1);
+  }
+
+  loadLookupData() {
+    this.staticDataService.getEventTypes()
+      .subscribe(
+      values => this.eventTypes = values,
+      error => console.log(error)
+      );
+    this.staticDataService.getPortalClient()
+      .subscribe(
+      values => {
+        this.clientCodes = values;        
+      },
+      error => console.log(error)
+      )
+  }
+
+  getReference() {
+    this.corporateActionService.getReference()
+      .subscribe(
+      val => this.corporateAction.Reference = val,
+      error => console.log(error)
+      );
+  }
+
+  setClientCode($event: any) {
+    this.corporateAction.ClientCodes = [];
+    this.corporateAction.ClientCodes.push($event.target.value);
+  }
+
+  public currentAsset = '';
+  public assets = [];
+  public filteredAssets = [];
+  public elementRef;
+
+  submitCorporateAction() {
+
+    this.corporateActionService.addCorpAction(this.corporateAction)
+      .subscribe(
+      values => console.log('success'),
+      error => console.log(error)
+      )
+  }
+
+  removeDocument(idx: number) {
+    this.corporateAction.Documents.splice(idx, 1);
+  }
+
+  saveDraftCorporateAction() {
+    let corpactions = new Array<CorporateActionModel>();
+    if (this.localStorageService.get("offline-corporateAction") != null) {
+      corpactions = JSON.parse(this.localStorageService.get("offline-corporateAction").toString());
     }
 
-    ngOnInit() {      
-      this.loadLookupData();
+    let idx = corpactions.findIndex(x => x.Reference == this.corporateAction.Reference);
+    if (idx >= 0) {
+      corpactions[idx] = this.corporateAction;
+    }
+    else {
+      corpactions.push(this.corporateAction);
+    }
 
-      this.route.params.subscribe( params => {
-        let offlineReference = params['offlineReference'];   
-        console.log(offlineReference);     
-        if (offlineReference != null) {
-          this.getCorpActionFromOffline(offlineReference);
-        } else {
-          this.getReference();
+    this.localStorageService.set("offline-corporateAction", JSON.stringify(corpactions));
+  }
+
+  getCorpActionFromOffline(reference: string) {
+    let corpactions = new Array<CorporateActionModel>();
+    if (this.localStorageService.get("offline-corporateAction") != null) {
+      corpactions = JSON.parse(this.localStorageService.get("offline-corporateAction").toString());
+    }
+
+    let idx = corpactions.findIndex(x => x.Reference == reference);
+    if (idx >= 0) {
+      this.corporateAction = corpactions[idx];
+      console.log(this.corporateAction);
+    }
+  }
+
+  moveSelectionToRight() {
+    console.log(this.multiSelectAPIRInputLeft.nativeElement);
+    for (let i=0; i< this.multiSelectAPIRInputLeft.nativeElement.options.length;i++) {
+      if (this.multiSelectAPIRInputLeft.nativeElement.options[i].selected) {
+        let val = this.multiSelectAPIRInputLeft.nativeElement.options[i].value;
+        let valObj = this.multipleSelectAPIRFrom.find(x=> x.Code == val);         
+        if (valObj != null) {
+          this.multipleSelectAPIRTo.push(valObj);          
         }
-      }); 
-            
+      }  
     }
+    console.log(this.multipleSelectAPIRTo);
+  }
 
-    addAPIR() {      
-      if (this.currentAPIR != "") {
-        this.corporateAction.APIRCodes.push(this.currentAPIR);
-        this.corporateAction.APIRLabels.push(this.currentAPIRLabel);
-        this.currentAPIR = "";
-        this.currentAPIRLabel = "";
-      }
+  moveSelectionToLeft() {
+    console.log(this.multiSelectAPIRInputRight.nativeElement);
+    for (let i=0; i< this.multiSelectAPIRInputRight.nativeElement.options.length;i++) {
+      if (this.multiSelectAPIRInputRight.nativeElement.options[i].selected) {
+        let val = this.multiSelectAPIRInputRight.nativeElement.options[i].value; 
+        let idx = this.multipleSelectAPIRTo.indexOf(x => x.Code == val);
+        this.multipleSelectAPIRTo.splice(idx, 1);
+      }  
     }
+  }
 
-    removeAPIR(val:any) {
-      let index = this.corporateAction.APIRCodes.indexOf(val);
-      this.corporateAction.APIRCodes.splice(index, 1);
-      this.corporateAction.APIRLabels.splice(index, 1);
-    }
-
-    loadLookupData() {
-      this.staticDataService.getEventTypes()
-        .subscribe(
-          values => this.eventTypes = values,
-          error => console.log(error)
-        );
-      this.staticDataService.getPortalClient()
-        .subscribe(
-          values => this.clientCodes = values,
-          error => console.log(error)
-        )
-    }
-
-    getReference() {
-      this.corporateActionService.getReference()
-        .subscribe(
-          val => this.corporateAction.Reference = val,
-          error => console.log(error)
-        );
-    }
-
-    setClientCode($event:any) {
-      this.corporateAction.ClientCodes = [];
-      this.corporateAction.ClientCodes.push($event.target.value);
-    }
-
-    public currentAsset = '';
-    public assets = [];
-    public filteredAssets = [];
-    public elementRef;
-
-    submitCorporateAction() {
-
-      this.corporateActionService.addCorpAction(this.corporateAction)
-        .subscribe(
-            values => console.log('success'),
-            error => console.log(error) 
-          )
-    }
-
-    removeDocument(idx : number) {
-      this.corporateAction.Documents.splice(idx, 1);
-    }
-
-    saveDraftCorporateAction() {
-      let corpactions = new Array<CorporateActionModel>();
-      if (this.localStorageService.get("offline-corporateAction") != null) {
-        corpactions = JSON.parse(this.localStorageService.get("offline-corporateAction").toString());
-      }     
-      
-      let idx = corpactions.findIndex(x => x.Reference == this.corporateAction.Reference);      
-      if (idx >= 0) {
-        corpactions[idx] = this.corporateAction;
-      }
-      else {
-        corpactions.push(this.corporateAction);
-      }
-
-      this.localStorageService.set("offline-corporateAction",JSON.stringify(corpactions) );
-    }
-
-    getCorpActionFromOffline(reference: string) {
-        let corpactions = new Array<CorporateActionModel>();
-        if (this.localStorageService.get("offline-corporateAction") != null) {
-          corpactions = JSON.parse(this.localStorageService.get("offline-corporateAction").toString());
-        }     
-
-        let idx = corpactions.findIndex(x => x.Reference == reference);
-        if (idx >= 0) {
-          this.corporateAction = corpactions[idx];
-          console.log(this.corporateAction);
-        }  
-    }
-    
 }
