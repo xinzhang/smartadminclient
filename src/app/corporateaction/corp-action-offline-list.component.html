@@ -19,8 +19,9 @@
                   <tr>
                     <th>Reference</th>
                     <th>Event Type</th>                    
-                    <th>Due Date</th>
+                    <th>Created Date</th>
                     <th>Subject</th>
+                    <th></th>
                     <th></th>
                     <th></th>
                   </tr>
@@ -29,7 +30,7 @@
                   <tr *ngFor="let c of offlineCorpActionList">
                     <td>{{c.Reference}}</td>
                     <td>{{c.EventType}}</td>
-                    <td>{{c.DueDate}}</td>
+                    <td>{{c.CreatedDate | date: 'dd/MM/yyyy'}}</td>
                     <td>{{c.Subject}}</td>
                     <td>
                         <a [routerLink]="['/corporateaction-add-offline', c.Reference]" class="">Continue</a>                        
@@ -37,6 +38,7 @@
                     <td>
                         <a (click)="removeFromOffline(c.Reference)" class="">Remove</a>
                     </td>
+                    <td></td>
                   </tr>
                   </tbody>                  
                 </table>

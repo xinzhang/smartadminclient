@@ -28,11 +28,14 @@ declare var $: any;
   providers: [CorporateActionService],
   templateUrl: './corp-action-add.component.html',
   host: { '[@routeAnimation]': 'true' },
-
   animations: Animations.page
 })
 export class CorpActionAddComponent implements OnInit {
+
+  //configuration
+  allowHTMLEdit = true;
   numberOfDaysToDue = 14;
+
   currentAPIR = "";
   currentAPIRLabel = "";
   selectedClientCode = "";
@@ -117,7 +120,7 @@ export class CorpActionAddComponent implements OnInit {
     private localStorageService: LocalStorageService,
     private route: ActivatedRoute,
     myElement: ElementRef) {
-    this.corporateAction.DueDate = moment().add(7, 'days').format("DD-MM-YYYY");
+    this.corporateAction.DueDate = moment().add(7, 'days').format("DD-MM-YYYY");    
     this.elementRef = myElement;
   }
 
@@ -265,7 +268,7 @@ export class CorpActionAddComponent implements OnInit {
     for (let i=0; i< this.multiSelectAPIRInputLeft.nativeElement.options.length;i++) {
       if (this.multiSelectAPIRInputLeft.nativeElement.options[i].selected) {
         let val = this.multiSelectAPIRInputLeft.nativeElement.options[i].value;
-        let valObj = this.multipleSelectAPIRFrom.find(x=> x.Code == val);         
+        let valObj = this.multipleSelectAPIRFrom.find(x=> x.Code === val);         
         if (valObj != null) {
           this.multipleSelectAPIRTo.push(valObj);          
         }
@@ -278,11 +281,35 @@ export class CorpActionAddComponent implements OnInit {
     console.log(this.multiSelectAPIRInputRight.nativeElement);
     for (let i=0; i< this.multiSelectAPIRInputRight.nativeElement.options.length;i++) {
       if (this.multiSelectAPIRInputRight.nativeElement.options[i].selected) {
-        let val = this.multiSelectAPIRInputRight.nativeElement.options[i].value; 
-        let idx = this.multipleSelectAPIRTo.indexOf(x => x.Code == val);
-        this.multipleSelectAPIRTo.splice(idx, 1);
+        let val = this.multiSelectAPIRInputRight.nativeElement.options[i].value;
+        let obj = this.multipleSelectAPIRTo.find( x=> x.Code === val);
+        if (obj != null) { 
+          let idx = this.multipleSelectAPIRTo.indexOf(obj);
+          this.multipleSelectAPIRTo.splice(idx, 1);
+        }
       }  
     }
   }
 
+  addMultiSelectedAPIR() {
+    this.multipleSelectAPIRTo.forEach( x=> {      
+      if (this.corporateAction.APIRCodes.indexOf(x.Code) == -1) {
+          this.corporateAction.APIRCodes.push(x.Code);
+          this.corporateAction.APIRLabels.push(x.Name);
+      }
+    });
+
+    this.closeDialog();
+  }
+
+  closeDialog() {
+    this.multipleSelectAPIRFrom = [];
+    this.multipleSelectAPIRTo = [];
+    $('#dialog-apir').dialog('close');
+  }
+
+  changed(event) {
+    this.corporateAction.Description = event.value;
+  }
+    
 }

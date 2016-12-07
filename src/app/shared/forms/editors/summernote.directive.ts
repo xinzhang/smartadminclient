@@ -8,7 +8,9 @@ declare var $: any;
 export class SummernoteDirective implements OnInit{
 
   @Input() summernote = {};
-  @Output() change = new EventEmitter()
+
+  @Input() codeText = "";
+  @Output() codeChange = new EventEmitter();
 
   constructor(private el: ElementRef) {
 
@@ -26,11 +28,14 @@ export class SummernoteDirective implements OnInit{
         tabsize : 2,
         callbacks: {
           onChange: (we, contents, $editable) => {
-            this.change.emit(contents)
+            this.codeChange.emit({
+              value: we
+            });
           }
-        }
-      }))
+        }        
+      }));
 
+      $(this.el.nativeElement).summernote('editor.pasteHTML', this.codeText);      
   }
 
 }

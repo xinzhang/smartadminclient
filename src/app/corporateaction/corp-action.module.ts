@@ -15,6 +15,7 @@ import {FileSelectDirective} from 'ng2-file-upload';
 
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 
+import {SmartadminEditorsModule} from "../shared/forms/editors/smartadmin-editors.module";
 
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
 let localStorageServiceConfig = {
@@ -27,7 +28,8 @@ let localStorageServiceConfig = {
     CommonModule,    
     SmartadminModule,
     SmartadminInputModule,
-    JqueryUiModule 
+    JqueryUiModule,
+    SmartadminEditorsModule
   ],
   declarations: [
       CorpActionAddComponent, CorpActionDetailComponent, CorpActionListComponent, CorpActionOfflineListComponent, 

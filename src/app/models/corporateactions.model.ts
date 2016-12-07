@@ -6,7 +6,9 @@ export class CorporateActionModel {
     public Documents: string[] = [];
     public ClientCodes: string[] = [];
 
-    public Reference: string = ""; 
+    public Reference: string = "";
+
+    public CreatedDate : Date = new Date();
 
     constructor(
         public DueDate : string,        
