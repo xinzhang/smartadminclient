@@ -130,9 +130,12 @@
 
         <div class="form-gorup">
             <label class="col-sm-2 control-lable"></label>
-            <div class="col-sm-10">
-                <button type="button" (click)="submitCorporateAction()">Submit</button>
+            <div class="col-sm-7">
+                <button type="button" (click)="submitCorporateAction()">Submit</button>                
+            </div>
+            <div class="col-sm-3">
                 <button type="button" (click)="saveDraftCorporateAction()">Save Draft</button>
+                <span *ngIf="inProgress"><i class="glyphicon glyphicon-repeat"></i> Saving Draft ...</span>
             </div>
         </div>
         

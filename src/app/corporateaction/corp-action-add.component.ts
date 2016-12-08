@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { CorporateActionModel } from '../models/corporateactions.model';
 
 import { CorporateActionService } from '../services/corporateaction.service';
@@ -17,6 +17,8 @@ import { ActivatedRoute } from '@angular/router';
 import 'rxjs';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import {Subscription} from "rxjs";
+import {TimerObservable} from "rxjs/observable/TimerObservable";
 
 //import 'rxjs/add/operator/map';
 
@@ -30,11 +32,12 @@ declare var $: any;
   host: { '[@routeAnimation]': 'true' },
   animations: Animations.page
 })
-export class CorpActionAddComponent implements OnInit {
+export class CorpActionAddComponent implements OnInit, OnDestroy {
 
   //configuration
   allowHTMLEdit = true;
   numberOfDaysToDue = 14;
+  subscription:Subscription;
 
   currentAPIR = "";
   currentAPIRLabel = "";
@@ -42,7 +45,7 @@ export class CorpActionAddComponent implements OnInit {
 
   eventTypes = [];
   clientCodes = [];
-
+  
    multipleSelectAPIRFrom: any[] = [];
   // searchTerms = new Subject<string>();
     observableAssets: Observable<any>;
@@ -144,7 +147,13 @@ export class CorpActionAddComponent implements OnInit {
       }
     });
 
-    
+    //triggered after two minutes when user really start working on it
+    let timer = TimerObservable.create(120 * 1000, 1000 * 30);
+    this.subscription = timer.subscribe( t=> {
+      //Todo: add validation to see if really need to automatically save.
+      //      there is no need to save everything right way.
+      this.saveDraftCorporateAction();
+    });
 
     // this.observableAssets = this.searchTerms
     //         .debounceTime(300)
@@ -170,6 +179,10 @@ export class CorpActionAddComponent implements OnInit {
     //     return Observable.of<any>([]);
     //   });
 
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   addAPIR() {
@@ -233,7 +246,10 @@ export class CorpActionAddComponent implements OnInit {
     this.corporateAction.Documents.splice(idx, 1);
   }
 
+  inProgress = false;
+
   saveDraftCorporateAction() {
+    this.inProgress = true;
     let corpactions = new Array<CorporateActionModel>();
     if (this.localStorageService.get("offline-corporateAction") != null) {
       corpactions = JSON.parse(this.localStorageService.get("offline-corporateAction").toString());
@@ -248,6 +264,8 @@ export class CorpActionAddComponent implements OnInit {
     }
 
     this.localStorageService.set("offline-corporateAction", JSON.stringify(corpactions));
+
+    setTimeout(() => this.inProgress = false, 2000);    
   }
 
   getCorpActionFromOffline(reference: string) {
