@@ -60,6 +60,8 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
   @ViewChild('multiSelectAPIRInputLeft') multiSelectAPIRInputLeft;
   @ViewChild('multiSelectAPIRInputRight') multiSelectAPIRInputRight;
 
+  @ViewChild('fileUploader') fileUploader;
+
   ajaxIssuerAutocompleteOptions = {
     source: (request, response) => {
       var lookupValue: string = this.issuerCodeInput.nativeElement.value;
@@ -117,7 +119,6 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     }
   };
 
-
   constructor(private corporateActionService: CorporateActionService,
     private staticDataService: StaticDataService,
     private localStorageService: LocalStorageService,
@@ -128,7 +129,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
   }
 
   search(term: string): void {
-    //console.log(term);
+    console.log(term);
     //this.searchTerms.next(term)
     this.staticDataService.searchAssets(term)
       .subscribe( data => this.multipleSelectAPIRFrom = data);      
@@ -203,13 +204,18 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
   loadLookupData() {
     this.staticDataService.getEventTypes()
       .subscribe(
-      values => this.eventTypes = values,
+      values => {
+        this.eventTypes = values
+      },
       error => console.log(error)
       );
     this.staticDataService.getPortalClient()
       .subscribe(
       values => {
-        this.clientCodes = values;        
+        this.clientCodes = values; 
+        if (values.length > 0) {
+          this.corporateAction.ClientCodes[0] = values[0];
+        }       
       },
       error => console.log(error)
       )
@@ -234,7 +240,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
   public elementRef;
 
   submitCorporateAction() {
-
+    this.corporateAction.Documents = this.fileUploader.GetDocuments();
     this.corporateActionService.addCorpAction(this.corporateAction)
       .subscribe(
       values => console.log('success'),
@@ -263,6 +269,9 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
       corpactions.push(this.corporateAction);
     }
 
+    //save state of uploader
+    this.corporateAction.Documents = this.fileUploader.RemoteDocuments;
+
     this.localStorageService.set("offline-corporateAction", JSON.stringify(corpactions));
 
     setTimeout(() => this.inProgress = false, 2000);    
@@ -279,6 +288,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
       this.corporateAction = corpactions[idx];
       console.log(this.corporateAction);
     }
+
   }
 
   moveSelectionToRight() {
@@ -328,6 +338,10 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
 
   changed(event) {
     this.corporateAction.Description = event.value;
+  }
+
+  filesUpdated(event) {
+    this.corporateAction.Documents = event.value;
   }
     
 }
