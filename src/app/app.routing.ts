@@ -36,11 +36,16 @@ export const routes: Routes = [
                 path: 'home',
                 loadChildren: 'app/+home/home.module#HomeModule'
             },
+            {
+                path:'corporateaction',
+                loadChildren: 'app/corporateaction/corp-action.module#CorpActionModule'
+            },
             {path: 'about', component: AboutComponent},
-            {path: 'corporateaction-add', component: CorpActionAddComponent},
-            {path: 'corporateaction-add-offline/:offlineReference', component: CorpActionAddComponent},
-            {path: 'corporateaction-list', component: CorpActionListComponent},
-            {path: 'corporateaction-offline-list', component: CorpActionOfflineListComponent},
+
+            // {path: 'corporateaction-add', component: CorpActionAddComponent},
+            // {path: 'corporateaction-add-offline/:offlineReference', component: CorpActionAddComponent},
+            // {path: 'corporateaction-list', component: CorpActionListComponent},
+            // {path: 'corporateaction-offline-list', component: CorpActionOfflineListComponent},
 
             {path: 'staticdata-asset', component: AssetComponent},
             {path: 'staticdata-issuer', component: IssuerComponent},

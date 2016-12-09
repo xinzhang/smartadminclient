@@ -138,15 +138,24 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadLookupData();
 
-    this.route.params.subscribe(params => {
-      let offlineReference = params['offlineReference'];
-      console.log(offlineReference);
-      if (offlineReference != null) {
+    //user offline
+    let offlineReference = this.route.snapshot.params["offlineReference"];
+    if (offlineReference != null) {
         this.getCorpActionFromOffline(offlineReference);
-      } else {
+    } else {
         this.getReference();
-      }
-    });
+    }
+
+    //user observable
+    // this.route.params.subscribe(params => {
+    //   let offlineReference = params['offlineReference'];
+    //   console.log(offlineReference);
+    //   if (offlineReference != null) {
+    //     this.getCorpActionFromOffline(offlineReference);
+    //   } else {
+    //     this.getReference();
+    //   }
+    // });
 
     //triggered after two minutes when user really start working on it
     let timer = TimerObservable.create(120 * 1000, 1000 * 30);

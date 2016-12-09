@@ -40,7 +40,7 @@
                     <td>{{c.CreatedDate | date: 'dd/MM/yyyy'}}</td>
                     <td>{{c.Subject}}</td>
                     <td>
-                        <a [routerLink]="['/corporateaction-add-offline', c.Reference]" class="">Continue</a>                        
+                        <a [routerLink]="['/corporateaction/add-offline', c.Reference]" class="">Continue</a>                        
                     </td>
                     <td>
                         <a (click)="removeFromOffline(c.Reference)" class="">Remove</a>

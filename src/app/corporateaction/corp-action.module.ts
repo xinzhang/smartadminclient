@@ -9,6 +9,7 @@ import {CorpActionAddComponent} from './corp-action-add.component';
 import {CorpActionDetailComponent} from './corp-action-detail.component';
 import {CorpActionListComponent} from './corp-action-list.component';
 import {CorpActionOfflineListComponent } from './corp-action-offline-list.component';
+import {CorpActionComponent} from './corp-action.component';
 
 import {UploaderComponent} from '../shared/uploader/uploader.component';
 import {FileSelectDirective} from 'ng2-file-upload';
@@ -16,6 +17,8 @@ import {FileSelectDirective} from 'ng2-file-upload';
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 
 import {SmartadminEditorsModule} from "../shared/forms/editors/smartadmin-editors.module";
+
+import {CorpActionRoutes} from "./corp-action.router";
 
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
 let localStorageServiceConfig = {
@@ -25,14 +28,16 @@ let localStorageServiceConfig = {
  
 @NgModule({
   imports: [
-    CommonModule,    
+    CommonModule,
+    CorpActionRoutes,    
     SmartadminModule,
     SmartadminInputModule,
     JqueryUiModule,
     SmartadminEditorsModule
   ],
   declarations: [
-      CorpActionAddComponent, CorpActionDetailComponent, CorpActionListComponent, CorpActionOfflineListComponent, 
+      CorpActionAddComponent, CorpActionDetailComponent, CorpActionListComponent, CorpActionOfflineListComponent,
+      CorpActionComponent, 
       UploaderComponent, FileSelectDirective
   ],
   providers: [
