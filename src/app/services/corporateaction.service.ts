@@ -31,8 +31,8 @@ export class CorporateActionService {
     }
 
     handleError(error: Response) {
-        console.error(error);
-        return Observable.throw(error.json().error || 'Server error');
+        console.log(error);
+        return Observable.throw(error.statusText || 'Server error');
     }
     
 }

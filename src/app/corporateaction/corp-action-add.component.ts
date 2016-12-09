@@ -12,7 +12,7 @@ import { UploaderComponent } from '../shared/uploader/uploader.component';
 
 import { LocalStorageService } from 'angular-2-local-storage';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import 'rxjs';
 import { Observable } from 'rxjs/Observable';
@@ -54,6 +54,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
   multipleSelectAPIRTo: any[] = [];
 
   corporateAction = new CorporateActionModel("", "", "", "", "", "");
+  errorMessage :string = "";
 
   @ViewChild('issuerCodeInput') issuerCodeInput;
   @ViewChild('apirCodeInput') apirCodeInput;
@@ -123,6 +124,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     private staticDataService: StaticDataService,
     private localStorageService: LocalStorageService,
     private route: ActivatedRoute,
+    private router: Router,
     myElement: ElementRef) {
     this.corporateAction.DueDate = moment().add(7, 'days').format("DD-MM-YYYY");    
     this.elementRef = myElement;
@@ -248,13 +250,19 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
   public filteredAssets = [];
   public elementRef;
 
-  submitCorporateAction() {
+  onSubmit(f) {
+    console.log(f);
     this.corporateAction.Documents = this.fileUploader.GetDocuments();
     this.corporateActionService.addCorpAction(this.corporateAction)
       .subscribe(
-      values => console.log('success'),
-      error => console.log(error)
-      )
+      values => {
+        console.log('success');
+        this.router.navigateByUrl('/corpactions/list');
+      },
+      error => {
+        console.log(error);
+        this.errorMessage = error;
+      });
   }
 
   removeDocument(idx: number) {

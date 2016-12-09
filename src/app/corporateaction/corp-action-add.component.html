@@ -2,7 +2,11 @@
 
     <h3>&nbsp;</h3>
 
-    <form #form="ngForm" class="form-horizontal" novalidate>
+    <div *ngIf="errorMessage != ''" class="alert alert-error">
+        Error: {{errorMessage}} 
+    </div>
+
+    <form #f="ngForm" class="form-horizontal" novalidate (ngSubmit)="onSubmit(f)">
         
         <div class="form-group">
             <label class="col-sm-2 control-lable">Reference No:</label>
@@ -29,6 +33,7 @@
             <div class="col-sm-9">
                 <div class="input-group">            
                     <input type="text" name="dueDate" placeholder="Select a due date" class="form-control datepicker"
+                            required
                             [(ngModel)]="corporateAction.DueDate" 
                             [saUiDatepicker]="{
                             dateFormat: 'dd/mm/yy'
@@ -42,6 +47,7 @@
             <label class="col-sm-2 control-lable">Issuer Code:</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="issuerCode" 
+                    required
                     [ngModel]="corporateAction.IssuerCode" placeholder="Issuer Code"
                     [saJquiAutocomplete]="ajaxIssuerAutocompleteOptions"
                     #issuerCodeInput
@@ -60,7 +66,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-lable">Event Type:</label>
             <div class="col-sm-10">
-                <select class="form-control" name="eventType" [(ngModel)]="corporateAction.EventType">
+                <select class="form-control" name="eventType" [(ngModel)]="corporateAction.EventType" required>
                     <option value="default" default>Please select an event type</option>
                     <option *ngFor="let t of eventTypes" value={{t}}>{{t}}</option>
                 </select>
@@ -70,7 +76,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-lable">Subject:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="subject" [(ngModel)]="corporateAction.Subject" placeholder="Subject" />
+                <input required type="text" class="form-control" name="subject" [(ngModel)]="corporateAction.Subject" placeholder="Subject" />
             </div>
         </div>
 
@@ -132,7 +138,7 @@
         <div class="form-gorup">
             <label class="col-sm-2 control-lable"></label>
             <div class="col-sm-7">
-                <button type="button" (click)="submitCorporateAction()">Submit</button>                
+                <button type="submit" [disabled]="f.invalid">Submit</button>                
             </div>
             <div class="col-sm-3">
                 <button type="button" (click)="saveDraftCorporateAction()">Save Draft</button>
