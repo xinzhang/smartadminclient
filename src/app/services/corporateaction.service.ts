@@ -26,7 +26,7 @@ export class CorporateActionService {
         let options = new RequestOptions({headers:headers});
 
         return this.http.post(this.corpActionUrl, data, options)
-            .map( resp => resp.json())
+            //.map( resp => resp.json())
             .catch(this.handleError);
     }
 

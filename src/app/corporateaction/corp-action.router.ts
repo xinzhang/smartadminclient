@@ -10,7 +10,7 @@ import {CorpActionListComponent} from './corp-action-list.component';
 import {CorpActionOfflineListComponent} from './corp-action-offline-list.component';
 import {CorpActionDetailComponent} from './corp-action-detail.component';
 import {CorpActionAddComponent} from './corp-action-add.component';
-
+import {CorpActionConfirmComponent} from './corp-action-confirm.component';
 import {CorpActionComponent} from './corp-action.component';
 
 export const routes: Routes = [
@@ -18,6 +18,7 @@ export const routes: Routes = [
     {path: 'add', component: CorpActionAddComponent},
     {path: 'add-offline/:offlineReference', component: CorpActionAddComponent},
     {path: 'list', component: CorpActionListComponent},
+    {path: 'confirm/:reference', component: CorpActionConfirmComponent},
     {path: 'offline-list', component: CorpActionOfflineListComponent}
 ];
 

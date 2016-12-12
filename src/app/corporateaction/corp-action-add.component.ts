@@ -252,12 +252,13 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
 
   onSubmit(f) {
     console.log(f);
+    
     this.corporateAction.Documents = this.fileUploader.GetDocuments();
     this.corporateActionService.addCorpAction(this.corporateAction)
       .subscribe(
       values => {
         console.log('success');
-        this.router.navigateByUrl('/corpactions/list');
+        this.router.navigateByUrl('/corporateaction/confirm/' + this.corporateAction.Reference);
       },
       error => {
         console.log(error);

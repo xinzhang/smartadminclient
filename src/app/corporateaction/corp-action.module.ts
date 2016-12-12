@@ -10,6 +10,7 @@ import {CorpActionDetailComponent} from './corp-action-detail.component';
 import {CorpActionListComponent} from './corp-action-list.component';
 import {CorpActionOfflineListComponent } from './corp-action-offline-list.component';
 import {CorpActionComponent} from './corp-action.component';
+import {CorpActionConfirmComponent} from './corp-action-confirm.component';
 
 import {UploaderComponent} from '../shared/uploader/uploader.component';
 import {FileSelectDirective} from 'ng2-file-upload';
@@ -37,7 +38,7 @@ let localStorageServiceConfig = {
   ],
   declarations: [
       CorpActionAddComponent, CorpActionDetailComponent, CorpActionListComponent, CorpActionOfflineListComponent,
-      CorpActionComponent, 
+      CorpActionComponent, CorpActionConfirmComponent,
       UploaderComponent, FileSelectDirective
   ],
   providers: [
