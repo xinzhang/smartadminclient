@@ -20,6 +20,7 @@ import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-loc
 import {SmartadminEditorsModule} from "../shared/forms/editors/smartadmin-editors.module";
 
 import {CorpActionRoutes} from "./corp-action.router";
+import {SimpleNotificationsModule} from 'angular2-notifications';
 
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
 let localStorageServiceConfig = {
@@ -34,7 +35,8 @@ let localStorageServiceConfig = {
     SmartadminModule,
     SmartadminInputModule,
     JqueryUiModule,
-    SmartadminEditorsModule
+    SmartadminEditorsModule,
+    SimpleNotificationsModule
   ],
   declarations: [
       CorpActionAddComponent, CorpActionDetailComponent, CorpActionListComponent, CorpActionOfflineListComponent,

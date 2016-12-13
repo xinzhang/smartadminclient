@@ -10,7 +10,7 @@
     "pree2e": "webdriver-manager update",
     "e2e": "protractor",
     "build": "ng build",
-    "xcopy":"xcopy ..\\Ausmaq.Operations.Web\\dist\\*.* ..\\Ausmaq.Operations.Web /S /Y",
+    "xcopy": "xcopy ..\\Ausmaq.Operations.Web\\dist\\*.* ..\\Ausmaq.Operations.Web /S /Y",
     "start": "npm run build && npm run xcopy"
   },
   "private": true,
@@ -25,6 +25,7 @@
     "@angular/router": "3.0.1",
     "X-editable": "github:vitalets/x-editable",
     "angular-2-local-storage": "0.0.23",
+    "angular2-notifications": "^0.4.47",
     "bootstrap": "^3.3.7",
     "bootstrap-colorpicker": "^2.3.5",
     "bootstrap-duallistbox": "github:istvan-ujjmeszaros/bootstrap-duallistbox",

@@ -138,18 +138,19 @@
         <div class="form-gorup">
             <label class="col-sm-2 control-lable"></label>
             <div class="col-sm-7">
-                <button type="submit" [disabled]="f.invalid">Submit</button>                
+                <button type="submit" [disabled]="f.invalid">Submit</button>
             </div>
             <div class="col-sm-3">
                 <button type="button" (click)="saveDraftCorporateAction()">Save Draft</button>
                 <span *ngIf="inProgress"><i class="glyphicon glyphicon-repeat"></i> Saving Draft ...</span>
             </div>
         </div>
-        
+
     </form>
 
-    <!--<input auto-complete [(ngModel)]="myData" [source]="fruits" />-->
+    <simple-notifications [options]="options" (onDestroy)="onDestroy($event)"></simple-notifications>            
 
+    <!--<input auto-complete [(ngModel)]="myData" [source]="fruits" />-->
 </div>
 
 <!-- ui-dialog -->
@@ -203,6 +204,7 @@
                 <button (click)="closeDialog()" class="btn btn-default">Cancel</button>
             </div>
         </div>
+
     </div>
 
     <!-- dialog buttons // transform to jquery dialog buttons -->
@@ -211,3 +213,4 @@
       <button class="btn btn-default" data-action="modalDemo2()"><i class="fa fa-times"></i>&nbsp; Cancel</button>
     </div>-->
   </div>
+

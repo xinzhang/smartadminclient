@@ -28,7 +28,6 @@ import { DatepickerModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { CorporateActionService} from './services/corporateaction.service';
 import { StaticDataService} from './services/staticdata.service';
 
-
 @NgModule({
   declarations: [
     AppComponent,

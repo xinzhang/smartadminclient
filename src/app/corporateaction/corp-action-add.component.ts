@@ -17,8 +17,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import {Subscription} from "rxjs";
-import {TimerObservable} from "rxjs/observable/TimerObservable";
+import { Subscription } from "rxjs";
+import { TimerObservable } from "rxjs/observable/TimerObservable";
+
+import { NotificationsService, SimpleNotificationsComponent } from 'angular2-notifications';
 
 //import 'rxjs/add/operator/map';
 
@@ -37,7 +39,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
   //configuration
   allowHTMLEdit = true;
   numberOfDaysToDue = 14;
-  subscription:Subscription;
+  subscription: Subscription;
 
   currentAPIR = "";
   currentAPIRLabel = "";
@@ -45,16 +47,16 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
 
   eventTypes = [];
   clientCodes = [];
-  
-   multipleSelectAPIRFrom: any[] = [];
+
+  multipleSelectAPIRFrom: any[] = [];
   // searchTerms = new Subject<string>();
-    observableAssets: Observable<any>;
-    private searchTerms = new Subject<string>();
+  observableAssets: Observable<any>;
+  private searchTerms = new Subject<string>();
 
   multipleSelectAPIRTo: any[] = [];
 
   corporateAction = new CorporateActionModel("", "", "", "", "", "");
-  errorMessage :string = "";
+  errorMessage: string = "";
 
   @ViewChild('issuerCodeInput') issuerCodeInput;
   @ViewChild('apirCodeInput') apirCodeInput;
@@ -125,8 +127,9 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     private localStorageService: LocalStorageService,
     private route: ActivatedRoute,
     private router: Router,
+    private notificationService: NotificationsService,
     myElement: ElementRef) {
-    this.corporateAction.DueDate = moment().add(7, 'days').format("DD-MM-YYYY");    
+    this.corporateAction.DueDate = moment().add(7, 'days').format("DD-MM-YYYY");
     this.elementRef = myElement;
   }
 
@@ -134,7 +137,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     console.log(term);
     //this.searchTerms.next(term)
     this.staticDataService.searchAssets(term)
-      .subscribe( data => this.multipleSelectAPIRFrom = data);      
+      .subscribe(data => this.multipleSelectAPIRFrom = data);
   }
 
   ngOnInit() {
@@ -143,9 +146,9 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     //user offline
     let offlineReference = this.route.snapshot.params["offlineReference"];
     if (offlineReference != null) {
-        this.getCorpActionFromOffline(offlineReference);
+      this.getCorpActionFromOffline(offlineReference);
     } else {
-        this.getReference();
+      this.getReference();
     }
 
     //user observable
@@ -161,7 +164,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
 
     //triggered after two minutes when user really start working on it
     let timer = TimerObservable.create(120 * 1000, 1000 * 30);
-    this.subscription = timer.subscribe( t=> {
+    this.subscription = timer.subscribe(t => {
       //Todo: add validation to see if really need to automatically save.
       //      there is no need to save everything right way.
       this.saveDraftCorporateAction();
@@ -223,10 +226,10 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     this.staticDataService.getPortalClient()
       .subscribe(
       values => {
-        this.clientCodes = values; 
+        this.clientCodes = values;
         if (values.length > 0) {
           this.corporateAction.ClientCodes[0] = values[0];
-        }       
+        }
       },
       error => console.log(error)
       )
@@ -252,13 +255,13 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
 
   onSubmit(f) {
     console.log(f);
-    
+
     this.corporateAction.Documents = this.fileUploader.GetDocuments();
     this.corporateActionService.addCorpAction(this.corporateAction)
       .subscribe(
       values => {
         console.log('success');
-        this.router.navigateByUrl('/corporateaction/confirm/' + this.corporateAction.Reference);
+        this.saved();
       },
       error => {
         console.log(error);
@@ -292,7 +295,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
 
     this.localStorageService.set("offline-corporateAction", JSON.stringify(corpactions));
 
-    setTimeout(() => this.inProgress = false, 2000);    
+    setTimeout(() => this.inProgress = false, 2000);
   }
 
   getCorpActionFromOffline(reference: string) {
@@ -311,37 +314,37 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
 
   moveSelectionToRight() {
     console.log(this.multiSelectAPIRInputLeft.nativeElement);
-    for (let i=0; i< this.multiSelectAPIRInputLeft.nativeElement.options.length;i++) {
+    for (let i = 0; i < this.multiSelectAPIRInputLeft.nativeElement.options.length; i++) {
       if (this.multiSelectAPIRInputLeft.nativeElement.options[i].selected) {
         let val = this.multiSelectAPIRInputLeft.nativeElement.options[i].value;
-        let valObj = this.multipleSelectAPIRFrom.find(x=> x.Code === val);         
+        let valObj = this.multipleSelectAPIRFrom.find(x => x.Code === val);
         if (valObj != null) {
-          this.multipleSelectAPIRTo.push(valObj);          
+          this.multipleSelectAPIRTo.push(valObj);
         }
-      }  
+      }
     }
     console.log(this.multipleSelectAPIRTo);
   }
 
   moveSelectionToLeft() {
     console.log(this.multiSelectAPIRInputRight.nativeElement);
-    for (let i=0; i< this.multiSelectAPIRInputRight.nativeElement.options.length;i++) {
+    for (let i = 0; i < this.multiSelectAPIRInputRight.nativeElement.options.length; i++) {
       if (this.multiSelectAPIRInputRight.nativeElement.options[i].selected) {
         let val = this.multiSelectAPIRInputRight.nativeElement.options[i].value;
-        let obj = this.multipleSelectAPIRTo.find( x=> x.Code === val);
-        if (obj != null) { 
+        let obj = this.multipleSelectAPIRTo.find(x => x.Code === val);
+        if (obj != null) {
           let idx = this.multipleSelectAPIRTo.indexOf(obj);
           this.multipleSelectAPIRTo.splice(idx, 1);
         }
-      }  
+      }
     }
   }
 
   addMultiSelectedAPIR() {
-    this.multipleSelectAPIRTo.forEach( x=> {      
+    this.multipleSelectAPIRTo.forEach(x => {
       if (this.corporateAction.APIRCodes.indexOf(x.Code) == -1) {
-          this.corporateAction.APIRCodes.push(x.Code);
-          this.corporateAction.APIRLabels.push(x.Name);
+        this.corporateAction.APIRCodes.push(x.Code);
+        this.corporateAction.APIRLabels.push(x.Name);
       }
     });
 
@@ -361,5 +364,25 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
   filesUpdated(event) {
     this.corporateAction.Documents = event.value;
   }
-    
+
+  public options = {
+    timeOut: 2000,
+    clickToClose: true,
+    maxLength: 0,
+    maxStack: 7,
+    showProgressBar: false,
+    pauseOnHover: true,
+    animate: 'fromRight',
+    position: ['bootom', 'left']
+  };
+
+  onDestroy(event) {
+    //console.log(event);
+    this.router.navigateByUrl('/corporateaction/confirm/' + this.corporateAction.Reference);
+  }
+
+  saved() {
+    this.notificationService.success("Saved ", "New Item created");
+  }
+
 }
