@@ -34,12 +34,20 @@
             <label class="col-sm-2 control-lable">Due Date:</label>
             <div class="col-sm-9">
                 <div class="input-group">
-                    <input type="text" name="dueDate" placeholder="Select a due date" class="form-control datepicker" validateDueDate required
-                        [(ngModel)]="corporateAction.DueDate" [saUiDatepicker]="{
+                    <input type="text" name="dueDate" placeholder="Select a due date" class="form-control datepicker" 
+                        validateDueDate required
+                        #dueDate="ngModel" [ngModel]="corporateAction.DueDate"
+                        [(ngModel)]="corporateAction.DueDate" 
+                        [saUiDatepicker]="{
                             dateFormat: 'dd/mm/yy'
                             }">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-
+                    <!--<span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
+                    format as (dd/mm/yyyy)
+                </div>
+                <div class="">
+                        <small [hidden]="dueDate.valid || (dueDate.pristine && !f.submitted)" class="text-danger">
+                            Due date has to be today or after today
+                        </small>
                 </div>
             </div>
         </div>

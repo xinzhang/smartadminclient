@@ -129,7 +129,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     private router: Router,
     private notificationService: NotificationsService,
     myElement: ElementRef) {
-    this.corporateAction.DueDate = moment().add(7, 'days').format("DD-MM-YYYY");
+    this.corporateAction.DueDate = moment().add(7, 'days').format("DD/MM/YYYY");
     this.elementRef = myElement;
   }
 
