@@ -31,6 +31,8 @@ export class UiDatepickerDirective implements OnInit {
     //Let others know about changes to the data field
     onSelectCallbacks.push((selectedDate) => {
       element.triggerHandler("change");
+      console.log(selectedDate);
+      element.value = selectedDate;
 
       let form = element.closest('form');
 

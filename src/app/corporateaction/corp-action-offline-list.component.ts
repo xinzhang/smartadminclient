@@ -42,6 +42,5 @@ export class CorpActionOfflineListComponent implements OnInit{
             this.offlineCorpActionList.splice(idx, 1);
         }
         this.localStorageService.set("offline-corporateAction",JSON.stringify(this.loadOfflineCorporateAction) );
-    } 
-
+    }
 }

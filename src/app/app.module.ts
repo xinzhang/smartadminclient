@@ -24,7 +24,6 @@ import {BrowserModule} from "@angular/platform-browser";
 import {UserModule} from "./shared/user/user.module";
 import {UserService} from "./shared/user/user.service";
 
-import { DatepickerModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { CorporateActionService} from './services/corporateaction.service';
 import { StaticDataService} from './services/staticdata.service';
 
@@ -42,8 +41,7 @@ import { StaticDataService} from './services/staticdata.service';
     CorpActionModule,
     routing,
     SmartadminModule.forRoot(),
-    UserModule.forRoot(),
-    DatepickerModule
+    UserModule.forRoot()    
   ],
   providers: [UserService, StaticDataService, CorporateActionService],
   bootstrap: [AppComponent]

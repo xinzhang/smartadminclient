@@ -261,6 +261,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
       .subscribe(
       values => {
         console.log('success');
+        this.deleteDraftCorporateAction(this.corporateAction.Reference);
         this.saved();
       },
       error => {
@@ -277,7 +278,9 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
 
   saveDraftCorporateAction() {
     this.inProgress = true;
+    
     let corpactions = new Array<CorporateActionModel>();
+
     if (this.localStorageService.get("offline-corporateAction") != null) {
       corpactions = JSON.parse(this.localStorageService.get("offline-corporateAction").toString());
     }
@@ -296,6 +299,22 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     this.localStorageService.set("offline-corporateAction", JSON.stringify(corpactions));
 
     setTimeout(() => this.inProgress = false, 2000);
+  }
+
+  deleteDraftCorporateAction(reference:string) {
+
+    let corpactions = new Array<CorporateActionModel>();
+
+    if (this.localStorageService.get("offline-corporateAction") != null) {
+      corpactions = JSON.parse(this.localStorageService.get("offline-corporateAction").toString());
+    }
+
+    let idx = corpactions.findIndex(x => x.Reference == this.corporateAction.Reference);
+    if (idx >= 0) {
+      corpactions.splice(idx, 1);
+      this.localStorageService.set("offline-corporateAction", JSON.stringify(corpactions));      
+    }
+
   }
 
   getCorpActionFromOffline(reference: string) {
@@ -382,7 +401,9 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
   }
 
   saved() {
-    this.notificationService.success("Saved ", "New Item created");
+    this.notificationService.success("Saved ", "New corporate action created.");
   }
 
+  passwordstr: string;
+  confirmPasswordstr: string;
 }

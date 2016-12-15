@@ -3,24 +3,26 @@
     <h3>&nbsp;</h3>
 
     <div *ngIf="errorMessage != ''" class="alert alert-error">
-        Error: {{errorMessage}} 
+        Error: {{errorMessage}}
     </div>
 
     <form #f="ngForm" class="form-horizontal" novalidate (ngSubmit)="onSubmit(f)">
-        
+
         <div class="form-group">
             <label class="col-sm-2 control-lable">Reference No:</label>
             <div class="col-sm-10">
-                <input type="text" disabled class="form-control" name="reference" [(ngModel)]="corporateAction.Reference" placeholder="" />                
+                <input type="text" disabled class="form-control" name="reference" [(ngModel)]="corporateAction.Reference" placeholder=""
+                />
             </div>
 
         </div>
 
-        <div class="form-group">            
+        <div class="form-group">
             <label class="col-sm-2 control-lable">Client Code:</label>
             <div class="col-sm-9">
                 <div class="input-group">
-                    <select class="form-control col-sm-2" name="client-code" id="client-code" [ngModel]="corporateAction.ClientCodes[0]" (change)="setClientCode($event)" required>
+                    <select class="form-control col-sm-2" name="client-code" id="client-code" [ngModel]="corporateAction.ClientCodes[0]" (change)="setClientCode($event)"
+                        required>
                         <option value="" disabled selected>Select ...</option>
                         <option *ngFor="let c of clientCodes" value="{{c}}">{{c}}</option>
                     </select>
@@ -28,17 +30,16 @@
             </div>
         </div>
 
-       <div class="form-group">            
+        <div class="form-group">
             <label class="col-sm-2 control-lable">Due Date:</label>
             <div class="col-sm-9">
-                <div class="input-group">            
-                    <input type="text" name="dueDate" placeholder="Select a due date" class="form-control datepicker"
-                            required
-                            [(ngModel)]="corporateAction.DueDate" 
-                            [saUiDatepicker]="{
+                <div class="input-group">
+                    <input type="text" name="dueDate" placeholder="Select a due date" class="form-control datepicker" validateDueDate required
+                        [(ngModel)]="corporateAction.DueDate" [saUiDatepicker]="{
                             dateFormat: 'dd/mm/yy'
-                            }" >
+                            }">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+
                 </div>
             </div>
         </div>
@@ -46,19 +47,16 @@
         <div class="form-group">
             <label class="col-sm-2 control-lable">Issuer Code:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="issuerCode" 
-                    required
-                    [ngModel]="corporateAction.IssuerCode" placeholder="Issuer Code"
-                    [saJquiAutocomplete]="ajaxIssuerAutocompleteOptions"
-                    #issuerCodeInput
-                    />
+                <input type="text" class="form-control" name="issuerCode" required [ngModel]="corporateAction.IssuerCode" placeholder="Issuer Code"
+                    [saJquiAutocomplete]="ajaxIssuerAutocompleteOptions" #issuerCodeInput />
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-lable">Issuer Name:</label>
             <div class="col-sm-10">
-                <input type="text" disabled class="form-control" name="issuerName" [(ngModel)]="corporateAction.IssuerName" placeholder="Issuer Name" />                
+                <input type="text" disabled class="form-control" name="issuerName" [(ngModel)]="corporateAction.IssuerName" placeholder="Issuer Name"
+                />
             </div>
 
         </div>
@@ -76,18 +74,16 @@
         <div class="form-group">
             <label class="col-sm-2 control-lable">Subject:</label>
             <div class="col-sm-10">
-                <input required type="text" class="form-control" name="subject" [(ngModel)]="corporateAction.Subject" placeholder="Subject" />
+                <input required type="text" class="form-control" name="subject" [(ngModel)]="corporateAction.Subject" placeholder="Subject"
+                />
             </div>
         </div>
 
         <div class="form-group has-feedback">
             <label class="col-sm-2 control-lable">APIR Codes:</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" name="apircodes"
-                    [(ngModel)]="currentAPIR" placeholder="Enter the APIR"
-                    [saJquiAutocomplete]="ajaxAPIRAutocompleteOptions"
-                    #apirCodeInput
-                    (keyup.enter)="addAPIR()" />
+                <input type="text" class="form-control" name="apircodes" [(ngModel)]="currentAPIR" placeholder="Enter the APIR" [saJquiAutocomplete]="ajaxAPIRAutocompleteOptions"
+                    #apirCodeInput (keyup.enter)="addAPIR()" />
 
                 <span (click)="addAPIR()" class="glyphicon glyphicon-plus form-control-feedback"></span>
             </div>
@@ -101,7 +97,7 @@
             <div class="col-sm-10">
                 <ul class="tag">
                     <li *ngFor="let apir of corporateAction.APIRCodes;let i=index" class="tag">
-                        {{ corporateAction.APIRLabels[i]}} <span (click)="removeAPIR(apir)"class="glyphicon glyphicon-remove"></span>
+                        {{ corporateAction.APIRLabels[i]}} <span (click)="removeAPIR(apir)" class="glyphicon glyphicon-remove"></span>
                     </li>
                 </ul>
             </div>
@@ -109,9 +105,10 @@
 
         <div class="form-group">
             <label class="col-sm-2 control-lable">Details:</label>
-            <div class="col-sm-10">                
-                <textarea *ngIf="!allowHTMLEdit" rows="15" cols="120" class="form-control" name="description" [(ngModel)]="corporateAction.Description" placeholder="Description"></textarea>
-                <div class="summernote" [summernote]="{height: 180}" [codeText]="corporateAction.Description" (codeChange)="changed($event)" ></div>
+            <div class="col-sm-10">
+                <textarea *ngIf="!allowHTMLEdit" rows="15" cols="120" class="form-control" name="description" [(ngModel)]="corporateAction.Description"
+                    placeholder="Description"></textarea>
+                <div class="summernote" [summernote]="{height: 180}" [codeText]="corporateAction.Description" (codeChange)="changed($event)"></div>
             </div>
         </div>
 
@@ -148,35 +145,39 @@
 
     </form>
 
-    <simple-notifications [options]="options" (onDestroy)="onDestroy($event)"></simple-notifications>            
+    <simple-notifications [options]="options" (onDestroy)="onDestroy($event)"></simple-notifications>
 
     <!--<input auto-complete [(ngModel)]="myData" [source]="fruits" />-->
+
 </div>
 
 <!-- ui-dialog -->
-  <div id="dialog-apir" [saJquiDialog]="{
+<div id="dialog-apir" [saJquiDialog]="{
       minWidth: 800,
       minHeight: 520,
       autoOpen: false
-  }">
+    }">
 
     <!-- dialog header // removing on compile-->
     <div data-dialog-title="">
-      <div class="widget-header"><h4>APIR</h4></div>
+        <div class="widget-header">
+            <h4>APIR</h4>
+        </div>
     </div>
 
     <div class="containr">
         <div class="row">
             <div class="col-md-8">
-                Keywords: <input #searchBox id="search-box" (keyup)="search(searchBox.value)"/>
+                Keywords: <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
                 <button class="btn btn-default" (click)="search(searchBox.value)">Search</button>
             </div>
         </div>
 
         <div class="row top10">
             <div class="col-sm-7">
-                <div class="form-group">                    
-                    <select #multiSelectAPIRInputLeft multiple="multiple" id="selectFrom" class="form-control custom-scroll" style="height:400px" title="">                                                
+                <div class="form-group">
+                    <select #multiSelectAPIRInputLeft multiple="multiple" id="selectFrom" class="form-control custom-scroll" style="height:400px"
+                        title="">                                                
                         <option *ngFor="let apir of multipleSelectAPIRFrom" value="{{apir.Code}}">{{apir.Code}} - {{apir.Name}}</option>
                     </select>
                 </div>
@@ -191,7 +192,8 @@
 
             <div class="col-sm-4">
                 <div class="form-group">
-                    <select  #multiSelectAPIRInputRight multiple="multiple" id="selectTo" class="form-control custom-scroll" style="height:400px" title="" >
+                    <select #multiSelectAPIRInputRight multiple="multiple" id="selectTo" class="form-control custom-scroll" style="height:400px"
+                        title="">
                         <option *ngFor="let apir of multipleSelectAPIRTo" value="{{apir.Code}}">{{apir.Code}}</option>
                     </select>
                 </div>
@@ -207,10 +209,4 @@
 
     </div>
 
-    <!-- dialog buttons // transform to jquery dialog buttons -->
-    <!--<div data-dialog-buttons="">
-      <button class="btn btn-danger" data-action="modalDemo1()"><i class="fa fa-trash-o"></i>&nbsp; Delete all items</button>
-      <button class="btn btn-default" data-action="modalDemo2()"><i class="fa fa-times"></i>&nbsp; Cancel</button>
-    </div>-->
-  </div>
-
+</div>

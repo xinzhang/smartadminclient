@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import {SmartadminModule} from "../shared/smartadmin.module";
@@ -11,16 +12,17 @@ import {CorpActionListComponent} from './corp-action-list.component';
 import {CorpActionOfflineListComponent } from './corp-action-offline-list.component';
 import {CorpActionComponent} from './corp-action.component';
 import {CorpActionConfirmComponent} from './corp-action-confirm.component';
+import {CorpActionRoutes} from "./corp-action.router";
+import {TestComponent} from './test.component';
 
 import {UploaderComponent} from '../shared/uploader/uploader.component';
 import {FileSelectDirective} from 'ng2-file-upload';
 
 import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
-
 import {SmartadminEditorsModule} from "../shared/forms/editors/smartadmin-editors.module";
-
-import {CorpActionRoutes} from "./corp-action.router";
 import {SimpleNotificationsModule} from 'angular2-notifications';
+
+import {ValidatorsModule} from '../shared/validators/validators.module';
 
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
 let localStorageServiceConfig = {
@@ -36,12 +38,15 @@ let localStorageServiceConfig = {
     SmartadminInputModule,
     JqueryUiModule,
     SmartadminEditorsModule,
-    SimpleNotificationsModule
+    SimpleNotificationsModule,
+    ValidatorsModule,    
+    FormsModule
   ],
   declarations: [
       CorpActionAddComponent, CorpActionDetailComponent, CorpActionListComponent, CorpActionOfflineListComponent,
       CorpActionComponent, CorpActionConfirmComponent,
-      UploaderComponent, FileSelectDirective
+      UploaderComponent, FileSelectDirective,
+      TestComponent
   ],
   providers: [
     LocalStorageService,
