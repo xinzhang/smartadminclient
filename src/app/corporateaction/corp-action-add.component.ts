@@ -29,10 +29,10 @@ declare var $: any;
 @Component({
   selector: 'corp-action-add',
   styleUrls: ['./corp-action.component.css'],
-  providers: [CorporateActionService],
+  providers: [CorporateActionService],  
   templateUrl: './corp-action-add.component.html',
   host: { '[@routeAnimation]': 'true' },
-  animations: Animations.page
+  animations: Animations.page  
 })
 export class CorpActionAddComponent implements OnInit, OnDestroy {
 

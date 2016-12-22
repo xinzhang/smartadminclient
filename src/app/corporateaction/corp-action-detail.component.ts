@@ -1,4 +1,7 @@
+
 import {Component, OnInit} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import {CorporateActionModel} from '../models/corporateactions.model';
 import {CorporateActionService} from '../services/corporateaction.service';
 
@@ -8,8 +11,20 @@ import {CorporateActionService} from '../services/corporateaction.service';
   providers: [CorporateActionService],
   templateUrl: './corp-action-detail.component.html'
 })
-export class CorpActionDetailComponent{
-    constructor(private corporateActionService:CorporateActionService){
+export class CorpActionDetailComponent implements OnInit{
+
+    corporatActionDetail:any;
+
+    constructor(private corporateActionService:CorporateActionService,
+        private route: ActivatedRoute){          
     }
-    
+
+
+    ngOnInit() {
+        let reference = this.route.snapshot.params["reference"];
+        if (reference != null) {
+          this.corporateActionService.getCorpActionDetail(reference).subscribe( x=> this.corporatActionDetail = x);
+        }
+    }
+
 }

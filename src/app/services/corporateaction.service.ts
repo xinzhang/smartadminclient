@@ -30,6 +30,24 @@ export class CorporateActionService {
             .catch(this.handleError);
     }
 
+    listCorpActions() : Observable<any> {        
+        return this.http.get(this.corpActionUrl)
+            .map( res => res.json())
+            .catch(this.handleError);
+    }
+
+    getCorpActionDetail(reference:string) : Observable<any> {        
+        return this.http.get(this.corpActionUrl + "/detail/" + reference)
+            .map( res => res.json())
+            .catch(this.handleError);
+    }
+
+    getCorpActionDocuments(reference:string) : Observable<any> {        
+        return this.http.get(this.corpActionUrl + "/document/" + reference)
+            .map( res => res.json())
+            .catch(this.handleError);
+    }
+
     handleError(error: Response) {
         console.log(error);
         return Observable.throw(error.statusText || 'Server error');
