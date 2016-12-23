@@ -23,8 +23,9 @@ import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-loc
 import {SmartadminEditorsModule} from "../shared/forms/editors/smartadmin-editors.module";
 import {SimpleNotificationsModule} from 'angular2-notifications';
 import {ValidatorsModule} from '../shared/validators/validators.module';
-
 import {AgGridModule} from 'ag-grid-ng2/main';
+
+import {DataTableModule} from '../shared/datatable/datatable.module';
 
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
 let localStorageServiceConfig = {
@@ -42,13 +43,14 @@ let localStorageServiceConfig = {
     JqueryUiModule,
     SmartadminEditorsModule,
     SimpleNotificationsModule,
-    ValidatorsModule,    
+    ValidatorsModule,  
+    DataTableModule,  
     FormsModule,
     AgGridModule.withComponents([])
   ],
   declarations: [
       CorpActionAddComponent, CorpActionDetailComponent, CorpActionListComponent, CorpActionOfflineListComponent,
-      CorpActionComponent, CorpActionConfirmComponent,
+      CorpActionComponent, CorpActionConfirmComponent, 
       UploaderComponent, FileSelectDirective,
       TestComponent
   ],

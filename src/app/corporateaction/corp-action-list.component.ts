@@ -25,6 +25,7 @@ export class CorpActionListComponent{
       this.createColumnDefs();
     }
 
+
     ngOnInit() {
         
     } 

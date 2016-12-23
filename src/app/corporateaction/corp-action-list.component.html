@@ -23,25 +23,17 @@
 
             <div class="no-padding">
                 <div class="widget-body">
-                    <div id="myTabContent" class="tab-content">
-                        <!-- grid table -->
-                        <ag-grid-ng2 #agGrid style="width: 100%; height: 350px;" class="ag-fresh"
-                            
-                            [gridOptions]="gridOptions"
-                            [columnDefs]="columnDefs"
-                            [showToolPanel]="showToolPanel"
-                            [rowData]="rowData"
 
-                            enableColResize
-                            enableSorting
-                            enableFilter
+                    <datatable [dataset]=rowData>
+                        <column [value]="'DueDate'" [header]="'Due Date'"></column>
+                        <column [value]="'Reference'" [header]="'Reference'"></column>
+                        <column [value]="'EventType'" [header]="'Event Type'"></column>
+                        <column [value]="'Subject'" [header]="'Subject'"></column>
+                        <column [value]="'IssuerCode'" [header]="'Issuer Code'"></column>
+                    </datatable>
 
-                            rowHeight="22">                            
-                        </ag-grid-ng2>
-                       
-
-                    </div>
                 </div>
+
             </div>
 
         </sa-widget>
