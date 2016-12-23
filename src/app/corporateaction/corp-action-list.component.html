@@ -23,19 +23,17 @@
 
             <div class="no-padding">
                 <div class="widget-body">
-
                     <datatable [dataset]=rowData>
+                        <expand-column [text]="'response'" (expanded)="onExpand()"></expand-column>
                         <column [value]="'DueDate'" [header]="'Due Date'"></column>
                         <column [value]="'Reference'" [header]="'Reference'"></column>
                         <column [value]="'EventType'" [header]="'Event Type'"></column>
                         <column [value]="'Subject'" [header]="'Subject'"></column>
                         <column [value]="'IssuerCode'" [header]="'Issuer Code'"></column>
+                        <button-column [text]="'detail'" [icon]="'fa-eye'"></button-column>                        
                     </datatable>
-
                 </div>
-
             </div>
-
         </sa-widget>
     </div>
 </div>

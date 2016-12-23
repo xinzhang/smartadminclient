@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {ColumnComponent} from './column.component';
+import {ExpandColumnComponent} from './expand-column.component';
+import {ButtonColumnComponent} from './button-column.component';
 import {DataTableComponent} from './datatable.component';
 
 @NgModule({
@@ -9,11 +11,15 @@ import {DataTableComponent} from './datatable.component';
   ],
   declarations: [
     DataTableComponent,
-    ColumnComponent
+    ColumnComponent,
+    ExpandColumnComponent,
+    ButtonColumnComponent
   ],
   exports: [
     DataTableComponent, 
-    ColumnComponent
+    ColumnComponent,
+    ExpandColumnComponent,
+    ButtonColumnComponent
   ]
 })
 export class DataTableModule { }

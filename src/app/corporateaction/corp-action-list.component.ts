@@ -48,6 +48,10 @@ export class CorpActionListComponent{
         ]
     }
 
+    onExpand() {
+      console.log('this one is expanded.')
+    }
+
 }
 
                         
