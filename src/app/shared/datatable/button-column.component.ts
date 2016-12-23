@@ -3,7 +3,7 @@ import {DataTableComponent} from './datatable.component';
  
 @Component({
   selector: 'button-column',
-  template: `` 
+  template: `<a (click)="buttonClick()"><i class="fa"></i><span>{{text}}</span></a>` 
 })
 export class ButtonColumnComponent {
 	@Input() text;
@@ -11,12 +11,16 @@ export class ButtonColumnComponent {
     
     @Output() buttonClicked = new EventEmitter();
 
+    @Input() rowData;
+
 	constructor(table: DataTableComponent) {
         table.addButtonColumn(this)
   	}
 
     buttonClick() {
-        this.buttonClicked.emit();
+        console.log("button column component clicked.");
+        console.log(this.rowData);
+        this.buttonClicked.emit(this.rowData);
     }
-    
+
 }

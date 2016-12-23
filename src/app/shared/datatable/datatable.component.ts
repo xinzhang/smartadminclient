@@ -24,7 +24,7 @@ import { ButtonColumnComponent } from './button-column.component';
                                     {{row[column.value]}}
                                 </td>
                                 <td *ngIf="buttonColumn">
-                                    <a (click)="buttonColumn.buttonClick()"><i class="fa"></i><span>{{buttonColumn.text}}</span></a>
+                                    <button-column [text]="'Detail'" [icon]="'fa-eye'" (buttonClicked)="onDetailClicked()" [rowData]="row"></button-column>
                                 </td>
                             </tr>
                         </tbody>
