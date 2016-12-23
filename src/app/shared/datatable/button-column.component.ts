@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {DataTableComponent} from './datatable.component';
  
 @Component({
@@ -8,9 +8,15 @@ import {DataTableComponent} from './datatable.component';
 export class ButtonColumnComponent {
 	@Input() text;
     @Input() icon;
- 
+    
+    @Output() buttonClicked = new EventEmitter();
+
 	constructor(table: DataTableComponent) {
         table.addButtonColumn(this)
   	}
 
+    buttonClick() {
+        this.buttonClicked.emit();
+    }
+    
 }

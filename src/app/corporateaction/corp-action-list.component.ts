@@ -52,6 +52,9 @@ export class CorpActionListComponent{
       console.log('this one is expanded.')
     }
 
+    onDetailClicked() {
+      console.log('this one is showing details.')
+    }
 }
 
                         
