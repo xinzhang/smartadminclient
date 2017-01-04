@@ -25,7 +25,7 @@ import {SimpleNotificationsModule} from 'angular2-notifications';
 import {ValidatorsModule} from '../shared/validators/validators.module';
 import {AgGridModule} from 'ag-grid-ng2/main';
 
-import {DataTableModule} from '../shared/datatable/datatable.module';
+// import {DataTableModule} from '../shared/datatable/datatable.module';
 
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
 let localStorageServiceConfig = {
@@ -44,7 +44,7 @@ let localStorageServiceConfig = {
     SmartadminEditorsModule,
     SimpleNotificationsModule,
     ValidatorsModule,  
-    DataTableModule,  
+    //DataTableModule,  
     FormsModule,
     AgGridModule.withComponents([])
   ],

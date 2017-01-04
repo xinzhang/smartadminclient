@@ -19,7 +19,6 @@ export class CorpActionDetailComponent implements OnInit{
         private route: ActivatedRoute){          
     }
 
-
     ngOnInit() {
         let reference = this.route.snapshot.params["reference"];
         if (reference != null) {

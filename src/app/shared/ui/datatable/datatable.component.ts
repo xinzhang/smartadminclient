@@ -25,6 +25,8 @@ export class DatatableComponent implements OnInit {
   @Input() public tableClass: string;
   @Input() public width: string = '100%';
 
+  dataTableRef: any;
+
   constructor(private el: ElementRef) {
   }
 
@@ -33,8 +35,11 @@ export class DatatableComponent implements OnInit {
       System.import('script!smartadmin-plugins/datatables-bundle/datatables.min.js'),
     ]).then(()=>{
       this.render()
-
     })
+  }
+
+  refreshData(url:any) {    
+    this.dataTableRef.ajax.url(url).load();
   }
 
   render() {
@@ -76,8 +81,12 @@ export class DatatableComponent implements OnInit {
         element.parent().find('.input-sm', ).removeClass("input-sm").addClass('input-md');
       }
     });
-
+    
     const _dataTable = element.DataTable(options);
+
+     if (!this.dataTableRef) {
+       this.dataTableRef = _dataTable;
+     }
 
     if (this.filter) {
       // Apply the filter
@@ -86,13 +95,13 @@ export class DatatableComponent implements OnInit {
           .column($(this).parent().index() + ':visible')
           .search(this.value)
           .draw();
-
       });
     }
 
 
     if (!toolbar) {
-      element.parent().find(".dt-toolbar").append('<div class="text-right"><img src="assets/img/logo.png" alt="SmartAdmin" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
+      element.parent().find(".dt-toolbar")
+        .append(`<div class="text-right"></div>`);
     }
 
     if(this.detailsFormat){

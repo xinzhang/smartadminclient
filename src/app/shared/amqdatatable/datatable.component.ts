@@ -49,4 +49,5 @@ export class DataTableComponent {
     addButtonColumn(buttonColumn) {
         this.buttonColumn = buttonColumn;
     }
+    
 }

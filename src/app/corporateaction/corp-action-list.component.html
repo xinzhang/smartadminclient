@@ -6,32 +6,91 @@
             <header>
                 <span class="widget-icon"><i class="glyphicon glyphicon-stats txt-color-darken"></i></span>
                 <h2>Corporate Actions</h2>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <label class="">Client Code:</label>                        
+                <select class="" name="client-code" id="client-code"
+                    [ngModel]="selectedClientCode" 
+                    (change)="setClientCode($event)" >
+                    <option value="" disabled selected>Select ...</option>
+                    <option *ngFor="let c of clientCodes" value="{{c}}">{{c}}</option>
+                    <option value="AMQ">Amq</option>
+                    <option value="Test">Test</option>
+                </select>
+
                 <ul class="nav nav-tabs pull-right in" id="myTab">
                     <li class="active">
-                        <a data-toggle="tab" href="#s1"><i class="fa fa-clock-o" ></i> <span class="hidden-mobile hidden-tablet"></span>Current</a>
+                        <a data-toggle="tab" (click)="viewStatus('current');"><i class="fa fa-clock-o" ></i> <span class="hidden-mobile hidden-tablet"></span>Current</a>
                     </li>
-
                     <li>
-                        <a data-toggle="tab" href="#s2"><i class="fa fa-facebook" ></i> <span class="hidden-mobile hidden-tablet">OverDue</span></a>
-                    </li>
-
-                    <li>
-                        <a data-toggle="tab" href="#s3"><i class="fa fa-dollar" ></i> <span class="hidden-mobile hidden-tablet">Completed</span></a>
+                        <a data-toggle="tab" (click)="viewStatus('closed');"><i class="fa fa-list-alt" ></i> <span class="hidden-mobile hidden-tablet">Closed</span></a>
                     </li>
                 </ul>
             </header>
 
             <div class="no-padding">
                 <div class="widget-body">
-                    <datatable [dataset]=rowData>
-                        <expand-column [text]="'See Response'" (expanded)="onExpand()"></expand-column>
-                        <column [value]="'DueDate'" [header]="'Due Date'"></column>
-                        <column [value]="'Reference'" [header]="'Reference'"></column>
-                        <column [value]="'EventType'" [header]="'Event Type'"></column>
-                        <column [value]="'Subject'" [header]="'Subject'"></column>
-                        <column [value]="'IssuerCode'" [header]="'Issuer Code'"></column>
-                        <button-column [text]="'Detail'" [icon]="'fa-eye'" (buttonClicked)="onDetailClicked()"></button-column>                        
-                    </datatable>
+                    <sa-widgets-grid>
+                        <!-- row -->
+                        <div class="row">
+                            <!-- NEW WIDGET START -->
+                            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="alert alert-info">
+                                    <strong>NOTE:</strong> You can switch the client code above
+                                </div>
+                                <!-- Widget ID (each widget will need unique ID)-->
+                                <sa-widget class="well">
+                                    <!-- widget options:
+                                        usage: <sa-widget id="wid-id-0" [editbutton]="false">
+                                        [colorbutton]="false"
+                                        [editbutton]="false"
+                                        [togglebutton]="false"
+                                        [deletebutton]="false"
+                                        [fullscreenbutton]="false"
+                                        [custombutton]="false"
+                                        [collapsed]="true"
+                                        [sortable]="false"
+                                    -->
+                                    <header>
+                                        <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
+                                        <h2>Widget Title </h2>
+                                    </header>
+
+                                    <!-- widget div-->
+                                    <div>
+                                        <!-- widget content -->
+                                        <div class="widget-body no-padding" data-sparkline-container="">
+
+                                            <sa-datatable [options]="options" [detailsFormat]="detailsFormat"  
+                                                tableClass="display projects-table table table-striped table-bordered table-hover" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>Event Type</th>
+                                                        <th><i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i> Due Date
+                                                        </th>
+                                                        <th>Reference</th>
+                                                        <th>Subject</th>
+                                                        <th>Issuer Code</th>
+                                                        <th>Client Code</th>
+                                                        <th>Status</th>
+                                                        <th>Followup Date</th>
+                                                    </tr>
+                                                </thead>
+                                            </sa-datatable>
+
+                                        </div>
+                                        <!-- end widget content -->
+                                    </div>
+                                    <!-- end widget div -->
+                                </sa-widget>
+                                <!-- end widget -->
+                            </article>
+                            <!-- WIDGET END -->
+                        </div>
+                        <!-- end row -->
+                    </sa-widgets-grid>
+                    <!-- end widget grid -->
+
                 </div>
             </div>
         </sa-widget>
