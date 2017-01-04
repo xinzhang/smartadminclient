@@ -1,4 +1,4 @@
-import {Component, Input, ElementRef, AfterContentInit, OnInit} from '@angular/core';
+import {Component, Input, ElementRef, AfterContentInit, OnInit, Output, EventEmitter} from '@angular/core';
 
 declare var $: any;
 
@@ -24,6 +24,8 @@ export class DatatableComponent implements OnInit {
   @Input() public columnsHide: boolean;
   @Input() public tableClass: string;
   @Input() public width: string = '100%';
+
+  @Output() btnViewClicked = new EventEmitter();
 
   dataTableRef: any;
 
@@ -119,6 +121,17 @@ export class DatatableComponent implements OnInit {
         }
       })
     }
+
+    // Handle click on "View" button
+    let self = this;
+
+    element.on('click', '.btn-view', function (e) {
+        var tr = $(this).closest('tr');
+        var row = _dataTable.row( tr );
+        var data = row.data();
+        //$( 'dialog-detail' ).dialog( "open" );
+        self.btnViewClicked.emit(data);
+    } );
 
   }
 

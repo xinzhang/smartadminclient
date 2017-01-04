@@ -68,7 +68,14 @@ export class CorpActionListComponent {
       { "data": "IssuerCode" },
       { "data": "ClientCode" },
       { "data": "Status" },
-      { "data": "FollowupDate" }
+      { "data": "FollowupDate" },
+      {
+        "targets": -1,
+        "data": null,
+        "defaultContent": 
+             '<button class="btn-view" type="button">View</button>'
+            //`<button type="button" saJquiDialogLauncher="#dialog-detail" class="btn btn-info">View</button>`
+      }
     ],
     "order": [[1, 'asc']]
   }
@@ -111,6 +118,11 @@ export class CorpActionListComponent {
         </table>`
   }
   
+  public onBtnViewClicked(data) {
+    console.log('this is exposed');
+    console.log(data.ID);
+  }
+
 }
 
 

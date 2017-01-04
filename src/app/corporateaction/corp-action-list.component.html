@@ -60,7 +60,7 @@
                                         <!-- widget content -->
                                         <div class="widget-body no-padding" data-sparkline-container="">
 
-                                            <sa-datatable [options]="options" [detailsFormat]="detailsFormat"  
+                                            <sa-datatable [options]="options" [detailsFormat]="detailsFormat" (btnViewClicked)="onBtnViewClicked($event)"
                                                 tableClass="display projects-table table table-striped table-bordered table-hover" width="100%">
                                                 <thead>
                                                     <tr>
@@ -95,4 +95,32 @@
             </div>
         </sa-widget>
     </div>
+</div>
+
+<button type="button" saJquiDialogLauncher="#dialog-detail" class="btn btn-info">Test</button>
+
+<!-- ui-dialog -->
+<div id="dialog-detail" [saJquiDialog]="{
+      minWidth: 800,
+      minHeight: 520,
+      autoOpen: false
+    }">
+
+    <!-- dialog header // removing on compile-->
+    <div data-dialog-title="">
+        <div class="widget-header">
+            <h4>Comments</h4>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+
+            </div>
+        </div>
+
+    
+    </div>
+
 </div>
