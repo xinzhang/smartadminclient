@@ -21,7 +21,7 @@ import { Subscription } from "rxjs";
 import { TimerObservable } from "rxjs/observable/TimerObservable";
 
 import { NotificationsService, SimpleNotificationsComponent } from 'angular2-notifications';
-
+import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 //import 'rxjs/add/operator/map';
 
 declare var $: any;
@@ -64,6 +64,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
   @ViewChild('multiSelectAPIRInputRight') multiSelectAPIRInputRight;
 
   @ViewChild('fileUploader') fileUploader;
+  @ViewChild('modal') modal: ModalComponent;
 
   ajaxIssuerAutocompleteOptions = {
     source: (request, response) => {
@@ -373,7 +374,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
   closeDialog() {
     this.multipleSelectAPIRFrom = [];
     this.multipleSelectAPIRTo = [];
-    $('#dialog-apir').dialog('close');
+    this.modal.close();    
   }
 
   changed(event) {

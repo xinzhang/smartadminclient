@@ -26,6 +26,7 @@ import {ValidatorsModule} from '../shared/validators/validators.module';
 import {AgGridModule} from 'ag-grid-ng2/main';
 
 // import {DataTableModule} from '../shared/datatable/datatable.module';
+import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 // Create config options (see ILocalStorageServiceConfigOptions) for deets:
 let localStorageServiceConfig = {
@@ -46,7 +47,8 @@ let localStorageServiceConfig = {
     ValidatorsModule,  
     //DataTableModule,  
     FormsModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    Ng2Bs3ModalModule
   ],
   declarations: [
       CorpActionAddComponent, CorpActionDetailComponent, CorpActionListComponent, CorpActionOfflineListComponent,

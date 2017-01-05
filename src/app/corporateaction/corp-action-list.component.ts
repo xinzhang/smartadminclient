@@ -7,6 +7,7 @@ import { Animations } from '../shared/animations';
 import { GridOptions } from 'ag-grid/main';
 
 import { DatatableComponent } from '../shared/ui/datatable/datatable.component';
+import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 @Component({
   selector: 'corp-action-list',
@@ -19,14 +20,19 @@ import { DatatableComponent } from '../shared/ui/datatable/datatable.component';
 export class CorpActionListComponent {
 
   clientCodes = [];
+  comments = [];
 
   selectedClientCode = "MLC";
   selectedType = 'current'
 
-  constructor(private staticDataService: StaticDataService) {
+  currentResponseID = 0;
+  newNote = "";
+
+  constructor(private staticDataService: StaticDataService, private corporateActionService: CorporateActionService) {
   }
 
-  @ViewChild(DatatableComponent) dt:DatatableComponent; 
+  @ViewChild(DatatableComponent) dt: DatatableComponent;
+  @ViewChild('modal') modal: ModalComponent;
 
   ngOnInit() {
     this.staticDataService.getPortalClient()
@@ -39,11 +45,11 @@ export class CorpActionListComponent {
   }
 
   setClientCode($event: any) {
-    this.selectedClientCode = $event.target.value;    
+    this.selectedClientCode = $event.target.value;
     this.dt.refreshData('api/corporateactionresponse/' + this.selectedClientCode + "/" + this.selectedType);
   }
 
-  viewStatus(type:string) {
+  viewStatus(type: string) {
     this.selectedType = type;
     this.dt.refreshData('api/corporateactionresponse/' + this.selectedClientCode + '/' + this.selectedType);
   }
@@ -72,9 +78,9 @@ export class CorpActionListComponent {
       {
         "targets": -1,
         "data": null,
-        "defaultContent": 
-             '<button class="btn-view" type="button">View</button>'
-            //`<button type="button" saJquiDialogLauncher="#dialog-detail" class="btn btn-info">View</button>`
+        "defaultContent":
+        '<button class="btn-view" type="button">View</button>'
+        //`<button type="button" saJquiDialogLauncher="#dialog-detail" class="btn btn-info">View</button>`
       }
     ],
     "order": [[1, 'asc']]
@@ -117,10 +123,29 @@ export class CorpActionListComponent {
             </tbody>
         </table>`
   }
-  
+
   public onBtnViewClicked(data) {
-    console.log('this is exposed');
-    console.log(data.ID);
+    this.currentResponseID = data.ResponseID;
+    this.corporateActionService.getCorpActionComments(data.ResponseID).subscribe(x => this.comments = x);
+    this.modal.open();
+  }
+
+  closed() {
+  }
+
+  dismissed() {
+  }
+
+  opened() {
+    this.newNote = "";
+  }
+
+  public addNote() {
+    this.corporateActionService.addCorpActionComments(this.currentResponseID, this.newNote)
+      .subscribe(x => {
+        this.comments.splice(0, 0, x);
+        this.newNote = "";
+      });
   }
 
 }

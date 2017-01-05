@@ -34,18 +34,15 @@
             <label class="col-sm-2 control-lable">Due Date:</label>
             <div class="col-sm-9">
                 <div class="input-group">
-                    <input type="text" name="dueDate" placeholder="Select a due date" class="form-control datepicker" 
-                        validateDueDate required
-                        #dueDate="ngModel" [ngModel]="corporateAction.DueDate"
-                        [(ngModel)]="corporateAction.DueDate" 
-                        [saUiDatepicker]="{
+                    <input type="text" name="dueDate" placeholder="Select a due date" class="form-control datepicker" validateDueDate required
+                        #dueDate="ngModel" [ngModel]="corporateAction.DueDate" [(ngModel)]="corporateAction.DueDate" [saUiDatepicker]="{
                             dateFormat: 'dd/mm/yy'
                             }">
                     <!--<span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
                     format as (dd/mm/yyyy)
                 </div>
                 <div class="">
-                        <small [hidden]="dueDate.valid || (dueDate.pristine && !f.submitted)" class="text-danger">
+                    <small [hidden]="dueDate.valid || (dueDate.pristine && !f.submitted)" class="text-danger">
                             Due date has to be today or after today
                         </small>
                 </div>
@@ -92,11 +89,10 @@
             <div class="col-sm-6">
                 <input type="text" class="form-control" name="apircodes" [(ngModel)]="currentAPIR" placeholder="Enter the APIR" [saJquiAutocomplete]="ajaxAPIRAutocompleteOptions"
                     #apirCodeInput (keyup.enter)="addAPIR()" />
-
                 <span (click)="addAPIR()" class="glyphicon glyphicon-plus form-control-feedback"></span>
             </div>
             <div class="col-sm-4">
-                <button type="button" saJquiDialogLauncher="#dialog-apir" class="btn btn-info"> Select APIR </button>
+                <button type="button" class="btn btn-info" (click)="modal.open()"> Select APIR </button>
             </div>
         </div>
 
@@ -154,67 +150,55 @@
     </form>
 
     <simple-notifications [options]="options" (onDestroy)="onDestroy($event)"></simple-notifications>
-
-    <!--<input auto-complete [(ngModel)]="myData" [source]="fruits" />-->
-
 </div>
 
-<!-- ui-dialog -->
-<div id="dialog-apir" [saJquiDialog]="{
-      minWidth: 800,
-      minHeight: 520,
-      autoOpen: false
-    }">
 
-    <!-- dialog header // removing on compile-->
-    <div data-dialog-title="">
-        <div class="widget-header">
-            <h4>APIR</h4>
-        </div>
-    </div>
+<modal #modal cssClass="width:800px;">
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">Select APIR</h4>
+    </modal-header>
 
-    <div class="containr">
-        <div class="row">
-            <div class="col-md-8">
-                Keywords: <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
-                <button class="btn btn-default" (click)="search(searchBox.value)">Search</button>
+    <modal-body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    Keywords: <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+                    <button class="btn btn-default" (click)="search(searchBox.value)">Search</button>
+                </div>
             </div>
-        </div>
 
-        <div class="row top10">
-            <div class="col-sm-7">
-                <div class="form-group">
-                    <select #multiSelectAPIRInputLeft multiple="multiple" id="selectFrom" class="form-control custom-scroll" style="height:400px"
-                        title="">                                                
+            <div class="row top10">
+                <div class="col-sm-7">
+                    <div class="form-group">
+                        <select #multiSelectAPIRInputLeft multiple="multiple" id="selectFrom" class="form-control custom-scroll" style="height:400px"
+                            title="">                                                
                         <option *ngFor="let apir of multipleSelectAPIRFrom" value="{{apir.Code}}">{{apir.Code}} - {{apir.Name}}</option>
                     </select>
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-sm-1">
-                <button (click)="moveSelectionToRight()" class="btn btn-default"> <i class="glyphicon glyphicon-arrow-right"></i> </button>
-                <br />
-                <br />
-                <button (click)="moveSelectionToLeft()" class="btn btn-default"> <i class="glyphicon glyphicon-arrow-left"></i> </button>
-            </div>
+                <div class="col-sm-1">
+                    <button (click)="moveSelectionToRight()" class="btn btn-default"> <i class="glyphicon glyphicon-arrow-right"></i> </button>
+                    <br />
+                    <br />
+                    <button (click)="moveSelectionToLeft()" class="btn btn-default"> <i class="glyphicon glyphicon-arrow-left"></i> </button>
+                </div>
 
-            <div class="col-sm-4">
-                <div class="form-group">
-                    <select #multiSelectAPIRInputRight multiple="multiple" id="selectTo" class="form-control custom-scroll" style="height:400px"
-                        title="">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <select #multiSelectAPIRInputRight multiple="multiple" id="selectTo" class="form-control custom-scroll" style="height:400px"
+                            title="">
                         <option *ngFor="let apir of multipleSelectAPIRTo" value="{{apir.Code}}">{{apir.Code}}</option>
                     </select>
+                    </div>
                 </div>
             </div>
         </div>
+    </modal-body>
 
-        <div class="row">
-            <div class="col-md-4 col-md-offset-8">
-                <button (click)="addMultiSelectedAPIR()" class="btn btn-default">Add</button>
-                <button (click)="closeDialog()" class="btn btn-default">Cancel</button>
-            </div>
-        </div>
-
-    </div>
-
-</div>
+    <modal-footer [show-default-buttons]="false">
+        <button (click)="addMultiSelectedAPIR()" class="btn btn-default">Add</button>
+        <button (click)="closeDialog()" class="btn btn-default">Cancel</button>
+    </modal-footer>
+    
+</modal>

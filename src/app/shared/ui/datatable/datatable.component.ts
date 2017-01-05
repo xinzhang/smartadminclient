@@ -128,8 +128,8 @@ export class DatatableComponent implements OnInit {
     element.on('click', '.btn-view', function (e) {
         var tr = $(this).closest('tr');
         var row = _dataTable.row( tr );
-        var data = row.data();
-        //$( 'dialog-detail' ).dialog( "open" );
+        var data = row.data();         
+               
         self.btnViewClicked.emit(data);
     } );
 

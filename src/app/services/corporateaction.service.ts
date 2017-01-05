@@ -48,6 +48,23 @@ export class CorporateActionService {
             .catch(this.handleError);
     }
 
+    getCorpActionComments(responseID:number) : Observable<any> {        
+        return this.http.get(this.corpActionUrl + "/comment/" + responseID)
+            .map( res => res.json())
+            .catch(this.handleError);
+    }
+
+    addCorpActionComments(responseID:number, comment:string) : Observable<any> {
+
+        let data = JSON.stringify(comment);
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers:headers});
+
+        return this.http.post(this.corpActionUrl+"/comment/" + responseID, comment, options)
+            .map( resp => resp.json())
+            .catch(this.handleError);
+    }
+
     handleError(error: Response) {
         console.log(error);
         return Observable.throw(error.statusText || 'Server error');

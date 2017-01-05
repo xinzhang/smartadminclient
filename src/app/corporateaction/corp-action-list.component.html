@@ -7,10 +7,8 @@
                 <span class="widget-icon"><i class="glyphicon glyphicon-stats txt-color-darken"></i></span>
                 <h2>Corporate Actions</h2>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <label class="">Client Code:</label>                        
-                <select class="" name="client-code" id="client-code"
-                    [ngModel]="selectedClientCode" 
-                    (change)="setClientCode($event)" >
+                <label class="">Client Code:</label>
+                <select class="" name="client-code" id="client-code" [ngModel]="selectedClientCode" (change)="setClientCode($event)">
                     <option value="" disabled selected>Select ...</option>
                     <option *ngFor="let c of clientCodes" value="{{c}}">{{c}}</option>
                     <option value="AMQ">Amq</option>
@@ -60,13 +58,13 @@
                                         <!-- widget content -->
                                         <div class="widget-body no-padding" data-sparkline-container="">
 
-                                            <sa-datatable [options]="options" [detailsFormat]="detailsFormat" (btnViewClicked)="onBtnViewClicked($event)"
-                                                tableClass="display projects-table table table-striped table-bordered table-hover" width="100%">
+                                            <sa-datatable [options]="options" [detailsFormat]="detailsFormat" (btnViewClicked)="onBtnViewClicked($event)" tableClass="display projects-table table table-striped table-bordered table-hover"
+                                                width="100%">
                                                 <thead>
                                                     <tr>
                                                         <th></th>
                                                         <th>Event Type</th>
-                                                        <th><i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i> Due Date
+                                                        <th><i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>                                                            Due Date
                                                         </th>
                                                         <th>Reference</th>
                                                         <th>Subject</th>
@@ -97,30 +95,47 @@
     </div>
 </div>
 
-<button type="button" saJquiDialogLauncher="#dialog-detail" class="btn btn-info">Test</button>
+<modal (onClose)="closed()" (onDismiss)="dismissed()" (onOpen)="opened()" #modal>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">Comments</h4>
+    </modal-header>
 
-<!-- ui-dialog -->
-<div id="dialog-detail" [saJquiDialog]="{
-      minWidth: 800,
-      minHeight: 520,
-      autoOpen: false
-    }">
+    <modal-body>
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#comment">Comment</a></li>
+            <li><a data-toggle="tab" href="#document">Documents</a></li>
+        </ul>
 
-    <!-- dialog header // removing on compile-->
-    <div data-dialog-title="">
-        <div class="widget-header">
-            <h4>Comments</h4>
-        </div>
-    </div>
+        <div class="tab-content">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
+            <div id="comment" class="tab-pane active fade">
+                <ul class="thumbnails">
+                    <li *ngFor="let n of comments">
+                        <div class="row session">
+                            <span class="col-md-2">{{n.Added | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+                            <span class="col-md-2">{{n.AddedBy}}</span>
+                            <span class="col-md-5">{{n.Comment}}</span>
+                            <span class="col-md-1">                                
+                            </span>
+                        </div>
+                    </li>
+                </ul>
 
+                <div id="addnote" style="width: 100%; position: fixed; bottom: 0px">
+                    <input type="text" class="span9" name="newNote" valign="bottom" [(ngModel)]="newNote" placeholder="Add your note here" (keyup.enter)="addNote()" />
+                    <button class="btn btn-default" valign="top" style="position:absolute;top:0px;padding:1px;width:60px;height:25px;" (click)="addNote()">Add</button>
+                </div>
             </div>
+
+            <div id="document" class="tab-pane fade">
+                <div class="container">
+                    To be done...
+                </div>
+            </div>
+
         </div>
 
-    
-    </div>
+    </modal-body>
 
-</div>
+    <modal-footer [show-default-buttons]="false"></modal-footer>
+</modal>

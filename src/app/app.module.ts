@@ -6,11 +6,7 @@ import {AppComponent} from './app.component';
 
 import {AboutComponent} from './about/about.component';
 
-
 import {CorpActionModule} from './corporateaction/corp-action.module';
-// import {CorpActionAddComponent} from './corporateaction/corp-action-add.component';
-// import {CorpActionDetailComponent} from './corporateaction/corp-action-detail.component';
-// import {CorpActionListComponent} from './corporateaction/corp-action-list.component';
 
 import {AssetComponent} from './datasetup/asset.component';
 import {IssuerComponent} from './datasetup/issuer.component';
