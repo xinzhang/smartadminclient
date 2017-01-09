@@ -58,11 +58,12 @@
                                         <!-- widget content -->
                                         <div class="widget-body no-padding" data-sparkline-container="">
 
-                                            <sa-datatable [options]="options" [detailsFormat]="detailsFormat" (btnViewClicked)="onBtnViewClicked($event)" tableClass="display projects-table table table-striped table-bordered table-hover"
+                                            <sa-datatable [options]="options" [detailsFormat]="detailsFormat" (btnViewClicked)="onBtnViewClicked($event)" 
+                                                tableClass="display projects-table table table-striped table-bordered table-hover"
                                                 width="100%">
                                                 <thead>
                                                     <tr>
-                                                        <th></th>
+                                                        <!--<th></th>-->
                                                         <th>Event Type</th>
                                                         <th><i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>                                                            Due Date
                                                         </th>
@@ -88,7 +89,6 @@
                         <!-- end row -->
                     </sa-widgets-grid>
                     <!-- end widget grid -->
-
                 </div>
             </div>
         </sa-widget>
@@ -97,40 +97,80 @@
 
 <modal (onClose)="closed()" (onDismiss)="dismissed()" (onOpen)="opened()" #modal>
     <modal-header [show-close]="true">
-        <h4 class="modal-title">Comments</h4>
+        <h4 class="modal-title">View</h4>
     </modal-header>
 
     <modal-body>
         <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#comment">Comment</a></li>
+            <li class="active"><a data-toggle="tab" href="#status">Status</a></li>
+            <li><a data-toggle="tab" href="#comment">Comment</a></li>
             <li><a data-toggle="tab" href="#document">Documents</a></li>
+            <li><a data-toggle="tab" href="#assets">Assets</a></li>
         </ul>
 
         <div class="tab-content">
+            <div id="status" class="tab-pane active fade">
+                
+                <form #f="ngForm" class="form-horizontal container" novalidate (ngSubmit)="onSubmit(f)" style="width:100%">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-lable">Status:</label>
+                        <div class="col-sm-9">                            
+                            <select class="form-control" name="status" id="status" [(ngModel)]="selectedStatus">
+                                <option value="" disabled selected>Select ...</option>
+                                <option *ngFor="let c of status" value="{{c}}">{{c}}</option>
+                            </select>                            
+                        </div>
+                    </div>
 
-            <div id="comment" class="tab-pane active fade">
-                <ul class="thumbnails">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Status Comment:</label>
+                        <div class="col-sm-9">
+                            <textarea rows="4" class="form-control" name="statusComment" [(ngModel)]="selectedStatusComment" required>
+                            </textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit" class="btn btn-default">Update</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div id="comment" class="tab-pane fade">                
+                <ul class="list-unstyled custom-scroll">
                     <li *ngFor="let n of comments">
                         <div class="row session">
-                            <span class="col-md-2">{{n.Added | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
+                            <span class="col-md-4">{{n.Added | date: 'yyyy-MM-dd HH:mm:ss'}}</span>
                             <span class="col-md-2">{{n.AddedBy}}</span>
-                            <span class="col-md-5">{{n.Comment}}</span>
-                            <span class="col-md-1">                                
-                            </span>
+                            <span class="col-md-6">{{n.Comment}}</span>
                         </div>
                     </li>
                 </ul>
 
-                <div id="addnote" style="width: 100%; position: fixed; bottom: 0px">
-                    <input type="text" class="span9" name="newNote" valign="bottom" [(ngModel)]="newNote" placeholder="Add your note here" (keyup.enter)="addNote()" />
-                    <button class="btn btn-default" valign="top" style="position:absolute;top:0px;padding:1px;width:60px;height:25px;" (click)="addNote()">Add</button>
+                <div id="addnote" style="width: 100%; position: fixed; bottom: 5px; left:5px">
+                    <button class="btn btn-default" valign="top"  style="height:25px" (click)="addNote()">Add</button>
+                    <input type="text" class="col-md-10" name="newNote" valign="bottom" placeholder="Add your note here" [(ngModel)]="quickNote" (keyup.enter)="addNote()" #newNote />                    
                 </div>
             </div>
 
-            <div id="document" class="tab-pane fade">
-                <div class="container">
-                    To be done...
-                </div>
+            <div id="document" class="tab-pane fade custom-scroll">                
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let n of documents">
+                        <a href={{n}}>{{getLinkFileName(n)}}</a>
+                    </li>                
+                </ul>
+            </div>
+
+            <div id="assets" class="tab-pane fade custom-scroll">
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let apir of selectedAPIRCodes; let i=index">
+                        {{apir}} - {{selectedAPIRLabels[i]}}
+                    </li>
+                </ul>
             </div>
 
         </div>
@@ -138,4 +178,5 @@
     </modal-body>
 
     <modal-footer [show-default-buttons]="false"></modal-footer>
+    
 </modal>

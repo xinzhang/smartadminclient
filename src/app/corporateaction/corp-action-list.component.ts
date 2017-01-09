@@ -21,18 +21,28 @@ export class CorpActionListComponent {
 
   clientCodes = [];
   comments = [];
+  documents = [];
 
   selectedClientCode = "MLC";
   selectedType = 'current'
 
   currentResponseID = 0;
-  newNote = "";
+  
+  status = ["Open", "Pend", "Respond", "Closed - No Action", "Closed - Action"]
+  selectedStatus = "";
+  selectedStatusComment = "";
+
+  selectedAPIRCodes = [];
+  selectedAPIRLabels = [];
+
+  quickNote:string = "";
 
   constructor(private staticDataService: StaticDataService, private corporateActionService: CorporateActionService) {
   }
 
   @ViewChild(DatatableComponent) dt: DatatableComponent;
   @ViewChild('modal') modal: ModalComponent;
+  @ViewChild('newNote') newNote; 
 
   ngOnInit() {
     this.staticDataService.getPortalClient()
@@ -61,12 +71,12 @@ export class CorpActionListComponent {
     },
     "iDisplayLength": 5,
     "columns": [
-      {
-        "class": 'details-control',
-        "orderable": false,
-        "data": null,
-        "defaultContent": ''
-      },
+      // {
+      //   "class": 'details-control',
+      //   "orderable": false,
+      //   "data": null,
+      //   "defaultContent": ''
+      // },
       { "data": "EventType" },
       { "data": "DueDate" },
       { "data": "Reference" },
@@ -80,7 +90,6 @@ export class CorpActionListComponent {
         "data": null,
         "defaultContent":
         '<button class="btn-view" type="button">View</button>'
-        //`<button type="button" saJquiDialogLauncher="#dialog-detail" class="btn btn-info">View</button>`
       }
     ],
     "order": [[1, 'asc']]
@@ -126,7 +135,12 @@ export class CorpActionListComponent {
 
   public onBtnViewClicked(data) {
     this.currentResponseID = data.ResponseID;
+    this.selectedStatus = data.Status;
+    this.selectedAPIRCodes = data.APIRCodes;
+    this.selectedAPIRLabels = data.APIRLabels;
     this.corporateActionService.getCorpActionComments(data.ResponseID).subscribe(x => this.comments = x);
+    this.corporateActionService.getCorpActionDocuments(data.Reference).subscribe(x => this.documents = x);
+
     this.modal.open();
   }
 
@@ -136,16 +150,31 @@ export class CorpActionListComponent {
   dismissed() {
   }
 
-  opened() {
-    this.newNote = "";
+  opened() {    
   }
 
-  public addNote() {
-    this.corporateActionService.addCorpActionComments(this.currentResponseID, this.newNote)
+  addNote() {
+    
+    this.corporateActionService.addCorpActionComments(this.currentResponseID, this.quickNote)
       .subscribe(x => {
         this.comments.splice(0, 0, x);
-        this.newNote = "";
+        this.newNote.nativeElement.value = "";        
       });
+    
+  }
+
+  onSubmit(f) {    
+    this.corporateActionService.updateCorpActionStatus(this.currentResponseID, this.selectedStatus, this.selectedStatusComment)
+      .subscribe(x => {
+        this.comments.splice(0, 0, x);
+        this.selectedStatusComment = "";
+
+        this.modal.dismiss();
+      });
+  }
+
+  getLinkFileName(link:string) : string{
+    return link.substring(link.lastIndexOf('/')+1);
   }
 
 }

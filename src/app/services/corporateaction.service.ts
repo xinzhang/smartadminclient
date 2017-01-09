@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 
 import {CorporateActionModel} from '../models/corporateactions.model';
+import {CorporateActionStatusModel} from '../models/corporateaction-status.model';
 
 @Injectable()
 export class CorporateActionService {
@@ -60,7 +61,19 @@ export class CorporateActionService {
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers:headers});
 
-        return this.http.post(this.corpActionUrl+"/comment/" + responseID, comment, options)
+        return this.http.post(this.corpActionUrl+"/comment/" + responseID, data, options)
+            .map( resp => resp.json())
+            .catch(this.handleError);
+    }
+
+     updateCorpActionStatus(responseID:number, status:string, comment:string) : Observable<any> {
+        let statusObj = new CorporateActionStatusModel(responseID, status, comment);
+        let data = JSON.stringify(statusObj);
+
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers:headers});
+
+        return this.http.post(this.corpActionUrl+"/status/", data, options)
             .map( resp => resp.json())
             .catch(this.handleError);
     }
