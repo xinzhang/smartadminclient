@@ -17,6 +17,7 @@ import {TestComponent} from './test.component';
 export const routes: Routes = [
     //{path: '', component: CorpActionComponent},
     {path: 'add', component: CorpActionAddComponent},
+    {path: 'edit/:refno', component: CorpActionAddComponent},
     {path: 'add-offline/:offlineReference', component: CorpActionAddComponent},
     {path: 'list', component: CorpActionListComponent},
     {path: 'confirm/:reference', component: CorpActionConfirmComponent},

@@ -37,7 +37,8 @@ declare var $: any;
 export class CorpActionAddComponent implements OnInit, OnDestroy {
 
   //configuration
-  allowHTMLEdit = true;
+  editMode:boolean = false;
+  
   numberOfDaysToDue = 14;
   subscription: Subscription;
 
@@ -119,7 +120,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     minLength: 2,
     select: (event, ui) => {
       this.currentAPIR = ui.item.value;
-      this.currentAPIRLabel = ui.item.value + " - " + ui.item.name;
+      this.currentAPIRLabel = ui.item.name;
     }
   };
 
@@ -148,20 +149,18 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     let offlineReference = this.route.snapshot.params["offlineReference"];
     if (offlineReference != null) {
       this.getCorpActionFromOffline(offlineReference);
-    } else {
+    } 
+
+    //user reference for detail
+    let reference = this.route.snapshot.params["refno"];
+    if (reference != null) {
+      this.editMode = true; 
+      this.getCorpActionByReference(reference);
+    } 
+
+    if (offlineReference == null && reference == null ) {
       this.getReference();
     }
-
-    //user observable
-    // this.route.params.subscribe(params => {
-    //   let offlineReference = params['offlineReference'];
-    //   console.log(offlineReference);
-    //   if (offlineReference != null) {
-    //     this.getCorpActionFromOffline(offlineReference);
-    //   } else {
-    //     this.getReference();
-    //   }
-    // });
 
     //triggered after two minutes when user really start working on it
     let timer = TimerObservable.create(120 * 1000, 1000 * 30);
@@ -170,31 +169,6 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
       //      there is no need to save everything right way.
       this.saveDraftCorporateAction();
     });
-
-    // this.observableAssets = this.searchTerms
-    //         .debounceTime(300)
-    //         .distinctUntilChanged()
-    //         .switchMap( term =>                
-    //           term 
-    //             ? this.staticDataService.searchAssets(term)
-    //             : Observable.of<any>([])
-    //         )
-    //         .catch(error => {
-    //             console.log(error);
-    //             return Observable.of<any>([]);
-    //         })
-
-    // this.multipleSelectAPIRFrom = this.searchTerms
-    //   .debounceTime(300)
-    //   .distinctUntilChanged()
-    //   .switchMap(term => term
-    //     ? this.staticDataService.searchAssets(term)
-    //     : Observable.of<any>([]))
-    //   .catch(error => {
-    //     console.log(error);
-    //     return Observable.of<any>([]);
-    //   });
-
   }
 
   ngOnDestroy() {
@@ -330,6 +304,21 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
       console.log(this.corporateAction);
     }
 
+  }
+
+  getCorpActionByReference(reference: string) {
+    this.corporateActionService.getCorpActionDetail(reference).subscribe( x => {
+      this.corporateAction.Reference = x.Reference;
+      this.corporateAction.DueDate = x.DueDate;
+      this.corporateAction.IssuerCode = x.IssuerCode;
+      this.corporateAction.IssuerName = x.IssuerName;
+      this.corporateAction.EventType = x.EventType;
+      this.corporateAction.Subject = x.Subject;
+      this.corporateAction.Description = x.Description;
+
+      this.corporateAction.APIRCodes = x.APIRCodes;
+      this.corporateAction.APIRLabels = x.APIRLabels;      
+    });
   }
 
   moveSelectionToRight() {

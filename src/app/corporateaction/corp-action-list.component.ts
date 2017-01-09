@@ -9,6 +9,8 @@ import { GridOptions } from 'ag-grid/main';
 import { DatatableComponent } from '../shared/ui/datatable/datatable.component';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
+import {Router} from '@angular/router';
+
 @Component({
   selector: 'corp-action-list',
   styleUrls: ['./corp-action.component.css'],
@@ -37,7 +39,7 @@ export class CorpActionListComponent {
 
   quickNote:string = "";
 
-  constructor(private staticDataService: StaticDataService, private corporateActionService: CorporateActionService) {
+  constructor(private staticDataService: StaticDataService, private corporateActionService: CorporateActionService, private router: Router) {
   }
 
   @ViewChild(DatatableComponent) dt: DatatableComponent;
@@ -89,7 +91,7 @@ export class CorpActionListComponent {
         "targets": -1,
         "data": null,
         "defaultContent":
-        '<button class="btn-view" type="button">View</button>'
+        '<button class="btn-view" type="button">View</button><button class="btn-edit" type="button">Edit</button>'
       }
     ],
     "order": [[1, 'asc']]
@@ -142,6 +144,12 @@ export class CorpActionListComponent {
     this.corporateActionService.getCorpActionDocuments(data.Reference).subscribe(x => this.documents = x);
 
     this.modal.open();
+  }
+
+  public onBtnEditClicked(data) {
+    console.log(data.Reference);
+    //<a [routerLink]="['/corporateaction/add-offline', c.Reference]" class="">Continue</a>
+    this.router.navigateByUrl('/corporateaction/edit/' + data.Reference);
   }
 
   closed() {

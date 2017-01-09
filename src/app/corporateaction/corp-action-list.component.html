@@ -58,7 +58,9 @@
                                         <!-- widget content -->
                                         <div class="widget-body no-padding" data-sparkline-container="">
 
-                                            <sa-datatable [options]="options" [detailsFormat]="detailsFormat" (btnViewClicked)="onBtnViewClicked($event)" 
+                                            <sa-datatable [options]="options" [detailsFormat]="detailsFormat" 
+                                                (btnViewClicked)="onBtnViewClicked($event)" 
+                                                (btnEditClicked)="onBtnEditClicked($event)"
                                                 tableClass="display projects-table table table-striped table-bordered table-hover"
                                                 width="100%">
                                                 <thead>
@@ -178,5 +180,5 @@
     </modal-body>
 
     <modal-footer [show-default-buttons]="false"></modal-footer>
-    
+
 </modal>

@@ -7,8 +7,8 @@
         <strong>Oh!</strong> {{errorMessage}}
     </div>
     <hr />
-     <ul>
-       <li *ngFor="let evt of eventTypes">
+     <ul class="list-group">
+       <li *ngFor="let evt of eventTypes" class="lsit-group-item">
            {{evt}} <span (click)="removeEventType(evt)"class="glyphicon glyphicon-remove"></span>
        </li>
      </ul>     

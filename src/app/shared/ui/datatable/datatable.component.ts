@@ -26,6 +26,7 @@ export class DatatableComponent implements OnInit {
   @Input() public width: string = '100%';
 
   @Output() btnViewClicked = new EventEmitter();
+  @Output() btnEditClicked = new EventEmitter();
 
   dataTableRef: any;
 
@@ -131,6 +132,14 @@ export class DatatableComponent implements OnInit {
         var data = row.data();         
                
         self.btnViewClicked.emit(data);
+    } );
+
+    element.on('click', '.btn-edit', function (e) {
+        var tr = $(this).closest('tr');
+        var row = _dataTable.row( tr );
+        var data = row.data();         
+               
+        self.btnEditClicked.emit(data);
     } );
 
   }
