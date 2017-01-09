@@ -99,7 +99,7 @@
         <div>
             <label class="col-sm-2"></label>
             <div class="col-sm-10">
-                <ul class="tag">
+                <ul class="list-unstyled small-scrollbar">
                     <li *ngFor="let apir of corporateAction.APIRCodes;let i=index" class="tag">
                         {{apir}} - {{ corporateAction.APIRLabels[i]}} <span (click)="removeAPIR(apir)" class="glyphicon glyphicon-remove"></span>
                     </li>
@@ -151,13 +151,13 @@
 </div>
 
 
-<modal #modal cssClass="largeModal">
+<modal #modal>
     <modal-header [show-close]="true">
         <h4 class="modal-title">Select APIR</h4>
     </modal-header>
 
     <modal-body>
-        <div class="container">
+        <div>
             <div class="row">
                 <div class="col-md-8">
                     Keywords: <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />

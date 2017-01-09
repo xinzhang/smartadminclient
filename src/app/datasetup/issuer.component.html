@@ -1,7 +1,9 @@
-<div id="search-component">
+<div class="container">
     <h4>Issuer Search</h4>
-    <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
-    <div class="scrollbar">
+    <div class="row">
+        <input class="form-control col-md-6" #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+    </div>
+    <div class="row scrollbar">
         <div *ngFor="let issuer of issuers | async" class="search-result">
             <span>{{issuer.Code}}</span> <span>{{issuer.Name}}</span>
         </div>

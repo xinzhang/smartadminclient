@@ -1,14 +1,14 @@
 
 <div class="container">
     Event Types:
-    <input type="text" class="" [(ngModel)]="currentEventType" />
+    <input type="text" [(ngModel)]="currentEventType" />
     <button class="btn btn-default" (click)="addEventType()">Add</button>
     <div class="alert alert-danger" role="alert" *ngIf="errorMessage != ''">
         <strong>Oh!</strong> {{errorMessage}}
     </div>
     <hr />
      <ul class="list-group">
-       <li *ngFor="let evt of eventTypes" class="lsit-group-item">
+       <li *ngFor="let evt of eventTypes" class="list-group-item">
            {{evt}} <span (click)="removeEventType(evt)"class="glyphicon glyphicon-remove"></span>
        </li>
      </ul>     

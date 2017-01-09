@@ -1,12 +1,13 @@
 <div class="container">
-  <div class="row">
-    <h3>Asset Search</h3>
-    <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
-    <div class="scrollbar">
+  <div>
+    <h3>Asset Search</h3>    
+    <div class="row">
+      <input class="form-control col-md-6" #searchBox id="search-box" (keyup)="search(searchBox.value)"/>
+    </div>
+    <div class="row scrollbar">
       <div *ngFor="let asset of assets | async" class="search-result">
         <span>{{asset.Code}}</span> <span>{{asset.Name}}</span>
       </div>
     </div>
-
-  </div>
+  </div>  
 </div>
