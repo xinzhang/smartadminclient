@@ -21,8 +21,9 @@
     float:left;
     width:600px;
     overflow-y: auto;    
-    max-height: 200px;
+    max-height: 100px;
     margin-top: 5px;    
+    margin-bottom: 5px;
 }
 
 .ng-valid[required], .ng-valid.required  {

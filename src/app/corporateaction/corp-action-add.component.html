@@ -35,8 +35,10 @@
             <div class="col-sm-9">
                 <div class="input-group">
                     <input type="text" name="dueDate" placeholder="Select a due date" class="form-control datepicker" validateDueDate required
-                        #dueDate="ngModel" [ngModel]="corporateAction.DueDate" [(ngModel)]="corporateAction.DueDate" [saUiDatepicker]="{
-                            dateFormat: 'dd/mm/yy'
+                        #dueDate="ngModel" [ngModel]="corporateAction.DueDate"
+                        (onSelectDate)="dueDateChanged($event)" 
+                        [saUiDatepicker]="{
+                            dateFormat: 'dd/mm/yy'                            
                             }">
                     <!--<span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
                     format as (dd/mm/yyyy)
@@ -110,7 +112,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-lable">Details:</label>
             <div class="col-sm-10">
-                <div class="summernote" [summernote]="{height: 180}" [codeText]="corporateAction.Description" (codeChange)="changed($event)"></div>
+                <div class="summernote" [summernote]="{height: 180}" [codeText]="corporateAction.Description" (codeChange)="descriptionChanged($event)" #summernote></div>
             </div>
         </div>
 
@@ -137,11 +139,11 @@
         <div class="form-gorup">
             <label class="col-sm-2 control-lable"></label>
             <div class="col-sm-7">
-                <button type="submit" [disabled]="f.invalid">Submit</button>
+                <button type="submit" [disabled]="f.invalid || submitting">Submit</button>
             </div>
             <div class="col-sm-3" *ngIf="!editMode">
                 <button type="button" (click)="saveDraftCorporateAction()">Save Draft</button>
-                <span *ngIf="inProgress"><i class="glyphicon glyphicon-repeat"></i> Saving Draft ...</span>
+                <span *ngIf="inProgress"><i class="glyphicon glyphicon-repeat"></i> Saving Draft...</span>
             </div>
         </div>
 
@@ -184,8 +186,7 @@
 
                 <div class="col-sm-4">
                     <div class="form-group">
-                        <select #multiSelectAPIRInputRight multiple="multiple" id="selectTo" class="form-control custom-scroll" style="height:400px"
-                            title="">
+                        <select #multiSelectAPIRInputRight multiple="multiple" id="selectTo" class="form-control custom-scroll" style="height:400px" title="">
                         <option *ngFor="let apir of multipleSelectAPIRTo" value="{{apir.Code}}">{{apir.Code}}</option>
                     </select>
                     </div>

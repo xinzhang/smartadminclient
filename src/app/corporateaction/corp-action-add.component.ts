@@ -66,6 +66,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
 
   @ViewChild('fileUploader') fileUploader;
   @ViewChild('modal') modal: ModalComponent;
+  @ViewChild('summernote') summernote: any;
 
   ajaxIssuerAutocompleteOptions = {
     source: (request, response) => {
@@ -171,6 +172,11 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngAfterViewInit() {
+    // Component views are initialized
+    this.corporateAction.Description = "ACE";
+  }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
@@ -223,24 +229,36 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     this.corporateAction.ClientCodes.push($event.target.value);
   }
 
+  dueDateChanged($event: any) {
+    this.corporateAction.DueDate = $event.value;        
+  }
+
   public currentAsset = '';
   public assets = [];
   public filteredAssets = [];
   public elementRef;
 
-  onSubmit(f) {
-    console.log(f);
+  submitting = false;
+  inProgress = false;
 
+  onSubmit(f) {
+    
+    this.submitting = true;
+
+    //check the scenario that no documents (because edit doesn't allow it yet.)
+    if (this.fileUploader != null) {
     this.corporateAction.Documents = this.fileUploader.GetDocuments();
+    }
     this.corporateActionService.addCorpAction(this.corporateAction)
       .subscribe(
       values => {
-        console.log('success');
+        console.log('success');        
         this.deleteDraftCorporateAction(this.corporateAction.Reference);
         this.saved();
       },
       error => {
         console.log(error);
+        this.submitting = false;
         this.errorMessage = error;
       });
   }
@@ -248,8 +266,6 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
   removeDocument(idx: number) {
     this.corporateAction.Documents.splice(idx, 1);
   }
-
-  inProgress = false;
 
   saveDraftCorporateAction() {
     this.inProgress = true;
@@ -310,15 +326,20 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     this.corporateActionService.getCorpActionDetail(reference).subscribe( x => {
       this.corporateAction.Reference = x.Reference;
       this.corporateAction.DueDate = x.DueDate;
-      this.corporateAction.IssuerCode = x.IssuerCode;
-      this.corporateAction.IssuerName = x.IssuerName;
+      this.corporateAction.IssuerCode = x.IssuerCode;      
       this.corporateAction.EventType = x.EventType;
       this.corporateAction.Subject = x.Subject;
       this.corporateAction.Description = x.Description;
+      this.summernote.codeText = x.Description;
 
       this.corporateAction.APIRCodes = x.APIRCodes;
-      this.corporateAction.APIRLabels = x.APIRLabels;      
+      this.corporateAction.APIRLabels = x.APIRLabels;
+      this.staticDataService.searchIssuers(x.IssuerCode).subscribe( y => {
+        this.corporateAction.IssuerName = y[0].Name;
+      });
+
     });
+
   }
 
   moveSelectionToRight() {
@@ -366,7 +387,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     this.modal.close();    
   }
 
-  changed(event) {
+  descriptionChanged(event) {
     this.corporateAction.Description = event.value;
   }
 

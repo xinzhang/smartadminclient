@@ -1,4 +1,4 @@
-import {Directive, ElementRef, OnInit, Input} from '@angular/core';
+import {Directive, ElementRef, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 declare var $:any;
 
@@ -8,6 +8,7 @@ declare var $:any;
 export class UiDatepickerDirective implements OnInit {
 
   @Input() saUiDatepicker:any;
+  @Output() onSelectDate = new EventEmitter();
 
   constructor(private el:ElementRef) {
   }
@@ -22,6 +23,7 @@ export class UiDatepickerDirective implements OnInit {
         $(saUiDatepicker.minRestrict).datepicker('option', 'minDate', selectedDate);
       });
     }
+
     if (saUiDatepicker.maxRestrict) {
       onSelectCallbacks.push((selectedDate)=> {
         $(saUiDatepicker.maxRestrict).datepicker('option', 'maxDate', selectedDate);
@@ -29,21 +31,23 @@ export class UiDatepickerDirective implements OnInit {
     }
 
     //Let others know about changes to the data field
-    onSelectCallbacks.push((selectedDate) => {
-      element.triggerHandler("change");
-      console.log(selectedDate);
-      element.value = selectedDate;
+    // onSelectCallbacks.push((selectedDate) => {
+    //   element.triggerHandler("change");
+    //   console.log(selectedDate);
+    //   element.value = selectedDate;
 
-      let form = element.closest('form');
+    //   let form = element.closest('form');
 
-      if (typeof form.bootstrapValidator == 'function') {
-        try {
-          form.bootstrapValidator('revalidateField', element);
-        } catch (e) {
-          console.log(e.message)
-        }
-      }
-    });
+    //   if (typeof form.bootstrapValidator == 'function') {
+    //     try {
+    //       form.bootstrapValidator('revalidateField', element);
+    //     } catch (e) {
+    //       console.log(e.message)
+    //     }
+    //   }
+    // });
+
+    let self = this;
 
     let options = $.extend(saUiDatepicker, {
       prevText: '<i class="fa fa-chevron-left"></i>',
@@ -51,7 +55,8 @@ export class UiDatepickerDirective implements OnInit {
       onSelect: (selectedDate) =>{
         onSelectCallbacks.forEach((callback) =>{
           callback.call(callback, selectedDate)
-        })
+        })                
+        self.onSelectDate.emit(selectedDate);
       }
     });
 

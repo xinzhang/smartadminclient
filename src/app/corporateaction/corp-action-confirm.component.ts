@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {CorporateActionModel} from '../models/corporateactions.model';
 import {CorporateActionService} from '../services/corporateaction.service';
 
@@ -15,10 +16,15 @@ import {CorporateActionService} from '../services/corporateaction.service';
     </div>
   `
 })
-export class CorpActionConfirmComponent{
-    constructor(private corporateActionService:CorporateActionService){
+export class CorpActionConfirmComponent implements OnInit{
+    constructor(private corporateActionService:CorporateActionService,
+                private route: ActivatedRoute){   
+        this.reference = this.route.snapshot.params["reference"];     
     }
     
-    reference:string = "BCDF0045";
+    reference:string = "";
 
+    ngOnInit() {        
+    }
+    
 }
