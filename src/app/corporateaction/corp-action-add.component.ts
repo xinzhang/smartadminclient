@@ -229,8 +229,8 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     this.corporateAction.ClientCodes.push($event.target.value);
   }
 
-  dueDateChanged($event: any) {
-    this.corporateAction.DueDate = $event.value;        
+  dueDateChanged($dateTime: string) {
+    this.corporateAction.DueDate = $dateTime;        
   }
 
   public currentAsset = '';
@@ -406,8 +406,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     position: ['bootom', 'left']
   };
 
-  onDestroy(event) {
-    //console.log(event);
+  onDestroy(event) {    
     this.router.navigateByUrl('/corporateaction/confirm/' + this.corporateAction.Reference);
   }
 
