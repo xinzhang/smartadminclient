@@ -32,7 +32,7 @@ declare var $: any;
   providers: [CorporateActionService],  
   templateUrl: './corp-action-add.component.html',
   host: { '[@routeAnimation]': 'true' },
-  animations: Animations.page  
+  animations: Animations.page  ,  
 })
 export class CorpActionAddComponent implements OnInit, OnDestroy {
 
@@ -317,7 +317,6 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     let idx = corpactions.findIndex(x => x.Reference == reference);
     if (idx >= 0) {
       this.corporateAction = corpactions[idx];
-      console.log(this.corporateAction);
     }
 
   }
@@ -330,7 +329,9 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
       this.corporateAction.EventType = x.EventType;
       this.corporateAction.Subject = x.Subject;
       this.corporateAction.Description = x.Description;
-      this.summernote.codeText = x.Description;
+
+      //add special code for the summernote assignment
+      $(this.summernote.nativeElement).summernote('editor.pasteHTML', x.Description);
 
       this.corporateAction.APIRCodes = x.APIRCodes;
       this.corporateAction.APIRLabels = x.APIRLabels;

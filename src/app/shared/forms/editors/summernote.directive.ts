@@ -1,19 +1,17 @@
-import {Directive, ElementRef, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {Directive, ElementRef, Input, OnInit, Output, EventEmitter, OnChanges} from '@angular/core';
 
 declare var $: any;
 
 @Directive({
-  selector: '[summernote]'
+  selector: '[summernote]'  
 })
 export class SummernoteDirective implements OnInit{
 
   @Input() summernote = {};
-
   @Input() codeText = "";
   @Output() codeChange = new EventEmitter();
 
   constructor(private el: ElementRef) {
-
   }
 
   ngOnInit(){
@@ -36,6 +34,10 @@ export class SummernoteDirective implements OnInit{
       }));
 
       $(this.el.nativeElement).summernote('editor.pasteHTML', this.codeText);      
+  }
+
+  public refreshText() {
+    $(this.el.nativeElement).summernote('editor.pasteHTML', this.codeText);
   }
 
 }

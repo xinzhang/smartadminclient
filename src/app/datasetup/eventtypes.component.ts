@@ -30,7 +30,6 @@ export class EventTypesComponent implements OnInit {
                 this.currentEventType = "";
             },
             error => {
-                //console.log(JSON.stringify(<any>error));
                 this.errorMessage = error.Message;
             }
         );

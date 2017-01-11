@@ -5,11 +5,7 @@ import * as moment from 'moment';
 
 function DueDateValidatorFactory() {
     return (c: FormControl) => {
-        console.log('dudatevalidatorfactory ' + c.value);
-
         var isSameAfter = moment(c.value, "DD/MM/YYYY").isSameOrAfter(moment());
-
-        console.log('isSafeAfter ' + isSameAfter);
 
         return (isSameAfter ? null : {
             validateDueDate: {
