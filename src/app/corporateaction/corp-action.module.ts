@@ -19,7 +19,6 @@ import {TestComponent} from './test.component';
 import {UploaderComponent} from '../shared/uploader/uploader.component';
 import {FileSelectDirective} from 'ng2-file-upload';
 
-import { LocalStorageService, LOCAL_STORAGE_SERVICE_CONFIG } from 'angular-2-local-storage';
 import {SmartadminEditorsModule} from "../shared/forms/editors/smartadmin-editors.module";
 import {SimpleNotificationsModule} from 'angular2-notifications';
 import {ValidatorsModule} from '../shared/validators/validators.module';
@@ -28,14 +27,11 @@ import {AgGridModule} from 'ag-grid-ng2/main';
 // import {DataTableModule} from '../shared/datatable/datatable.module';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
-// Create config options (see ILocalStorageServiceConfigOptions) for deets:
-let localStorageServiceConfig = {
-    prefix: 'amq-ops',
-    storageType: 'localStorage'
-};
- 
+import {StorageModule} from '../localStorage/storage.module';
+
 @NgModule({
   imports: [
+    StorageModule,
     CommonModule,
     CorpActionRoutes,    
     SmartadminModule,
@@ -55,12 +51,6 @@ let localStorageServiceConfig = {
       CorpActionComponent, CorpActionConfirmComponent, 
       UploaderComponent, FileSelectDirective,
       TestComponent
-  ],
-  providers: [
-    LocalStorageService,
-        {
-            provide: LOCAL_STORAGE_SERVICE_CONFIG, useValue: localStorageServiceConfig
-        }    
-  ]
+   ]
 })
 export class CorpActionModule { }

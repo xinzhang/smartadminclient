@@ -10,6 +10,7 @@ import {SmartMenuDirective} from "./smart-menu.directive";
 import {UserModule} from "../../user/user.module";
 import {RouterModule} from "@angular/router";
 // import {ChatModule} from "../../chat/chat.module";
+import {StorageModule} from '../../../localStorage/storage.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import {RouterModule} from "@angular/router";
     RouterModule,
     I18nModule,
     UserModule,
+    StorageModule
     // ChatModule
   ],
   declarations: [
