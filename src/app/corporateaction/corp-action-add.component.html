@@ -40,11 +40,11 @@
                         [saUiDatepicker]="{
                             dateFormat: 'dd/mm/yy'                            
                             }">
-                    <!--<span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
-                    format as (dd/mm/yyyy)
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i> (dd/mm/yyyy)</span>
+                    <!--<span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->                    
                 </div>
                 <div class="">
-                    <small [hidden]="dueDate.valid || (dueDate.pristine && !f.submitted)" class="text-danger">
+                    <small [hidden]="dueDate.valid" class="text-danger">
                             Due date has to be today or after today
                         </small>
                 </div>

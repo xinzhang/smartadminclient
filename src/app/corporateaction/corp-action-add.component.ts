@@ -172,9 +172,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngAfterViewInit() {
-    // Component views are initialized
-    this.corporateAction.Description = "ACE";
+  ngAfterViewInit() {    
   }
 
   ngOnDestroy() {

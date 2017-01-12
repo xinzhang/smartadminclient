@@ -80,6 +80,7 @@ export class CorpActionListComponent {
       //   "defaultContent": ''
       // },
       { "data": "EventType" },
+      { "data": "DateTimeAdded"},
       { "data": "DueDate" },
       { "data": "Reference" },
       { "data": "Subject" },
@@ -94,7 +95,7 @@ export class CorpActionListComponent {
         '<button class="btn-view" type="button">View</button><button class="btn-edit" type="button">Edit</button>'
       }
     ],
-    "order": [[1, 'asc']]
+    "order": [[1, 'desc']]
   }
 
   public detailsFormat(d) {
