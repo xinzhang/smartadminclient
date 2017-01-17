@@ -11,6 +11,8 @@ import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import {Router} from '@angular/router';
 
+declare var $: any;
+
 @Component({
   selector: 'corp-action-list',
   styleUrls: ['./corp-action.component.css'],
@@ -20,6 +22,8 @@ import {Router} from '@angular/router';
   animations: Animations.page
 })
 export class CorpActionListComponent {
+
+  @ViewChild('summernote') summernote: any;
 
   clientCodes = [];
   comments = [];
@@ -143,6 +147,9 @@ export class CorpActionListComponent {
     this.selectedAPIRLabels = data.APIRLabels;
     this.corporateActionService.getCorpActionComments(data.ResponseID).subscribe(x => this.comments = x);
     this.corporateActionService.getCorpActionDocuments(data.Reference).subscribe(x => this.documents = x);
+
+    //add special code for the summernote assignment
+    //$(this.summernote.nativeElement).summernote('editor.pasteHTML', data.Description);
 
     this.modal.open();
   }

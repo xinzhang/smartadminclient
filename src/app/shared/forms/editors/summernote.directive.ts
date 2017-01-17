@@ -31,7 +31,7 @@ export class SummernoteDirective implements OnInit{
             });
           }
         }        
-      }));
+      }));     
 
       $(this.el.nativeElement).summernote('editor.pasteHTML', this.codeText);      
   }
@@ -39,5 +39,5 @@ export class SummernoteDirective implements OnInit{
   public refreshText() {
     $(this.el.nativeElement).summernote('editor.pasteHTML', this.codeText);
   }
-
+   
 }

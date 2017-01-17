@@ -245,8 +245,13 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
 
     //check the scenario that no documents (because edit doesn't allow it yet.)
     if (this.fileUploader != null) {
-    this.corporateAction.Documents = this.fileUploader.GetDocuments();
+      this.corporateAction.Documents = this.fileUploader.GetDocuments();
     }
+    
+    //summer note br cleanup
+    this.corporateAction.Description = this.corporateAction.Description.split('<br>').join('');
+    this.corporateAction.Description = this.corporateAction.Description.split('<p></p>').join('');
+
     this.corporateActionService.addCorpAction(this.corporateAction)
       .subscribe(
       values => {
@@ -386,7 +391,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     this.modal.close();    
   }
 
-  descriptionChanged(event) {
+  descriptionChanged(event) {    
     this.corporateAction.Description = event.value;
   }
 

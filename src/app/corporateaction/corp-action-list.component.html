@@ -109,6 +109,7 @@
             <li><a data-toggle="tab" href="#comment">Comment</a></li>
             <li><a data-toggle="tab" href="#document">Documents</a></li>
             <li><a data-toggle="tab" href="#assets">Assets</a></li>
+            <li><a data-toggle="tab" href="#description">Description</a></li>
         </ul>
 
         <div class="tab-content">
@@ -174,6 +175,10 @@
                         {{apir}} - {{selectedAPIRLabels[i]}}
                     </li>
                 </ul>
+            </div>
+
+            <div id="description" class="tab-pane fade custom-scroll">
+                <div class="summernote" [summernote]="{height: 180}" #summernote></div>
             </div>
 
         </div>
