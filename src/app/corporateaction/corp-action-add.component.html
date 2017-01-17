@@ -139,7 +139,10 @@
         <div class="form-gorup">
             <label class="col-sm-2 control-lable"></label>
             <div class="col-sm-7">
-                <button type="submit" [disabled]="f.invalid || submitting">Submit</button>
+                <button class="btn btn-primary" type="submit"  [disabled]="f.invalid || submitting">
+                    <span *ngIf="submitting"><i class='fa fa-circle-o-notch fa-spin'></i> Submitting</span>
+                    <span *ngIf="!submitting">Submit</span>                    
+                </button>
             </div>
             <div class="col-sm-3" *ngIf="!editMode">
                 <button type="button" (click)="saveDraftCorporateAction()">Save Draft</button>
