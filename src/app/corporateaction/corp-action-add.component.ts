@@ -249,7 +249,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
 
     //check the scenario that no documents (because edit doesn't allow it yet.)
     if (this.fileUploader != null) {
-      this.corporateAction.Documents = this.fileUploader.GetDocuments();
+      this.corporateAction.Documents = this.corporateAction.Documents.concat(this.fileUploader.GetDocuments());
     }
     
     //summer note br cleanup
@@ -271,7 +271,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
   }
 
   removeDocument(idx: number) {
-     let c = confirm("Are you sure you want to do that?");
+     let c = confirm("Are you sure you want to delete the document from SharePoint?");
      if (c == true) {
         this.corporateAction.Documents.splice(idx, 1);
      }
@@ -410,7 +410,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
   }
 
   filesUpdated(event) {
-    this.corporateAction.Documents = event.value;
+    this.corporateAction.Documents.concat(event.value);
   }
 
   public options = {

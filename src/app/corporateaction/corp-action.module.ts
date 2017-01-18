@@ -14,6 +14,7 @@ import {CorpActionOfflineListComponent } from './corp-action-offline-list.compon
 import {CorpActionComponent} from './corp-action.component';
 import {CorpActionConfirmComponent} from './corp-action-confirm.component';
 import {CorpActionRoutes} from "./corp-action.router";
+import {SharePointDocumentsComponent} from './sharepoint-docs.component';
 import {TestComponent} from './test.component';
 
 import {UploaderComponent} from '../shared/uploader/uploader.component';
@@ -28,6 +29,7 @@ import {AgGridModule} from 'ag-grid-ng2/main';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import {StorageModule} from '../localStorage/storage.module';
+import {SafePipe} from './sharepoint-docs.component';
 
 @NgModule({
   imports: [
@@ -48,8 +50,8 @@ import {StorageModule} from '../localStorage/storage.module';
   ],
   declarations: [
       CorpActionAddComponent, CorpActionDetailComponent, CorpActionListComponent, CorpActionOfflineListComponent,
-      CorpActionComponent, CorpActionConfirmComponent, 
-      UploaderComponent, FileSelectDirective,
+      CorpActionComponent, CorpActionConfirmComponent, SharePointDocumentsComponent, 
+      UploaderComponent, FileSelectDirective, SafePipe,
       TestComponent
    ]
 })
