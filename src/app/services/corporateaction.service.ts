@@ -6,6 +6,7 @@ import 'rxjs/add/operator/catch';
 
 import {CorporateActionModel} from '../models/corporateactions.model';
 import {CorporateActionStatusModel} from '../models/corporateaction-status.model';
+import {CorporateActionFollowupModel} from '../models/corporateaction-followup.model';
 
 @Injectable()
 export class CorporateActionService {
@@ -77,6 +78,18 @@ export class CorporateActionService {
             .map( resp => resp.json())
             .catch(this.handleError);
     }
+
+    updateCorpActionFollowup(responseID:number, followupDate:string, comment:string) : Observable<any> {
+        let statusObj = new CorporateActionFollowupModel(responseID, followupDate, comment);
+        let data = JSON.stringify(statusObj);
+
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers:headers});
+
+        return this.http.post(this.corpActionUrl+"/followup/", data, options)
+            .map( resp => resp.json())
+            .catch(this.handleError);
+    }  
 
     handleError(error: Response) {
         console.log(error);

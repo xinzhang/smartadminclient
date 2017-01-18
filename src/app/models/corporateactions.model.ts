@@ -11,7 +11,8 @@ export class CorporateActionModel {
     public CreatedDate : Date = new Date();
 
     constructor(
-        public DueDate : string,        
+        public DueDate : string, 
+        public FollowupDate: string,       
         public IssuerCode: string,
         public IssuerName: string,
         public EventType: string,

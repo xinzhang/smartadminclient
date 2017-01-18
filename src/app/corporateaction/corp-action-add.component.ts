@@ -56,7 +56,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
 
   multipleSelectAPIRTo: any[] = [];
 
-  corporateAction = new CorporateActionModel("", "", "", "", "", "");
+  corporateAction = new CorporateActionModel("", "", "", "", "", "", "");
   errorMessage: string = "";
 
   @ViewChild('issuerCodeInput') issuerCodeInput;
@@ -231,6 +231,10 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     this.corporateAction.DueDate = $dateTime;        
   }
 
+  followupDateChanged($dateTime: string) {
+    this.corporateAction.FollowupDate = $dateTime;        
+  }
+
   public currentAsset = '';
   public assets = [];
   public filteredAssets = [];
@@ -267,7 +271,10 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
   }
 
   removeDocument(idx: number) {
-    this.corporateAction.Documents.splice(idx, 1);
+     let c = confirm("Are you sure you want to do that?");
+     if (c == true) {
+        this.corporateAction.Documents.splice(idx, 1);
+     }
   }
 
   saveDraftCorporateAction() {
@@ -328,10 +335,12 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     this.corporateActionService.getCorpActionDetail(reference).subscribe( x => {
       this.corporateAction.Reference = x.Reference;
       this.corporateAction.DueDate = x.DueDate;
+      
       this.corporateAction.IssuerCode = x.IssuerCode;      
       this.corporateAction.EventType = x.EventType;
       this.corporateAction.Subject = x.Subject;
       this.corporateAction.Description = x.Description;
+      this.corporateAction.Documents = x.Documents;
 
       //add special code for the summernote assignment
       $(this.summernote.nativeElement).summernote('editor.pasteHTML', x.Description);
@@ -342,6 +351,11 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
         this.corporateAction.IssuerName = y[0].Name;
       });
 
+      x.ClientResponseActions.forEach(item => {
+        if (item.ClientCode == "MLC") {
+          this.corporateAction.FollowupDate = item.FollowupDate; 
+        }
+      })
     });
 
   }

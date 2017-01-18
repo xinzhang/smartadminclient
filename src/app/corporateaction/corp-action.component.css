@@ -20,10 +20,21 @@
 .small-scrollbar {
     float:left;
     width:600px;
-    overflow-y: auto;    
+    overflow-y: auto;        
     max-height: 100px;
     margin-top: 5px;    
-    margin-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.comment-scrollbar {
+    float:left;
+    width:100%;
+    overflow-y: auto;
+    overflow-x: hidden;    
+    margin-top: 5px;    
+    margin-bottom: 25px;
+    min-height: 200px;
+    max-height: 200px;
 }
 
 .ng-valid[required], .ng-valid.required  {
@@ -38,4 +49,8 @@
     .container{
         width: 1250px;
     }
+}
+
+div.modal-footer {
+    border-top: 0px !important;
 }

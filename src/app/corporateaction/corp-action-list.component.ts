@@ -37,6 +37,8 @@ export class CorpActionListComponent {
   status = ["Open", "Pend", "Respond", "Closed - No Action", "Closed - Action"]
   selectedStatus = "";
   selectedStatusComment = "";
+  selectedFollowupDate = "";
+  selectedFollowupComment = "";
 
   selectedAPIRCodes = [];
   selectedAPIRLabels = [];
@@ -91,7 +93,7 @@ export class CorpActionListComponent {
       { "data": "IssuerCode" },
       { "data": "ClientCode" },
       { "data": "Status" },
-      { "data": "FollowupDate" },
+      { "data": "FollowupDate" },      
       {
         "targets": -1,
         "data": null,
@@ -143,8 +145,11 @@ export class CorpActionListComponent {
   public onBtnViewClicked(data) {
     this.currentResponseID = data.ResponseID;
     this.selectedStatus = data.Status;
+    this.selectedFollowupDate = data.FollowupDate;
+
     this.selectedAPIRCodes = data.APIRCodes;
     this.selectedAPIRLabels = data.APIRLabels;
+
     this.corporateActionService.getCorpActionComments(data.ResponseID).subscribe(x => this.comments = x);
     this.corporateActionService.getCorpActionDocuments(data.Reference).subscribe(x => this.documents = x);
 
@@ -189,8 +194,22 @@ export class CorpActionListComponent {
       });
   }
 
+  onSubmitFollowup(f) {    
+    this.corporateActionService.updateCorpActionFollowup(this.currentResponseID, this.selectedFollowupDate, this.selectedFollowupComment)
+      .subscribe(x => {
+        this.comments.splice(0, 0, x);
+        this.selectedFollowupComment = "";
+
+        this.modal.dismiss();
+      });
+  }
+
   getLinkFileName(link:string) : string{
     return link.substring(link.lastIndexOf('/')+1);
+  }
+
+  followupDateChanged($dateTime: string) {
+    this.selectedFollowupDate = $dateTime;        
   }
 
 }

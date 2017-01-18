@@ -5,13 +5,18 @@ import * as moment from 'moment';
 
 function DueDateValidatorFactory() {
     return (c: FormControl) => {
-        var isSameAfter = moment(c.value, "DD/MM/YYYY").isSameOrAfter(moment());
+                
+        if (c.value != null && c.value != "") {
+            var isSameAfter = moment(c.value, "DD/MM/YYYY").isSameOrAfter(moment());
 
-        return (isSameAfter ? null : {
-            validateDueDate: {
-                valid: false
-            }
-        });
+            return (isSameAfter ? null : {
+                validateDueDate: {
+                    valid: false
+                }
+            });
+        }
+
+        return null;
     };
 }
 

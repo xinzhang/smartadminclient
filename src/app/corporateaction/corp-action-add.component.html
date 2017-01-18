@@ -10,11 +10,10 @@
 
         <div class="form-group">
             <label class="col-sm-2 control-lable">Reference No:</label>
-            <div class="col-sm-10">
+            <div class="col-sm-4">
                 <input type="text" disabled class="form-control" name="reference" [(ngModel)]="corporateAction.Reference" placeholder=""
                 />
-            </div>
-
+            </div>            
         </div>
 
         <div class="form-group">
@@ -32,15 +31,15 @@
 
         <div class="form-group">
             <label class="col-sm-2 control-lable">Due Date:</label>
-            <div class="col-sm-9">
+            <div class="col-sm-4">
                 <div class="input-group">
-                    <input type="text" name="dueDate" placeholder="Select a due date" class="form-control datepicker" validateDueDate required
+                    <input type="text" name="dueDate" placeholder="Select a due date (dd/mm/yyyy)" class="form-control datepicker" validateDueDate required
                         #dueDate="ngModel" [ngModel]="corporateAction.DueDate"
                         (onSelectDate)="dueDateChanged($event)" 
                         [saUiDatepicker]="{
-                            dateFormat: 'dd/mm/yy'                            
+                                dateFormat: 'dd/mm/yy'                            
                             }">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i> (dd/mm/yyyy)</span>
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     <!--<span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->                    
                 </div>
                 <div class="">
@@ -116,7 +115,7 @@
             </div>
         </div>
 
-        <div class="form-group" *ngIf="!editMode">
+        <div class="form-group">
             <label class="col-sm-2 control-lable">Documents:</label>
             <div class="col-sm-10">
                 <div class="alert alert-warning">The files uploaded won't be saved in the draft</div>
@@ -124,8 +123,8 @@
             </div>
         </div>
 
-        <!--<div class="form-group">
-            <label class="col-sm-2 control-lable"></label>
+        <div class="form-group" *ngIf="editMode">
+            <label class="col-sm-2 control-lable">Current Documents:</label>
             <div class="col-sm-10">                
                 <ul class="tag">
                     <li *ngFor="let d of corporateAction.Documents;let i=index" class="tag">
@@ -133,8 +132,29 @@
                     </li>
                 </ul>
             </div>
-        </div>-->
+        </div>
 
+        <div class="form-group" [hidden]="editMode">
+            <label class="col-sm-2 control-lable">Followup Date:</label>
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <input type="text" name="followupDate" placeholder="Select a followup date if you need to follow up this (dd/mm/yyyy)"
+                        [disabled]="editMode" 
+                        class="form-control datepicker" validateDueDate
+                        #followupDate="ngModel" [ngModel]="corporateAction.FollowupDate"
+                        (onSelectDate)="followupDateChanged($event)" 
+                        [saUiDatepicker]="{
+                            dateFormat: 'dd/mm/yy'                            
+                            }">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>                    
+                </div>
+                <div class="">
+                    <small [hidden]="followupDate.valid" class="text-danger">
+                            Followup date has to be today or after today
+                    </small>
+                </div>
+            </div>
+        </div>
 
         <div class="form-gorup">
             <label class="col-sm-2 control-lable"></label>
