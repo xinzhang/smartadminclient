@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 
 import {CorporateActionModel} from '../models/corporateactions.model';
+import {CorporateActionEmailModel} from '../models/corporateaction-email.model';
 import {CorporateActionStatusModel} from '../models/corporateaction-status.model';
 import {CorporateActionFollowupModel} from '../models/corporateaction-followup.model';
 
@@ -31,6 +32,19 @@ export class CorporateActionService {
             //.map( resp => resp.json())
             .catch(this.handleError);
     }
+
+    sendCorpActionEmail(corpActionEmail : CorporateActionEmailModel) : Observable<any> {
+
+        let data = JSON.stringify(corpActionEmail);
+        let headers = new Headers({'Content-Type': 'application/json'});
+        let options = new RequestOptions({headers:headers});
+
+        return this.http.post(this.corpActionUrl+"/email", data, options)
+            //.map( resp => resp.json())
+            .catch(this.handleError);
+    }
+
+    
 
     listCorpActions() : Observable<any> {        
         return this.http.get(this.corpActionUrl)

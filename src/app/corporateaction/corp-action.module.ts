@@ -16,6 +16,7 @@ import {CorpActionConfirmComponent} from './corp-action-confirm.component';
 import {CorpActionRoutes} from "./corp-action.router";
 import {SharePointDocumentsComponent} from './sharepoint-docs.component';
 import {TestComponent} from './test.component';
+import {CorpActionEmailComponent} from './corp-action-email.component';
 
 import {UploaderComponent} from '../shared/uploader/uploader.component';
 import {FileSelectDirective} from 'ng2-file-upload';
@@ -50,7 +51,7 @@ import {SafePipe} from './sharepoint-docs.component';
   ],
   declarations: [
       CorpActionAddComponent, CorpActionDetailComponent, CorpActionListComponent, CorpActionOfflineListComponent,
-      CorpActionComponent, CorpActionConfirmComponent, SharePointDocumentsComponent, 
+      CorpActionComponent, CorpActionConfirmComponent, SharePointDocumentsComponent, CorpActionEmailComponent,
       UploaderComponent, FileSelectDirective, SafePipe,
       TestComponent
    ]

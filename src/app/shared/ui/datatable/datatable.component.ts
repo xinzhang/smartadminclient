@@ -27,6 +27,9 @@ export class DatatableComponent implements OnInit {
 
   @Output() btnViewClicked = new EventEmitter();
   @Output() btnEditClicked = new EventEmitter();
+  @Output() btnOther1Clicked = new EventEmitter();
+  @Output() btnOther2Clicked = new EventEmitter();
+  @Output() btnOther3Clicked = new EventEmitter();
 
   dataTableRef: any;
 
@@ -140,6 +143,30 @@ export class DatatableComponent implements OnInit {
         var data = row.data();         
                
         self.btnEditClicked.emit(data);
+    } );
+
+    element.on('click', '.btn-other1', function (e) {
+        var tr = $(this).closest('tr');
+        var row = _dataTable.row( tr );
+        var data = row.data();         
+               
+        self.btnOther1Clicked.emit(data);
+    } );
+
+    element.on('click', '.btn-other2', function (e) {
+        var tr = $(this).closest('tr');
+        var row = _dataTable.row( tr );
+        var data = row.data();         
+               
+        self.btnOther2Clicked.emit(data);
+    } );
+
+    element.on('click', '.btn-other3', function (e) {
+        var tr = $(this).closest('tr');
+        var row = _dataTable.row( tr );
+        var data = row.data();         
+               
+        self.btnOther3Clicked.emit(data);
     } );
 
   }

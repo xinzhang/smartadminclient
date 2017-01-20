@@ -194,6 +194,11 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     this.corporateAction.APIRLabels.splice(index, 1);
   }
 
+  removeAllAPIR() {
+    this.corporateAction.APIRCodes = [];
+    this.corporateAction.APIRLabels = [];
+  }
+
   loadLookupData() {
     this.staticDataService.getEventTypes()
       .subscribe(

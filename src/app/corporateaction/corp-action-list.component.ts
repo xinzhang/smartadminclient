@@ -98,7 +98,7 @@ export class CorpActionListComponent {
         "targets": -1,
         "data": null,
         "defaultContent":
-        '<button class="btn-view" type="button">View</button><button class="btn-edit" type="button">Edit</button>'
+        '<button class="btn btn-default btn-spacing btn-view" type="button">View</button><button class="btn btn-default btn-spacing btn-edit" type="button">Edit</button><button class="btn btn-default btn-spacing btn-other1" type="button">Email</button>'
       }
     ],
     "order": [[1, 'desc']]
@@ -163,6 +163,12 @@ export class CorpActionListComponent {
     console.log(data.Reference);
     //<a [routerLink]="['/corporateaction/add-offline', c.Reference]" class="">Continue</a>
     this.router.navigateByUrl('/corporateaction/edit/' + data.Reference);
+  }
+
+  public onBtnEmailClicked(data) {
+    console.log(data.Reference);
+    //<a [routerLink]="['/corporateaction/add-offline', c.Reference]" class="">Continue</a>
+    this.router.navigateByUrl('/corporateaction/email/' + data.Reference);
   }
 
   closed() {

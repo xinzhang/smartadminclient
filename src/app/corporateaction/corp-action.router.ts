@@ -14,12 +14,13 @@ import {CorpActionConfirmComponent} from './corp-action-confirm.component';
 import {CorpActionComponent} from './corp-action.component';
 import {SharePointDocumentsComponent} from './sharepoint-docs.component';
 import {TestComponent} from './test.component';
-
+import {CorpActionEmailComponent} from './corp-action-email.component';
 
 export const routes: Routes = [
     //{path: '', component: CorpActionComponent},
     {path: 'add', component: CorpActionAddComponent},
     {path: 'edit/:refno', component: CorpActionAddComponent},
+    {path: 'email/:refno', component: CorpActionEmailComponent},
     {path: 'add-offline/:offlineReference', component: CorpActionAddComponent},
     {path: 'list', component: CorpActionListComponent},
     {path: 'confirm/:reference', component: CorpActionConfirmComponent},
