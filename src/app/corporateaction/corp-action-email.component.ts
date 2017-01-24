@@ -69,7 +69,7 @@ export class CorpActionEmailComponent implements OnInit, OnDestroy{
 
     getAPIRTableHtml(apircodes: string[], apirlabels:string[]) : string {
         let tableHtml:string = "<p>Below is the affected APIRs </p>";
-        tableHtml += "<table border="1"" class='table table-bordered' width='400px'><tbody><tr><td width='150px'><b>APIR</b></td><td width='400px'><b>APIR Name</b></td></tr>";
+        tableHtml += "<table border='1' class='table table-bordered' width='400px'><tbody><tr><td width='150px'><b>APIR</b></td><td width='400px'><b>APIR Name</b></td></tr>";
 
         for (let i=0; i<apircodes.length; i++) {
             tableHtml += "<tr><td>" + apircodes[i] + "</td><td>" + apirlabels[i] + "</td></tr>"; 

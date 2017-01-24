@@ -6,6 +6,10 @@
         Error: {{errorMessage}}
     </div>
 
+    <div class="alert alert-info">
+        By default the email is sent to yourself so you can review it and send to the clients from outlook.
+    </div>
+
     <form #f="ngForm" class="form-horizontal" novalidate (ngSubmit)="onSubmit(f)">
 
         <div class="form-group">
@@ -32,7 +36,7 @@
             </div>
         </div>
 
-        <div class="form-group has-feedback">
+        <!--<div class="form-group has-feedback">
             <label class="col-sm-2 control-lable">Email BCC:</label>
             <div class="col-sm-6">
                 <input type="text" class="form-control" name="emailto" [(ngModel)]="currentEmailBCC" placeholder="Enter the email address"
@@ -52,7 +56,7 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div>-->
 
         <div class="form-group">
             <label class="col-sm-2 control-lable">Email body:</label>

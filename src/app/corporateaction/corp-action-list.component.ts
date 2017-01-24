@@ -34,7 +34,7 @@ export class CorpActionListComponent {
 
   currentResponseID = 0;
   
-  status = ["Open", "Pend", "Respond", "Closed - No Action", "Closed - Action"]
+  status = ["Open", "Pending", "Respond", "Closed - No Action", "Closed - Action"]
   selectedStatus = "";
   selectedStatusComment = "";
   selectedFollowupDate = "";
@@ -60,6 +60,10 @@ export class CorpActionListComponent {
       },
       error => console.log(error)
       )
+  }
+
+  refreshCorpActions() {    
+    this.dt.refreshData('api/corporateactionresponse/' + this.selectedClientCode + "/" + this.selectedType);
   }
 
   setClientCode($event: any) {

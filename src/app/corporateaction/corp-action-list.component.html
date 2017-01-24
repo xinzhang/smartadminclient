@@ -15,7 +15,7 @@
                     <option value="AMQ">Amq</option>
                     <option value="Test">Test</option>
                 </select>
-
+                <i class='glyphicon glyphicon-refresh' (click)="refreshCorpActions()"></i>
                 <ul class="nav nav-tabs pull-right in" id="myTab">
                     <li class="active">
                         <a data-toggle="tab" (click)="viewStatus('current');"><i class="fa fa-clock-o" ></i> <span class="hidden-mobile hidden-tablet"></span>Current</a>
@@ -153,21 +153,16 @@
                     <div class="form-group"></div>
                     <div class="form-group">
                         <label class="col-sm-3 control-lable">Followup Date:</label>
-                        <div class="col-sm-4">
+                        <div class="col-sm-8">
                             <div class="input-group">
                                 <input type="text" name="followupDate" placeholder="Select a followup date if you need to follow up this (dd/mm/yyyy)" 
-                                    class="form-control datepicker" validateDueDate
-                                    #followupDate="ngModel" [ngModel]="selectedFollowupDate"
-                                    (onSelectDate)="followupDateChanged($event)" 
-                                    [saUiDatepicker]="{
-                                        dateFormat: 'dd/mm/yy'                            
-                                        }">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>                    
+                                    class="form-control col-sm-6 datepicker"
+                                    [(ngModel)]="selectedFollowupDate">
+                                    <!--<span class="input-group-addon"><i class="fa fa-calendar"></i></span>-->
+                                <span>dd/mm/yyyy</span>                    
                             </div>
+                            
                             <div class="">
-                                <small [hidden]="followupDate.valid" class="text-danger">
-                                        Followup date has to be today or after today
-                                </small>
                             </div>
                         </div>
                     </div>                  

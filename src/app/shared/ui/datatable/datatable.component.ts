@@ -77,7 +77,7 @@ export class DatatableComponent implements OnInit {
       "t" +
       "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
       oLanguage: {
-        "sSearch": "<span class='input-group-addon'><i class='glyphicon glyphicon-search'></i></span> ",
+        "sSearch": "<span class='input-group-addon'><i class='glyphicon glyphicon-search'></i></span>",
         "sLengthMenu": "_MENU_"
       },
       "autoWidth": false,
