@@ -23,6 +23,8 @@ import {ArchiveComponent} from './archive/archive.component';
 import {TradeComponent} from './archive/trade.component';
 import {TransferComponent} from './archive/transfer.component';
 
+import {TaxComponent} from './tax/tax.component';
+import {TaxClientsComponent} from './tax/taxClients.component';
 
 export const routes: Routes = [
     {
@@ -40,6 +42,10 @@ export const routes: Routes = [
                 path:'corporateaction',
                 loadChildren: 'app/corporateaction/corp-action.module#CorpActionModule'
             },
+            {
+                path:'tax',
+                loadChildren: 'app/tax/tax.module#TaxModule'
+            },
             {path: 'about', component: AboutComponent},
 
             // {path: 'corporateaction-add', component: CorpActionAddComponent},
@@ -55,7 +61,13 @@ export const routes: Routes = [
                 {path: 'trade', component: TradeComponent},
                 {path: 'transfer', component: TransferComponent}
                 ]
-            }            
+            },
+            // {
+            //     path: 'tax', component: TaxComponent, children: [
+            //         {path:'clients', component: TaxClientsComponent}
+            //     ]
+            // }
+
         ]
     },
 

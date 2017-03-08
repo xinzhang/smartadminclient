@@ -7,6 +7,7 @@ import {AppComponent} from './app.component';
 import {AboutComponent} from './about/about.component';
 
 import {CorpActionModule} from './corporateaction/corp-action.module';
+import {TaxModule} from './tax/tax.module';
 
 import {AssetComponent} from './datasetup/asset.component';
 import {IssuerComponent} from './datasetup/issuer.component';
@@ -35,6 +36,7 @@ import { StaticDataService} from './services/staticdata.service';
     BrowserModule,
     FormsModule,
     CorpActionModule,
+    TaxModule,
     routing,
     SmartadminModule.forRoot(),
     UserModule.forRoot()    

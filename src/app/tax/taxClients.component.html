@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="row">
+        <h3>&nbsp;</h3>
+        <sa-widget [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false" [colorbutton]="false" [deletebutton]="false">
+
+            <header>
+                <span class="widget-icon"><i class="glyphicon glyphicon-stats txt-color-darken"></i></span>
+                <h2>Tax Clients</h2>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <label class="">Client Code:</label>
+                <select class="" name="client-code" id="client-code" 
+                    [ngModel]="selectedClientCode.ClientCode" (change)="setClientCode($event)">
+                    <option value="" disabled selected>Select ...</option>
+                    <option *ngFor="let c of taxClients" value="{{c.ClientCode}}">{{c.ClientCode}}</option>
+                </select>
+                <i class='glyphicon glyphicon-refresh' (click)="refreshClients()"></i>
+            </header>
+
+            <div class="no-padding">
+                <div class="widget-body">
+                    <h3>Client details</h3>
+                    <form #f="ngForm" class="form-horizontal" novalidate (ngSubmit)="onSubmit(f)">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-lable">Client Code:</label>
+                            <div class="col-sm-4">
+                                <input type="text" disabled class="form-control" name="clientCode" [(ngModel)]="selectedClientCode.ClientCode" placeholder=""
+                                />
+                            </div>            
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-lable">Client Name:</label>
+                            <div class="col-sm-4">
+                                <input type="text" disabled class="form-control" name="clientName" [(ngModel)]="selectedClientCode.ClientName" placeholder=""
+                                />
+                            </div>            
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-lable">Report Types:</label>
+                            <div class="col-sm-4">
+                                <input type="checkbox" name="types" value="TaxReport" checked> Tax
+                                <input type="checkbox" name="types" value="DistributionReport" checked> Distribution
+                            </div>            
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-lable">Report Channel:</label>
+                            <div class="col-sm-4">
+                                 <input type="radio" name="channel" value="Email" 
+                                    (change)="setReportChannel($event)"
+                                    [checked]="selectedClientCode.ReportChannel == 'Email'"/> Email
+                                 <input type="radio" name="channel" value="SharePoint" 
+                                    (change)="setReportChannel($event)"
+                                    [checked]="selectedClientCode.ReportChannel == 'SharePoint'" /> ClientPortal
+                            </div>            
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+
+        </sa-widget>
+    </div>
+</div>
