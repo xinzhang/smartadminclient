@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Phone</td>
+                    <td>Fax</td>
+                    <td>Email</td>
+                    <td>Primary</td>
+                    <td>Enable</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let c of taxContacts; let idx = index" >
+                    <td>
+                        <span *ngIf="!isEditing || isEditingLine !== idx"> {{c.Name}} </span>
+                        <input type="text" *ngIf="isEditing && isEditingLine === idx" name="name" [(ngModel)]="this.currentTaxContact.Name" />
+                    </td>
+                    <td>
+                        <span *ngIf="!isEditing || isEditingLine !== idx"> {{c.WorkPhone}} </span>
+                        <input type="text" *ngIf="isEditing && isEditingLine === idx" name="WorkPhone" [(ngModel)]="this.currentTaxContact.WorkPhone" />                        
+                    </td>
+                    <td>
+                        <span *ngIf="!isEditing || isEditingLine !== idx"> {{c.Fax}} </span>
+                        <input type="text" *ngIf="isEditing && isEditingLine === idx" name="Fax" [(ngModel)]="this.currentTaxContact.Fax" />                        
+                    </td>                    
+                    <td>
+                        <span *ngIf="!isEditing || isEditingLine !== idx"> {{c.Email}} </span>
+                        <input type="text" *ngIf="isEditing && isEditingLine === idx" name="Email" [(ngModel)]="this.currentTaxContact.Email" />                                                                        
+                    </td>
+                    <td>
+                        <span *ngIf="!isEditing || isEditingLine !== idx">
+                            <span ng-switch="c.IsPrimaryContact">
+                                <span ng-switch-when="true">Yes</span>
+                                <span ng-switch-default></span>
+                            </span>
+                        </span>
+                        <input type="checkbox" *ngIf="isEditing && isEditingLine === idx"
+                            [checked]="this.currentTaxContact.IsPrimaryContact" 
+                            (change)="this.currentTaxContact.IsPrimaryContact = !this.currentTaxContact.IsPrimaryContact"
+                        />
+                    </td>
+                    <td>
+                        <span *ngIf="!isEditing || isEditingLine !== idx">
+                            <span ng-switch="c.IsAllowedCommunication">
+                                <span ng-switch-when="true">Yes</span>
+                                <span ng-switch-default></span>
+                            </span>
+                        </span>
+                        <input type="checkbox" *ngIf="isEditing && isEditingLine === idx"
+                            [checked]="this.currentTaxContact.IsAllowedCommunication" 
+                            (change)="this.currentTaxContact.IsAllowedCommunication = !this.currentTaxContact.IsAllowedCommunication"
+                        />
+                    </td>
+                    <td>
+                        <a title="Edit Detail" (click)="editDetail(idx)" *ngIf="!isEditing || isEditingLine !== idx">
+                            <i class="fa fa-pencil"></i> Edit Detail
+                        </a>
+                        &nbsp;
+                        <a title="View Detail" (click)="saveDetail(idx)" *ngIf="isEditing && isEditingLine == idx">
+                            <i class="fa fa-info"></i> Save Detail
+                        </a>
+                        &nbsp;                        
+                        <a title="View Detail" (click)="cancel(idx)" *ngIf="isEditing && isEditingLine == idx">
+                            <i class="fa fa-info"></i> Cancel
+                        </a>
+                    </td>
+                </tr>
+            </tbody>            
+        </table>
+    </div>
+</div>

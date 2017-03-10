@@ -34,13 +34,22 @@
                                 />
                             </div>            
                         </div>
-                        <div class="form-group">
+                        <!-- no need to setup report types
+                            <div class="form-group">
                             <label class="col-sm-2 control-lable">Report Types:</label>
                             <div class="col-sm-4">
-                                <input type="checkbox" name="types" value="TaxReport" checked> Tax
-                                <input type="checkbox" name="types" value="DistributionReport" checked> Distribution
+                                <input type="checkbox" name="types" 
+                                    value="TaxReport" 
+                                    [checked]="selectedClientCode.TemplateTypes.indexOf('TaxReport') > -1"
+                                    (change)="setReportTypes($event)"
+                                    > Tax
+                                <input type="checkbox" name="types" 
+                                    value="DistributionReport" 
+                                    [checked]="selectedClientCode.TemplateTypes.indexOf('DistributionReport') > -1"
+                                    (change)="setReportTypes($event)"
+                                    > Distribution
                             </div>            
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <label class="col-sm-2 control-lable">Report Channel:</label>
                             <div class="col-sm-4">
@@ -51,12 +60,28 @@
                                     (change)="setReportChannel($event)"
                                     [checked]="selectedClientCode.ReportChannel == 'SharePoint'" /> ClientPortal
                             </div>            
-                        </div>
-                        
+                        </div>                        
                     </form>
                 </div>
+            </div>
+
+            <div class="no-padding">
+                <div class="widget-body">
+                    <h3>Contact details</h3>
+                     &nbsp;&nbsp;&nbsp;&nbsp;
+                    <a title="Add New" (click)="addNewContact(idx)">
+                        <i class="fa fa-user"></i> Add New
+                    </a>
+                    <tax-contacts [taxContacts]="this.selectedClientCode.Contacts" #taxContacts (saveContactDetail)="saveContactDetail($event)">
+                    </tax-contacts>
+                </div>
+            </div>
+
+            <div>
+                <button class="btn btn-submit" (click)="submit()"><i class="fa fa-gravel">Submit</i></button>
             </div>
 
         </sa-widget>
     </div>
 </div>
+

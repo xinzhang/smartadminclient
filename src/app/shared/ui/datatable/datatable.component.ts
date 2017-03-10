@@ -51,7 +51,7 @@ export class DatatableComponent implements OnInit {
   render() {
     let element = $(this.el.nativeElement.children[0]);
     let options = this.options || {}
-
+    console.log('render:', options);
 
     let toolbar = '';
     if (options.buttons)

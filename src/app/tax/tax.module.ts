@@ -14,6 +14,7 @@ import {TaxRoutes} from './tax.router';
 
 import {TaxComponent} from './tax.component';
 import {TaxClientsComponent} from './taxClients.component';
+import {TaxContactsComponent} from './taxContacts.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import {TaxClientsComponent} from './taxClients.component';
   ],
   declarations: [
     TaxComponent,
-    TaxClientsComponent
+    TaxClientsComponent,
+    TaxContactsComponent
   ]
 })
 export class TaxModule { }
