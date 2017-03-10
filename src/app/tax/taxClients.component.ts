@@ -55,8 +55,9 @@ export class TaxClientsComponent implements OnInit {
     }
 
     addNewContact() {
-        if (this.selectedClientCode.TaxClientID !== -1) {            
-            this.selectedClientCode.Contacts.push(new TaxContact(-1, "","","","", true, false));
+        if (this.selectedClientCode.TaxClientID !== -1) {
+            let isPrimary:boolean = (this.selectedClientCode.Contacts.length == 0);                        
+            this.selectedClientCode.Contacts.push(new TaxContact(-1, "","","","", true, isPrimary));
             this.taxContacts.editDetail(this.selectedClientCode.Contacts.length - 1);            
         }
     }
