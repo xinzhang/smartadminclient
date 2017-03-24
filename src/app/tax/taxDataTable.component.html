@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="row">
+        <h3>&nbsp;</h3>
+        <sa-widget [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false" [colorbutton]="false" [deletebutton]="false">
+
+            <header>
+                <span class="widget-icon"><i class="glyphicon glyphicon-stats txt-color-darken"></i></span>
+                <h2>Report Preview</h2>
+                &nbsp;&nbsp;&nbsp;&nbsp;  
+                <a (click)="download()"><i class=""></i> Download CSV</a>                              
+            </header>
+
+            <div>
+                <div class="widget-body">                    
+
+
+<div class="container">
+  <div class="row">
+      <span *ngIf="this.dataLoading"> <i className="fa fa-spinner fa-3x"></i> Loading...</span>
+      <div class="panel panel-default">
+        <!--<div class="panel-heading">
+          <h4></h4>
+        </div>-->
+        <table>
+          <thead>
+            <tr>
+              <th>Reg Holder</th>
+              <th>Issuer Name</th>
+              <th>Description</th>
+              <th>Security</th>
+              <th>Expected Date</th>
+              <th>Age</th>
+              <th>Statement Received</th>
+              <th>Tax Status</th>
+              <th>Date Completed</th>
+              <th>Distribution Status</th>
+              <th>Comments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let r of dataSource; let idx = index">
+              <td>{{r.RegHolder}}</td>
+              <td>{{r.IssuerName}}</td>
+              <td>{{r.Description}}</td>
+              <td>{{r.Security}}</td>
+              <td>{{r.ExpectedDate | date:'dd/MM/yyyy'}}</td>
+              <td>{{r.Age}}&nbsp;</td>
+              <td>{{r.StatementReceived}}&nbsp;</td>
+              <td>{{r.TaxStatus}}&nbsp;</td>
+              <td>{{r.TaxCompletedDate | date:'dd/MM/yyyy'}}&nbsp;</td>
+              <td>{{r.DistributionStatus}}&nbsp;</td>
+              <td>{{r.Comments}}&nbsp;</td>
+            </tr>            
+          </tbody>
+        </table>
+      </div>
+  </div>
+</div>
+
+                </div>
+            </div>
+        </sa-widget>
+    </div>
+</div>    

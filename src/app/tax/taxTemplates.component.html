@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="row">
+        <h3>&nbsp;</h3>
+        <sa-widget [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false" [colorbutton]="false" [deletebutton]="false">
+
+            <header>
+                <span class="widget-icon"><i class="glyphicon glyphicon-stats txt-color-darken"></i></span>
+                <h2>Templates</h2>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <label class=""></label>
+                <select class="" name="template" id="template" 
+                    [ngModel]="selectedTemplate.TemplateName" (change)="setTemplate($event)">
+                    <option value="" disabled selected>Select ...</option>
+                    <option *ngFor="let c of emailTemplates" value="{{c.TemplateName}}">{{c.TemplateName}}</option>
+                </select>
+                <i class='glyphicon glyphicon-refresh' (click)="refresh()"></i>
+            </header>
+
+            <div class="no-padding">
+                <div class="widget-body">
+                    <h3>Templates {{selectedTemplate.TemplateName}}</h3>
+                     &nbsp;&nbsp;&nbsp;&nbsp;
+                    
+                        <form #f="ngForm" class="form-horizontal" novalidate (ngSubmit)="onSubmit(f)">
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-lable">From:</label>
+                                <div class="col-sm-10">
+                                    <input required type="text" class="form-control" name="emailFrom" [(ngModel)]="selectedTemplate.EmailFrom" placeholder="Email From"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-lable">CC:</label>
+                                <div class="col-sm-10">
+                                    <input required type="text" class="form-control" name="emailCC" [(ngModel)]="selectedTemplate.EmailCC" placeholder="Email CC"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-lable">Subject:</label>
+                                <div class="col-sm-10">
+                                    <input required type="text" class="form-control" name="subject" [(ngModel)]="selectedTemplate.Subject" placeholder="Subject"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-lable">Email body:</label>
+                                <div class="col-sm-10">
+                                    <!--
+                                        <div class="summernote" [summernote]="{height: 380}" [codeText]="selectedTemplate.EmailBody" 
+                                        (codeChange)="emailBodyChanged($event)" #summernote></div>
+                                    -->
+                                    <textarea class="form-control" name="emailbody" [(ngModel)]="selectedTemplate.EmailBody" rows="8" cols="100">
+                                    </textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-gorup">
+                                <label class="col-sm-2 control-lable"></label>
+                                <div class="col-sm-7">
+                                    <button class="btn btn-primary"  type="submit" [disabled]="submitting">
+                                        <span *ngIf="submitting"><i class='fa fa-circle-o-notch fa-spin'></i> Sending...</span>
+                                        <span *ngIf="!submitting"><i class="fa fa-gravel"></i>Save</span>                    
+                                    </button>
+                                </div>
+                            </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </sa-widget>
+    </div>
+</div>
+

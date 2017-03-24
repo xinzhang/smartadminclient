@@ -1,0 +1,81 @@
+<div class="container">
+
+    <div class="row">
+        <h3>&nbsp;</h3>
+        <sa-widget [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false" [colorbutton]="false" [deletebutton]="false">
+
+            <header>
+                <span class="widget-icon"><i class="glyphicon glyphicon-stats txt-color-darken"></i></span>
+                <h2>Report Logs</h2>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <i class='glyphicon glyphicon-refresh' (click)="refresh()"></i>
+            </header>
+
+            <div class="no-padding">
+                <div class="widget-body">
+                    <sa-widgets-grid>
+                        <!-- row -->
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                <input type="text" name="reportDate" placeholder="Select a report date (dd/mm/yyyy)" 
+                                    class="form-control datepicker"         
+                                    [ngModel]="reportDate"                        
+                                    (onSelectDate)="reportDateChanged($event)" 
+                                    [saUiDatepicker]="{
+                                            dateFormat: 'dd/mm/yy'                            
+                                        }">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- NEW WIDGET START -->
+                            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                                <!-- Widget ID (each widget will need unique ID)-->
+                                <sa-widget class="well">
+                                    <header>
+                                        <span class="widget-icon"> <i class="fa fa-comments"></i> </span>
+                                        <h2></h2>
+                                    </header>
+
+                                    <!-- widget div-->
+                                    <div>
+                                        <!-- widget content -->
+                                        <div class="widget-body no-padding" data-sparkline-container="">
+
+                                            <sa-datatable [options]="options" tableClass="display projects-table table table-striped table-bordered table-hover" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <!--<th></th>-->
+                                                        <th>Client Code</th>
+                                                        <th><i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>Report Date</th>
+                                                        <th>Distribution Report Sent</th>
+                                                        <th>Distribution Report SentBy</th>
+                                                        <th><i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>Distribution Report Sent DateTime</th>
+                                                        <th>Tax Report Sent</th>
+                                                        <th>Tax Report SentBy</th>
+                                                        <th><i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>Tax Report Sent DateTime</th>
+                                                    </tr>
+                                                </thead>
+                                            </sa-datatable>
+
+                                        </div>
+                                        <!-- end widget content -->
+                                    </div>
+                                    <!-- end widget div -->
+                                </sa-widget>
+                                <!-- end widget -->
+                            </article>
+                            <!-- WIDGET END -->
+                        </div>
+                        <!-- end row -->
+                    </sa-widgets-grid>
+                    <!-- end widget grid -->
+                </div>
+            </div>
+        </sa-widget>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="row">
+        <h3>&nbsp;</h3>
+        <sa-widget [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false" [colorbutton]="false" [deletebutton]="false">
+
+            <header>
+                <span class="widget-icon"><i class="glyphicon glyphicon-stats txt-color-darken"></i></span>
+                <h2>Management Reporting</h2>
+                &nbsp;&nbsp;&nbsp;&nbsp;                
+                <i class='glyphicon glyphicon-refresh' (click)="refreshClients()"></i>
+            </header>
+
+            <div>
+                <div class="widget-body">                    
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <button class="btn btn-default" (click)="btnReportLog()">Reports Log</button>
+                        </div>
+                        <div class="col-xs-6">
+                            <button class="btn btn-default pull-right" (click)="btnViewTaxReport('')" >View Master Distribution Report</button>
+                            <button class="btn btn-default pull-right" (click)="btnViewDistributionReport('')">View Master Tax Report</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="widget-body">
+                    <h3>Client Reporting {{reportDate | date: 'dd/MM/yyyy'}}</h3>
+                    <div class="row">
+                        <table class="table table-striped">
+                            <tr *ngFor="let c of taxCurrentReports; let idx = index" >
+                                <td>
+                                    <span>{{c.ClientCode}}</span>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <button class="btn btn-default" (click)="btnViewTaxReport(c.ClientCode)">View Tax Report</button>
+                                    <button class="btn btn-default" (click)="btnSendTaxReport(c.ClientCode, idx)">Send</button>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <button class="btn btn-default" (click)="btnViewDistributionReport(c.ClientCode)">View Distribution Report</button>
+                                    <button class="btn btn-default" (click)="btnSendDistributionReport(c.ClientCode, idx)">Send</button>
+                                </td>
+                                <td>
+                                    &nbsp;&nbsp;
+                                </td>
+                                <td>
+                                    <button class="btn btn-default" (click)="btnSendBothReport(c.ClientCode, idx)">Send Both</button>                                    
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </sa-widget>
+    </div>
+</div>
+
+<modal #modal>
+    <modal-header [show-close]="true" (onClose)="onClose()">
+        <h4 class="modal-title">View {{modalClientCode}} {{modalReportType}}</h4>
+    </modal-header>
+
+    <modal-body>
+        {{modalMessage}}
+    </modal-body>
+
+    <modal-footer>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">No</button>
+        <button type="button" class="btn btn-primary" (click)="modal.close()">Yes</button>
+    </modal-footer>
+</modal>

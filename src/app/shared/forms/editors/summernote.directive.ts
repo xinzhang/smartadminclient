@@ -33,11 +33,15 @@ export class SummernoteDirective implements OnInit{
         }        
       }));     
 
-      $(this.el.nativeElement).summernote('editor.pasteHTML', this.codeText);      
+      if (this.codeText != null && this.codeText !== '') {
+        $(this.el.nativeElement).summernote('editor.pasteHTML', this.codeText);      
+      }
   }
 
   public refreshText() {
-    $(this.el.nativeElement).summernote('editor.pasteHTML', this.codeText);
+    if (this.codeText != null && this.codeText !== '') {
+      $(this.el.nativeElement).summernote('editor.pasteHTML', this.codeText);
+    }
   }
    
 }
