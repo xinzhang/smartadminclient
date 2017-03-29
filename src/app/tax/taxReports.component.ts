@@ -17,6 +17,7 @@ export class TaxReportsComponent implements OnInit {
     modalMessage :string = '';
     modalReportType:string = '';
     modalClientCode:string = '';
+    destinationUrl:string = '';
 
     @ViewChild('modal') modal: ModalComponent;
 
@@ -42,10 +43,11 @@ export class TaxReportsComponent implements OnInit {
         this.modalClientCode = clientCode;
         this.modalReportType = 'tax';
 
-        let rpt = this.taxCurrentReports[idx];
+        let rpt = this.taxCurrentReports[idx];        
         if (rpt.TaxReportSent) {
             this.modalMessage = 'The tax report has been sent previously, do you want to send it again?';
-            this.modal.open();
+            this.destinationUrl = '/tax/taxEmail/tax/' + clientCode;
+            this.modal.open();            
         } else {
             this.router.navigateByUrl('/tax/taxEmail/tax/' + clientCode);
         }
@@ -58,6 +60,7 @@ export class TaxReportsComponent implements OnInit {
         let rpt = this.taxCurrentReports[idx];
         if (rpt.DistributionReportSent) {
             this.modalMessage = 'The tax report has been sent previously, do you want to send it again?';
+            this.destinationUrl = '/tax/taxEmail/dist/' + clientCode;
             this.modal.open();
         } else {
             this.router.navigateByUrl('/tax/taxEmail/dist/' + clientCode);
@@ -67,7 +70,7 @@ export class TaxReportsComponent implements OnInit {
     btnSendBothReport(clientCode:string, idx: number) {   
         this.modalClientCode = clientCode;
         this.modalReportType = 'both';
-        
+        this.destinationUrl = '/tax/taxEmail/both/' + clientCode;
         let rpt = this.taxCurrentReports[idx];
 
         if (rpt.DistributionReportSent && rpt.TaxReportSent) {
@@ -80,9 +83,7 @@ export class TaxReportsComponent implements OnInit {
         }
         else if (rpt.TaxReportSent) {
             this.modalMessage = 'The tax report has been sent previously, do you want to send it again?';
-            this.modal.open().then(x=> {
-                this.router.navigateByUrl('/tax/taxEmail/both/' + clientCode)
-            });
+            this.modal.open();
         } else {
             this.router.navigateByUrl('/tax/taxEmail/both/' + clientCode)
         }        
@@ -94,7 +95,16 @@ export class TaxReportsComponent implements OnInit {
 
     onClose() {    
         console.log('modal close event');
-        this.router.navigateByUrl('/tax/taxEmail/' + this.modalReportType + '/' + this.modalClientCode);
+        if (this.destinationUrl != '') {
+            this.router.navigateByUrl(this.destinationUrl);
+        }
+    }
+
+    onOpen() {
+    }
+
+    onDismiss() {
+        console.log('modal dismissed event');
     }
 
 }

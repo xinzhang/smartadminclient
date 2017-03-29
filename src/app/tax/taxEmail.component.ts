@@ -23,7 +23,8 @@ export class TaxEmailComponent implements OnInit, OnDestroy{
     EmailType: string = "";
     ClientCode : string = "";
 
-    @ViewChild('summernote') summernote: any;
+    //removed the summer note as it is not working as expected
+    //@ViewChild('summernote') summernote: any;
 
     constructor(private taxTrackingService: TaxTrackingService,
         private route: ActivatedRoute,
@@ -38,7 +39,7 @@ export class TaxEmailComponent implements OnInit, OnDestroy{
             this.taxEmail = d;  
 
             //add special code for the summernote assignment
-            $(this.summernote.nativeElement).summernote('editor.pasteHTML', this.taxEmail.EmailBody);
+            //$(this.summernote.nativeElement).summernote('editor.pasteHTML', this.taxEmail.EmailBody);
                       
         })         
     }
@@ -58,9 +59,9 @@ export class TaxEmailComponent implements OnInit, OnDestroy{
         //this.taxEmail.EmailCC.splice(index, 1);        
     } 
 
-    emailBodyChanged(event) {    
-        this.taxEmail.EmailBody = event.value;
-    }
+    // emailBodyChanged(event) {    
+    //     this.taxEmail.EmailBody = event.value;
+    // }
 
     submitting = false;
 
@@ -69,8 +70,8 @@ export class TaxEmailComponent implements OnInit, OnDestroy{
         this.submitting = true;
         
         //summer note br cleanup
-        this.taxEmail.EmailBody = this.taxEmail.EmailBody.split('<br>').join('');
-        this.taxEmail.EmailBody = this.taxEmail.EmailBody.split('<p></p>').join('');
+        // this.taxEmail.EmailBody = this.taxEmail.EmailBody.split('<br>').join('');
+        // this.taxEmail.EmailBody = this.taxEmail.EmailBody.split('<p></p>').join('');
 
         this.taxTrackingService.sendTaxEmail(this.taxEmail)
          .subscribe(

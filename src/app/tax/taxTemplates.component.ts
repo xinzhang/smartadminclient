@@ -41,7 +41,8 @@ export class TaxTemplatesComponent implements OnInit {
     }
 
     emailBodyChanged($event:any) {        
-        this.selectedTemplate.EmailBody = $event.value;
+        var body = $event.value.split('\n').join('<br />');
+        this.selectedTemplate.EmailBody = body;
     }
 
     submitting = false;

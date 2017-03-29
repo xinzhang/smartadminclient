@@ -22,6 +22,7 @@ export class TaxReportLogComponent {
     }
 
     ngOnInit() {
+        this.reportDate = moment().format("DD/MM/YYYY");
     }
 
     refresh() {        

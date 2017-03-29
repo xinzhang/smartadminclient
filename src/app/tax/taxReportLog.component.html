@@ -20,7 +20,8 @@
                             <div class="col-md-5">
                                 <div class="input-group">
                                 <input type="text" name="reportDate" placeholder="Select a report date (dd/mm/yyyy)" 
-                                    class="form-control datepicker"         
+                                    class="form-control datepicker"      
+                                    #reportDate   
                                     [ngModel]="reportDate"                        
                                     (onSelectDate)="reportDateChanged($event)" 
                                     [saUiDatepicker]="{

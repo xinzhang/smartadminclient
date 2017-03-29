@@ -63,8 +63,8 @@
     </div>
 </div>
 
-<modal #modal>
-    <modal-header [show-close]="true" (onClose)="onClose()">
+<modal #modal  (onClose)="onClose()" (onDismiss)="onDismiss()" (onOpen)="onOpen()">
+    <modal-header [show-close]="true">
         <h4 class="modal-title">View {{modalClientCode}} {{modalReportType}}</h4>
     </modal-header>
 
