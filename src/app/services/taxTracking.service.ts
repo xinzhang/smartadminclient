@@ -35,6 +35,14 @@ export class TaxTrackingService {
         return this.http.get(this.reportUrl).map(data => data.json());
     }
 
+    downloadCurrentTaxReport(clientCode):Observable<any> {
+        return this.http.get(this.reportUrl + "/download/tax/" + clientCode).map(data => data.json());
+    }
+
+    downloadCurrentDistributionReport(clientCode):Observable<any> {
+        return this.http.get(this.reportUrl + "/download/distribution/" + clientCode).map(data => data.json());
+    }
+
     getCurrentTaxReport(clientCode):Observable<any> {
         return this.http.get(this.reportUrl + "/view/tax/" + clientCode).map(data => data.json());
     }

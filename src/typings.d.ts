@@ -7,3 +7,4 @@ declare var System: any;
 // declare var require: NodeRequire;
 
 declare var jQuery: any;
+declare module "file-saver";

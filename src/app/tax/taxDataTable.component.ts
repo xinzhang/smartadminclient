@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaxContact } from '../models/taxContact.model';
 import { TaxTrackingService } from '../services/taxTracking.service';
+import * as FileSaver from 'file-saver';
 
 @Component({
     selector: 'tax-datatable',
@@ -13,7 +14,9 @@ export class TaxDataTableComponent implements OnInit {
 
     clientCode = '';
     dataSource = [];
+
     dataLoading: boolean = false;
+    
     constructor(private taxTrackingService: TaxTrackingService,
         private route: ActivatedRoute,
         private router: Router) {
@@ -39,11 +42,11 @@ export class TaxDataTableComponent implements OnInit {
     }
 
     download() {
-        this.taxTrackingService.getCurrentTaxReport(this.clientCode)
+        this.taxTrackingService.downloadCurrentTaxReport(this.clientCode)
             .subscribe( x=> {
                 const filename = this.clientCode + "_tax_" + this.getDateFormatted() + ".csv";
-                const data = new Blob([x], { type: '"image/jpg;' });
-                //FileSaver.saveAs(data, filename);                
+                const data = new Blob([x], { type: '"text/csv;' });
+                FileSaver.saveAs(data, filename);
             })
     }
 

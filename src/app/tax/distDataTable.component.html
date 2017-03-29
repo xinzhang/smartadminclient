@@ -1,6 +1,22 @@
+
+<div class="container">
+    <div class="row">
+        <h3>&nbsp;</h3>
+        <sa-widget [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false" [colorbutton]="false" [deletebutton]="false">
+
+            <header>
+                <span class="widget-icon"><i class="glyphicon glyphicon-stats txt-color-darken"></i></span>
+                <h2>Report Preview</h2>
+                &nbsp;&nbsp;&nbsp;&nbsp;  
+                <a (click)="download()"><i class=""></i> Download CSV</a>                              
+            </header>
+
+            <div>
+                <div class="widget-body">        
+
 <div class="container">
   <div class="row">
-      <span *ngIf="this.dataLoading"> <i className="fa fa-spinner fa-3x"></i> Loading...</span>
+      <span *ngIf="this.dataLoading"> <i className="glyphicon glyphicon-refresh txt-color-darken"></i> Loading...</span>
       <div class="panel panel-default">
         <!--<div class="panel-heading">
           <h4></h4>
@@ -40,3 +56,9 @@
       </div>
   </div>
 </div>
+
+              </div>
+            </div>
+        </sa-widget>
+    </div>
+</div>    

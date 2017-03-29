@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaxContact } from '../models/taxContact.model';
 import { TaxTrackingService } from '../services/taxTracking.service';
+import * as FileSaver from 'file-saver';
 
 @Component({
     selector: 'dist-datatable',
@@ -37,4 +38,17 @@ export class DistDataTableComponent implements OnInit {
         //}
     }
 
+    getDateFormatted() {
+        let d = new Date();
+        return d.getFullYear() + "" + (d.getMonth() + 1) + "" + d.getDate();
+    }
+
+    download() {
+        this.taxTrackingService.downloadCurrentDistributionReport(this.clientCode)
+            .subscribe( x=> {
+                const filename = this.clientCode + "_distribution_" + this.getDateFormatted() + ".csv";
+                const data = new Blob([x], { type: '"text/csv;' });
+                FileSaver.saveAs(data, filename);
+            })
+    }
 }

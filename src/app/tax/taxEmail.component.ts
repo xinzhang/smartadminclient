@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TaxTrackingService } from '../services/taxTracking.service';
 import { TaxEmail } from '../models/taxEmail.model';
 
+import * as FileSaver from 'file-saver';
+
 declare var $: any;
 
 @Component({
@@ -22,6 +24,7 @@ export class TaxEmailComponent implements OnInit, OnDestroy{
     
     EmailType: string = "";
     ClientCode : string = "";
+    DateStamp : string = "";
 
     //removed the summer note as it is not working as expected
     //@ViewChild('summernote') summernote: any;
@@ -33,6 +36,7 @@ export class TaxEmailComponent implements OnInit, OnDestroy{
     ngOnInit() {
         this.EmailType = this.route.snapshot.params["emailType"];
         this.ClientCode = this.route.snapshot.params["clientCode"];
+        this.DateStamp = this.getDateFormatted();
 
         this.taxTrackingService.getEmailTemplate(this.EmailType, this.ClientCode)
         .subscribe(d => {
@@ -42,6 +46,11 @@ export class TaxEmailComponent implements OnInit, OnDestroy{
             //$(this.summernote.nativeElement).summernote('editor.pasteHTML', this.taxEmail.EmailBody);
                       
         })         
+    }
+
+    getDateFormatted() {
+        let d = new Date();
+        return d.getFullYear() + "" + (d.getMonth() + 1) + "" + d.getDate();
     }
 
     ngOnDestroy() {        
@@ -64,6 +73,8 @@ export class TaxEmailComponent implements OnInit, OnDestroy{
     // }
 
     submitting = false;
+    downloadingTax = false;
+    downloadingDist = false;
 
     onSubmit(f) {
 
@@ -85,4 +96,25 @@ export class TaxEmailComponent implements OnInit, OnDestroy{
          });
     }
 
+    downloadTax() {
+        this.downloadingTax = true;
+        this.taxTrackingService.downloadCurrentDistributionReport(this.ClientCode)
+            .subscribe( x=> {                
+                const filename = this.ClientCode + "_distribution_" + this.getDateFormatted() + ".csv";
+                const data = new Blob([x], { type: '"text/csv;' });
+                FileSaver.saveAs(data, filename);
+                this.downloadingTax = false;
+            })
+    }
+
+    downloadDistribution() {
+        this.downloadingDist = true;
+        this.taxTrackingService.downloadCurrentDistributionReport(this.ClientCode)
+            .subscribe( x=> {
+                const filename = this.ClientCode + "_distribution_" + this.getDateFormatted() + ".csv";
+                const data = new Blob([x], { type: '"text/csv;' });
+                FileSaver.saveAs(data, filename);
+                this.downloadingDist = false;
+            })
+    }
 }
