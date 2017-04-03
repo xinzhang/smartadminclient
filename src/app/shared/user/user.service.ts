@@ -13,6 +13,8 @@ export class UserService {
     username: 'Guest'
   };
 
+  public userRoles = [];
+
   constructor(private jsonApiService:JsonApiService, private http: Http) {
     this.user = new Subject();
   }
@@ -38,5 +40,9 @@ export class UserService {
 
   }
 
+  getUserRoles():Observable<any> {
+   return this.http.get("/api/user/myroles")
+    .map(data => data.json());    
+  }
 
 }

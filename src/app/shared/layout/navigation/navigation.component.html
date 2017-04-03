@@ -23,11 +23,11 @@
         <ul>
           <li routerLinkActive="active">
               <a routerLink="/tax/reports">Reports</a>
-          </li>
-          <li routerLinkActive="active">
+          </li>          
+          <li routerLinkActive="active" *ngIf="userRoles.indexOf('AVPSAdmins') > -1">
               <a routerLink="/tax/clients">Client Setup</a>
           </li>
-          <li routerLinkActive="active">
+          <li routerLinkActive="active" *ngIf="userRoles.indexOf('AVPSAdmins') > -1">
               <a routerLink="/tax/templates">Template Setup</a>
           </li>          
         </ul>

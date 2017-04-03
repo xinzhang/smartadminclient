@@ -11,7 +11,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-lable">From:</label>
             <div class="col-sm-10">
-                <input required type="text" class="form-control" name="emailFrom" [(ngModel)]="taxEmail.EmailFrom" placeholder="Email From"
+                <input required type="text" class="form-control" name="emailFrom" disabled [(ngModel)]="taxEmail.EmailFrom" placeholder="Email From"
                 />
             </div>
         </div>
@@ -20,7 +20,7 @@
             <label class="col-sm-2 control-lable">To:</label>
             <div class="col-sm-6">
                 <input type="text" class="form-control" name="emailto" [(ngModel)]="taxEmail.EmailTo" placeholder="Enter the email address"
-                    #apirCodeInput (keyup.enter)="addEmailBCC()" />
+                    #apirCodeInput (keyup.enter)="addEmailBCC()" disabled />
                 <span (click)="addEmailBCC()" class="glyphicon glyphicon-plus form-control-feedback"></span>
             </div>
             <div class="col-sm-4">

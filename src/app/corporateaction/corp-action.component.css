@@ -59,3 +59,7 @@ div.modal-footer {
 {
     margin-right: 5px!important;
 }
+
+.widget-body {
+    padding: 15px;
+}
