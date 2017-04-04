@@ -13,44 +13,38 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let c of taxContacts; let idx = index" >
+                <tr *ngFor="let c of taxContacts; let idx = index">
                     <td>
                         <span *ngIf="!isEditing || isEditingLine !== idx"> {{c.Name}} </span>
                         <input type="text" *ngIf="isEditing && isEditingLine === idx" name="name" [(ngModel)]="this.currentTaxContact.Name" />
                     </td>
                     <td>
                         <span *ngIf="!isEditing || isEditingLine !== idx"> {{c.WorkPhone}} </span>
-                        <input type="text" *ngIf="isEditing && isEditingLine === idx" name="WorkPhone" [(ngModel)]="this.currentTaxContact.WorkPhone" />                        
+                        <input type="text" *ngIf="isEditing && isEditingLine === idx" name="WorkPhone" [(ngModel)]="this.currentTaxContact.WorkPhone"
+                        />
                     </td>
                     <td>
                         <span *ngIf="!isEditing || isEditingLine !== idx"> {{c.Fax}} </span>
-                        <input type="text" *ngIf="isEditing && isEditingLine === idx" name="Fax" [(ngModel)]="this.currentTaxContact.Fax" />                        
-                    </td>                    
+                        <input type="text" *ngIf="isEditing && isEditingLine === idx" name="Fax" [(ngModel)]="this.currentTaxContact.Fax" />
+                    </td>
                     <td>
                         <span *ngIf="!isEditing || isEditingLine !== idx"> {{c.Email}} </span>
-                        <input type="text" *ngIf="isEditing && isEditingLine === idx" name="Email" [(ngModel)]="this.currentTaxContact.Email" />                                                                        
+                        <input type="text" *ngIf="isEditing && isEditingLine === idx" name="Email" [(ngModel)]="this.currentTaxContact.Email" />
                     </td>
                     <td>
                         <span *ngIf="!isEditing || isEditingLine !== idx">
-                            <span ng-switch="c.IsPrimaryContact">
-                                <span ng-switch-when="true">Yes</span>
-                                <span ng-switch-default></span>
-                            </span>
+                                <span *ngIf="c.IsPrimaryContact">Yes</span>
+                                <span *ngIf="!c.IsPrimaryContact">No</span>
                         </span>
-                        <input type="checkbox" *ngIf="isEditing && isEditingLine === idx"
-                            [checked]="this.currentTaxContact.IsPrimaryContact" 
-                            (change)="this.currentTaxContact.IsPrimaryContact = !this.currentTaxContact.IsPrimaryContact"
+                        <input type="checkbox" *ngIf="isEditing && isEditingLine === idx" [checked]="this.currentTaxContact.IsPrimaryContact" (change)="this.currentTaxContact.IsPrimaryContact = !this.currentTaxContact.IsPrimaryContact"
                         />
                     </td>
                     <td>
                         <span *ngIf="!isEditing || isEditingLine !== idx">
-                            <span ng-switch="c.IsAllowedCommunication">
-                                <span ng-switch-when="true">Yes</span>
-                                <span ng-switch-default></span>
-                            </span>
+                                <span *ngIf="c.IsAllowedCommunication">Yes</span>
+                                <span *ngIf="!c.IsAllowedCommunication">No</span>
                         </span>
-                        <input type="checkbox" *ngIf="isEditing && isEditingLine === idx"
-                            [checked]="this.currentTaxContact.IsAllowedCommunication" 
+                        <input type="checkbox" *ngIf="isEditing && isEditingLine === idx" [checked]="this.currentTaxContact.IsAllowedCommunication"
                             (change)="this.currentTaxContact.IsAllowedCommunication = !this.currentTaxContact.IsAllowedCommunication"
                         />
                     </td>
@@ -62,13 +56,13 @@
                         <a title="View Detail" (click)="saveDetail(idx)" *ngIf="isEditing && isEditingLine == idx">
                             <i class="fa fa-info"></i> Save Detail
                         </a>
-                        &nbsp;                        
+                        &nbsp;
                         <a title="View Detail" (click)="cancel(idx)" *ngIf="isEditing && isEditingLine == idx">
                             <i class="fa fa-info"></i> Cancel
                         </a>
                     </td>
                 </tr>
-            </tbody>            
+            </tbody>
         </table>
     </div>
 </div>
