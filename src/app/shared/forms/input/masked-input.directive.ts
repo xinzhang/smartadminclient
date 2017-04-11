@@ -13,7 +13,7 @@ export class MaskedInput implements OnInit{
   constructor(private el: ElementRef) {}
 
   ngOnInit(){
-    System.import('script!jquery.maskedinput/src/jquery.maskedinput.js').then(()=>{
+    System.import('script-loader!jquery.maskedinput/src/jquery.maskedinput.js').then(()=>{
       let options = this.saMaskedPlaceholder ? {placeholder: this.saMaskedPlaceholder} : '';
       $(this.el.nativeElement).mask(this.saMaskedInput, options)
     })

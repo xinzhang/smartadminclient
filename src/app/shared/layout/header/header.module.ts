@@ -1,12 +1,12 @@
-
-
+import {CommonModule} from "@angular/common";
+import {FormsModule} from "@angular/forms";
 import {NgModule} from "@angular/core";
 
-import {CommonModule} from "@angular/common";
+import {PopoverModule} from "ngx-popover";
 
+import {CollapseMenuComponent} from "./collapse-menu/collapse-menu.component";
 import {RecentProjectsComponent} from "./recent-projects/recent-projects.component";
 import {FullScreenComponent} from "./full-screen/full-screen.component";
-import {CollapseMenuComponent} from "./collapse-menu/collapse-menu.component";
 
 import {ActivitiesComponent} from "./activities/activities.component";
 import {ActivitiesMessageComponent} from "./activities/activities-message/activities-message.component";
@@ -15,12 +15,11 @@ import {ActivitiesTaskComponent} from "./activities/activities-task/activities-t
 import {HeaderComponent} from "./header.component";
 
 import {UtilsModule} from "../../utils/utils.module";
-import {I18nModule} from "../../i18n/i18n.module";
-import {DropdownModule} from "ng2-bootstrap/ng2-bootstrap";
 import { SpeechButtonComponent } from './speech-button/speech-button.component';
-import {FormsModule} from "@angular/forms";
+import {I18nModule} from "../../i18n/i18n.module";
 import {UserModule} from "../../user/user.module";
-import {PopoverModule} from "ng2-popover/src/index";
+import {VoiceControlModule} from "../../voice-control/voice-control.module";
+import {BsDropdownModule} from "ng2-bootstrap";
 
 
 @NgModule({
@@ -29,9 +28,11 @@ import {PopoverModule} from "ng2-popover/src/index";
 
     FormsModule,
 
-    DropdownModule,
+    VoiceControlModule,
 
-    UtilsModule, I18nModule, UserModule, PopoverModule
+    BsDropdownModule,
+
+    UtilsModule, I18nModule, UserModule, PopoverModule,
   ],
   declarations: [
     ActivitiesMessageComponent,

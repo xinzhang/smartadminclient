@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {RecentProjectsService} from "./recent-projects.service";
-import {I18nPipe} from "../../../i18n/i18n.pipe";
 
 @Component({
   selector: 'sa-recent-projects',
-  templateUrl: 'recent-projects.component.html',
+  templateUrl: './recent-projects.component.html',
   providers: [RecentProjectsService]
 })
 export class RecentProjectsComponent implements OnInit {

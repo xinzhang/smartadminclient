@@ -10,7 +10,7 @@ export class SmartTimepickerDirective implements OnInit{
   constructor(private el: ElementRef) { }
 
   ngOnInit(){
-    System.import('script!bootstrap-timepicker/js/bootstrap-timepicker.min.js').then(()=>{
+    System.import('script-loader!bootstrap-timepicker/js/bootstrap-timepicker.min.js').then(()=>{
       this.render()
     })
   }

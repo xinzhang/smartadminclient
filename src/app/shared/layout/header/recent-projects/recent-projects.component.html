@@ -4,7 +4,7 @@
     <span class="project-selector dropdown-toggle" dropdownToggle>{{'Recent projects'| i18n}} <i ng-if="projects.length"
                                                                                                             class="fa fa-angle-down"></i></span>
 
-  <ul class="dropdown-menu" *ngIf="projects.length">
+  <ul *dropdownMenu class="dropdown-menu">
     <li *ngFor="let project of projects">
       <a href="{{project.href}}">{{project.title}}</a>
     </li>

@@ -1,5 +1,6 @@
 import { Routes, RouterModule } from '@angular/router';
 import {HomeComponent} from "./home.component";
+import {ModuleWithProviders} from "@angular/core";
 
 export const homeRoutes: Routes = [
     {
@@ -11,5 +12,5 @@ export const homeRoutes: Routes = [
     }
 ];
 
-export const homeRouting = RouterModule.forChild(homeRoutes);
+export const homeRouting: ModuleWithProviders = RouterModule.forChild(homeRoutes);
 

@@ -13,7 +13,7 @@ export class SmartClockpickerDirective implements OnInit {
   }
 
   ngOnInit() {
-    System.import('script!clockpicker/dist/bootstrap-clockpicker.min.js').then(()=> {
+    System.import('script-loader!clockpicker/dist/bootstrap-clockpicker.min.js').then(()=> {
       this.render()
     })
   }

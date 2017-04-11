@@ -12,13 +12,17 @@ import {RouterModule} from "@angular/router";
 // import {ChatModule} from "../../chat/chat.module";
 import {StorageModule} from '../../../localStorage/storage.module';
 
+//import { LocalStorageModule } from 'angular-2-local-storage';
+
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     I18nModule,
     UserModule,
+    //LocalStorageModule
     StorageModule
+    
     // ChatModule
   ],
   declarations: [

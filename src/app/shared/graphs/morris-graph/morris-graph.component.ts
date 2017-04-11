@@ -21,7 +21,7 @@ export class MorrisGraphComponent implements AfterContentInit {
 
   ngAfterContentInit() {
 
-    System.import('script!raphael').then(()=> {
+    System.import('script-loader!raphael').then(()=> {
       return System.import('morris.js/morris.js')
     }).then(()=> {
       options.element = this.el.nativeElement.children[0];

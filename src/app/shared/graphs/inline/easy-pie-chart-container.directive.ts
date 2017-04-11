@@ -3,7 +3,7 @@ import {
   AfterContentInit
 } from '@angular/core';
 
-import 'script!smartadmin-plugins/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js';
+import 'script-loader!smartadmin-plugins/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js';
 
 declare var $: any;
 

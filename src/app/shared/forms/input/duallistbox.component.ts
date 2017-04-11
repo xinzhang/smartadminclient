@@ -25,7 +25,7 @@ export class DuallistboxComponent implements OnInit {
   @Input() size: number = 10;
 
   @HostListener('click') onClick(){
-    let selected = this.element.find('.smart-duallistbox').val();
+    let selected = this.element.find('.smart-duallistbox').val() || [];
 
     if (
       selected.some(it=>this.selected.indexOf(it) == -1)
@@ -56,7 +56,7 @@ export class DuallistboxComponent implements OnInit {
 
   ngOnInit() {
     this.selected = this.items.filter((item)=>item.selected).map(item=>item.key);
-    System.import('script!bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js').then(()=>{
+    System.import('script-loader!bootstrap-duallistbox/dist/jquery.bootstrap-duallistbox.min.js').then(()=>{
       this.render()
     })
   }

@@ -4,8 +4,6 @@ import { CorporateActionService } from '../services/corporateaction.service';
 import { StaticDataService } from '../services/staticdata.service';
 
 import { Animations } from '../shared/animations';
-import { GridOptions } from 'ag-grid/main';
-
 import { DatatableComponent } from '../shared/ui/datatable/datatable.component';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 

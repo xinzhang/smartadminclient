@@ -1,9 +1,17 @@
-import {Directive, ElementRef, OnInit} from '@angular/core';
-import {Input} from "@angular/core/src/metadata/directives";
+import {Directive, ElementRef, OnInit, Input} from '@angular/core';
 
 declare var $: any;
 
-
+/*
+$.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+  _title: function(title) {
+    if (!this.options.title ) {
+      title.html("&#160;");
+    } else {
+      title.html(this.options.title);
+    }
+  }
+}));*/
 
 @Directive({
   selector: '[saJquiDialog]'

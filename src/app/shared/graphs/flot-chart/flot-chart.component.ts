@@ -31,7 +31,7 @@ export class FlotChartComponent implements AfterContentInit, OnChanges {
   constructor(private el: ElementRef) {}
 
   ngAfterContentInit() {
-    System.import('imports?this=>window!smartadmin-plugins/flot-bundle/flot-bundle.min.js').then(()=>{
+    System.import('imports-loader?this=>window!smartadmin-plugins/flot-bundle/flot-bundle.min.js').then(()=>{
       this.vendorLoaded = true;
       this.render(this.data)
     });

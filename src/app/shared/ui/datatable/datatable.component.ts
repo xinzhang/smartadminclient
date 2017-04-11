@@ -1,4 +1,4 @@
-import {Component, Input, ElementRef, AfterContentInit, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, Input, ElementRef, AfterContentInit, OnInit,  Output, EventEmitter} from '@angular/core';
 
 declare var $: any;
 
@@ -38,7 +38,7 @@ export class DatatableComponent implements OnInit {
 
   ngOnInit() {
     Promise.all([
-      System.import('script!smartadmin-plugins/datatables-bundle/datatables.min.js'),
+      System.import('script-loader!smartadmin-plugins/datatables-bundle/datatables.min.js'),
     ]).then(()=>{
       this.render()
     })
@@ -51,7 +51,7 @@ export class DatatableComponent implements OnInit {
   render() {
     let element = $(this.el.nativeElement.children[0]);
     let options = this.options || {}
-    console.log('render:', options);
+
 
     let toolbar = '';
     if (options.buttons)
@@ -77,7 +77,7 @@ export class DatatableComponent implements OnInit {
       "t" +
       "<'dt-toolbar-footer'<'col-sm-6 col-xs-12 hidden-xs'i><'col-xs-12 col-sm-6'p>>",
       oLanguage: {
-        "sSearch": "<span class='input-group-addon'><i class='glyphicon glyphicon-search'></i></span>",
+        "sSearch": "<span class='input-group-addon'><i class='glyphicon glyphicon-search'></i></span> ",
         "sLengthMenu": "_MENU_"
       },
       "autoWidth": false,
@@ -87,12 +87,8 @@ export class DatatableComponent implements OnInit {
         element.parent().find('.input-sm', ).removeClass("input-sm").addClass('input-md');
       }
     });
-    
-    const _dataTable = element.DataTable(options);
 
-     if (!this.dataTableRef) {
-       this.dataTableRef = _dataTable;
-     }
+    const _dataTable = element.DataTable(options);
 
     if (this.filter) {
       // Apply the filter
@@ -101,13 +97,13 @@ export class DatatableComponent implements OnInit {
           .column($(this).parent().index() + ':visible')
           .search(this.value)
           .draw();
+
       });
     }
 
 
     if (!toolbar) {
-      element.parent().find(".dt-toolbar")
-        .append(`<div class="text-right"></div>`);
+      element.parent().find(".dt-toolbar").append('<div class="text-right"><img src="assets/img/logo.png" alt="SmartAdmin" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
     }
 
     if(this.detailsFormat){
@@ -126,7 +122,7 @@ export class DatatableComponent implements OnInit {
       })
     }
 
-    // Handle click on "View" button
+    // XZ -  07/04/2017 - Handle click on "View" button
     let self = this;
 
     element.on('click', '.btn-view', function (e) {
@@ -168,6 +164,7 @@ export class DatatableComponent implements OnInit {
                
         self.btnOther3Clicked.emit(data);
     } );
+
 
   }
 

@@ -49,18 +49,23 @@ export class SmartMenuDirective implements OnInit, AfterContentInit {
 
   }
 
-
+  private togglersBinded = false;
   ngAfterContentInit() {
-    this.$menu.find('li:has(> ul)').each((i, li)=> {
-      let $menuItem = $(li);
-      let $a = $menuItem.find('>a');
-      let sign = $('<b class="collapse-sign"><em class="fa fa-plus-square-o"/></b>');
-      $a.on('click', (e)=> {
-        this.toggle($menuItem);
-        e.stopPropagation();
-        return false;
-      }).append(sign);
-    });
+    if(!this.togglersBinded){
+      this.$menu.find('li:has(> ul)').each((i, li)=> {
+        let $menuItem = $(li);
+        let $a = $menuItem.find('>a');
+        let sign = $('<b class="collapse-sign"><em class="fa fa-plus-square-o"/></b>');
+
+        $a.on('click', (e)=> {
+          this.toggle($menuItem);
+          e.stopPropagation();
+          return false;
+        }).append(sign);
+        
+      });
+      this.togglersBinded = true;
+    }
   }
 
   ngOnDestroy() {

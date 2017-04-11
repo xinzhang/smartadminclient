@@ -5,8 +5,9 @@ import {Component, ViewContainerRef} from '@angular/core';
   template: '<router-outlet></router-outlet>'
 })
 export class AppComponent {
-  title = 'app works!';
+  public title = 'app works!';
 
+  //Existing
   private viewContainerRef: ViewContainerRef;
 
   public constructor(viewContainerRef:ViewContainerRef) {

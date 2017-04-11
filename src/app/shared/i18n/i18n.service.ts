@@ -1,15 +1,15 @@
 import {Injectable, ApplicationRef} from '@angular/core';
-import {Observable, Subject} from "rxjs/Rx";
+import {Observable, Subject, Subscription} from "rxjs/Rx";
 import {config} from '../smartadmin.config';
 import {languages} from './languages.model';
-import {JsonApiService} from "../api/json-api.service";
+import {JsonApiService} from "../../core/api/json-api.service";
 
 
 
 @Injectable()
 export class I18nService {
 
-  public state:Subject<any>;
+  public state;
   public data:{};
   public currentLanguage:any;
 

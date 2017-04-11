@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {JsonApiService} from "../../../api/json-api.service";
+import {JsonApiService} from "../../../../core/api/json-api.service";
+import {Observable} from 'rxjs/Rx'
 
 @Injectable()
 export class ActivitiesService {

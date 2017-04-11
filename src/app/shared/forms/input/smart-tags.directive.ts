@@ -10,7 +10,7 @@ export class SmartTagsDirective implements OnInit{
   constructor(private el : ElementRef) { }
 
   ngOnInit(){
-    System.import('script!bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js').then(()=>{
+    System.import('script-loader!bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js').then(()=>{
       this.render()
     })
   }

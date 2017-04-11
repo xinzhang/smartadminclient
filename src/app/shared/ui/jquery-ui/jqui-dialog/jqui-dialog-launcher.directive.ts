@@ -1,5 +1,5 @@
-import {Directive, HostListener, ElementRef} from '@angular/core';
-import {Input} from "@angular/core/src/metadata/directives";
+import {Directive, HostListener, ElementRef, Input} from '@angular/core';
+
 
 declare var $: any;
 

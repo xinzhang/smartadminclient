@@ -23,7 +23,7 @@ export class NestableListComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    this.items && System.import('script!smartadmin-plugins/bower_components/jquery-nestable/jquery.nestable.js').then(()=> {
+    this.items && System.import('script-loader!smartadmin-plugins/bower_components/jquery-nestable/jquery.nestable.js').then(()=> {
       this.render();
     })
   }

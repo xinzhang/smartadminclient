@@ -18,7 +18,7 @@ export class FuelUxWizardComponent implements OnInit {
   constructor(private el: ElementRef) { }
 
   ngOnInit() {
-    System.import('script!fuelux/js/wizard.js').then(()=>{
+    System.import('script-loader!fuelux/js/wizard.js').then(()=>{
       this.render()
     })
   }

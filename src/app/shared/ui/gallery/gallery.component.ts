@@ -15,7 +15,7 @@ import {
   template: `
     <div class="superbox">
       <div  >      
-          <template ngFor let-item="$implicit" [ngForOf]="pictures"><!--
+          <ng-template ngFor let-item="$implicit" [ngForOf]="pictures"><!--
           --><div  
              [@slideToggle]="item.state"
            class="superbox-list" (click)="activate(item)">
@@ -35,7 +35,7 @@ import {
              
               <div class="superbox-close txt-color-white" (click)="deactivate(item)"><i class="fa fa-times fa-lg"></i></div>
             </div
-            ></template>
+            ></ng-template>
         <div class="superbox-float" ></div>
       </div>
     </div>

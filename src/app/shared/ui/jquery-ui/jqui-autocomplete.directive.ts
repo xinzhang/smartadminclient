@@ -14,6 +14,7 @@ export class JquiAutocomplete implements OnInit {
 
   ngOnInit() {
     $(this.el.nativeElement).autocomplete(this.saJquiAutocomplete || {})
+
   }
 
 }

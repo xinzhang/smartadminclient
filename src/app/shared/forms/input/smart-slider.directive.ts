@@ -9,7 +9,7 @@ export class SmartSliderDirective implements OnInit {
   constructor(private el : ElementRef) { }
 
   ngOnInit(){
-    System.import('script!bootstrap-slider/dist/bootstrap-slider.min.js').then(()=>{
+    System.import('script-loader!bootstrap-slider/dist/bootstrap-slider.min.js').then(()=>{
       this.render()
     })
   }

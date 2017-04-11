@@ -103,7 +103,7 @@ export class WidgetComponent implements OnInit, AfterViewInit {
       $widget.find('.widget-body').prepend('<div class="jarviswidget-editbox"><input class="form-control" type="text"></div>');
     }
 
-    const isFiller = $widget.hasClass('fx-fill');
+    const isFiller = $widget.hasClass('sa-fx-col');
 
     if ($widget.attr('class')) {
       $widget.find('.jarviswidget').addClass($widget.attr('class'))
@@ -111,7 +111,7 @@ export class WidgetComponent implements OnInit, AfterViewInit {
     }
 
     if (isFiller) {
-      $widget.attr('class', 'fx-fill')
+      $widget.attr('class', 'sa-fx-col')
     }
   }
 

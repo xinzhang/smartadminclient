@@ -23,7 +23,7 @@ export class BootstrapValidatorDirective implements OnInit {
   }
 
   ngOnInit(){
-    System.import('script!smartadmin-plugins/bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js').then(()=> {
+    System.import('script-loader!smartadmin-plugins/bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js').then(()=> {
       this.attach()
     })
   }

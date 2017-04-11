@@ -1,6 +1,6 @@
 import {Directive, OnInit, ElementRef} from '@angular/core';
 
-import 'script!smartadmin-plugins/bower_components/relayfoods-jquery.sparkline/dist/jquery.sparkline.js'
+import 'script-loader!smartadmin-plugins/bower_components/relayfoods-jquery.sparkline/dist/jquery.sparkline.min.js'
 
 declare var $:any;
 

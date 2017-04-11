@@ -24,7 +24,6 @@ import {FileSelectDirective} from 'ng2-file-upload';
 import {SmartadminEditorsModule} from "../shared/forms/editors/smartadmin-editors.module";
 import {SimpleNotificationsModule} from 'angular2-notifications';
 import {ValidatorsModule} from '../shared/validators/validators.module';
-import {AgGridModule} from 'ag-grid-ng2/main';
 
 // import {DataTableModule} from '../shared/datatable/datatable.module';
 import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
@@ -42,11 +41,10 @@ import {SafePipe} from './sharepoint-docs.component';
     SmartadminDatatableModule,
     JqueryUiModule,
     SmartadminEditorsModule,
-    SimpleNotificationsModule,
+    SimpleNotificationsModule.forRoot(),
     ValidatorsModule,  
     //DataTableModule,  
     FormsModule,
-    AgGridModule.withComponents([]),
     Ng2Bs3ModalModule
   ],
   declarations: [

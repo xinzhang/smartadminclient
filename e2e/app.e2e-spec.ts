@@ -1,10 +1,10 @@
-import { SmartadminPage } from './app.po';
+import { UpgradeProjectPage } from './app.po';
 
-describe('smartadmin App', function() {
-  let page: SmartadminPage;
+describe('upgrade-project App', () => {
+  let page: UpgradeProjectPage;
 
   beforeEach(() => {
-    page = new SmartadminPage();
+    page = new UpgradeProjectPage();
   });
 
   it('should display message saying app works', () => {

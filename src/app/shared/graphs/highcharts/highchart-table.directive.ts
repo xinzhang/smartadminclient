@@ -14,8 +14,8 @@ export class HighchartTable implements OnInit{
 
   ngOnInit(){
     // to improve latency for big components smartadmin app we are loading some dependencies async
-    System.import('script!highcharts').then(()=>{
-      return System.import('script!smartadmin-plugins/bower_components/highchartTable/jquery.highchartTable.js')
+    System.import('script-loader!highcharts').then(()=>{
+      return System.import('script-loader!smartadmin-plugins/bower_components/highchartTable/jquery.highchartTable.js')
     }).then(()=>{
       $(this.el.nativeElement).highchartTable();
     })

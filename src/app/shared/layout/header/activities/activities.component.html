@@ -20,13 +20,13 @@
   <!-- notification content -->
    <div class="ajax-notifications custom-scroll">
       <ul class="notification-body" *ngIf="currentActivity" >
-        <template ngFor let-item [ngForOf]="currentActivity.data">
+        <ng-template ngFor let-item [ngForOf]="currentActivity.data">
 
           <li activitiesMessage *ngIf="item.type == 'message'" [item]="item"></li>
           <li activitiesNotification *ngIf="item.type == 'notification'" [item]="item"></li>
           <li activitiesTask *ngIf="item.type == 'task'" [item]="item"></li>
 
-        </template>
+        </ng-template>
 
       </ul>
     </div>

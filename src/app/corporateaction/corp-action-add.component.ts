@@ -298,8 +298,8 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
     else {
       corpactions.push(this.corporateAction);
     }
-    
-    //uploader document can not be saved.
+
+    //save state of uploader
     //this.corporateAction.Documents = this.fileUploader.RemoteDocuments;
 
     this.localStorageService.set("offline-corporateAction", JSON.stringify(corpactions));
@@ -331,8 +331,8 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
 
     let idx = corpactions.findIndex(x => x.Reference == reference);
     if (idx >= 0) {
-      this.corporateAction = corpactions[idx];
-      this.corporateAction.Documents = [];
+        this.corporateAction = corpactions[idx];
+        this.corporateAction.Documents = [];
     }
 
   }

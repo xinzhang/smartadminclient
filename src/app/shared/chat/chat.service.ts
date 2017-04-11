@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import {Subject} from "rxjs/Rx";
-import {JsonApiService} from "../api/json-api.service";
+import {Subject, Subscription, Observable} from "rxjs/Rx";
+import {JsonApiService} from "../../core/api/json-api.service";
 
 @Injectable()
 export class ChatService {
 
   url: string;
 
-  public messageToSubject: Subject<any>;
-  public newMessage: Subject<any>;
+  public messageToSubject;
+  public newMessage;
 
 
   constructor(private jsonApiService: JsonApiService) {

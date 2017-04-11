@@ -10,7 +10,7 @@ export class UiValidateDirective {
   @Input() saUiValidate:any;
 
   constructor(private el:ElementRef) {
-    System.import('script!jquery-validation').then(()=>{
+    System.import('script-loader!jquery-validation').then(()=>{
       this.attach()
     })
   }

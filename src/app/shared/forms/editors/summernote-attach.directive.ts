@@ -17,6 +17,6 @@ export class SummernoteAttachDirective implements OnInit{
   constructor() {  }
 
   ngOnInit(){
-    System.import('script!summernote/dist/summernote.min.js')
+    System.import('script-loader!summernote/dist/summernote.min.js')
   }
 }

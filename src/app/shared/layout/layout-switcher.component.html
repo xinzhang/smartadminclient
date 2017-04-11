@@ -40,7 +40,7 @@
     <section id="smart-styles">
           <a *ngFor="let skin of store.skins"
              (click)="onSmartSkin(skin)"
-             [class]="skin.class"
+             [class]="skin.skinBtnClass"
              [ngStyle]="skin.style">
              <i *ngIf="skin.name == store.smartSkin" class="fa fa-check fa-fw"></i> {{skin.label}} <sup *ngIf="skin.beta">beta</sup></a>
         </section>
