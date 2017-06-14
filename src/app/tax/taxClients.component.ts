@@ -7,11 +7,17 @@ import { TaxTrackingService } from '../services/taxTracking.service';
 
 import {TaxContactsComponent} from './taxContacts.component';
 
+//TN
+import { Animations } from '../shared/animations';
+
 @Component({
     selector: 'tax-clients',
     styleUrls: ['./tax.component.css'],
     providers: [TaxTrackingService],
-    templateUrl: './taxClients.component.html'
+    templateUrl: './taxClients.component.html',
+    //TN
+    host: { '[@routeAnimation]': 'true' },
+    animations: Animations.page, 
 })
 export class TaxClientsComponent implements OnInit {
 

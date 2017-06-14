@@ -4,11 +4,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TaxTrackingService } from '../services/taxTracking.service';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
+//TN
+import { Animations } from '../shared/animations';
+
 @Component({
     selector: 'tax-reports',
     providers: [TaxTrackingService],
     styleUrls: ['./tax.component.css'],
-    templateUrl: './taxReports.component.html'
+    templateUrl: './taxReports.component.html',
+    //TN
+    host: { '[@routeAnimation]': 'true' },
+    animations: Animations.page,  
 })
 export class TaxReportsComponent implements OnInit {
 

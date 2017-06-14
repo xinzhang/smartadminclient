@@ -185,7 +185,7 @@ export class CorpActionAddComponent implements OnInit, OnDestroy {
       this.corporateAction.APIRLabels.push(this.currentAPIRLabel);
       this.currentAPIR = "";
       this.currentAPIRLabel = "";
-    }
+    }    
   }
 
   removeAPIR(val: any) {

@@ -5,13 +5,19 @@ import { NgForm } from '@angular/forms';
 import { TaxTrackingService } from '../services/taxTracking.service';
 import {EmailTemplate} from '../models/emailTemplate.model';
 
+//TN
+import { Animations } from '../shared/animations';
+
 declare var $: any;
 
 @Component({
     selector: 'tax-templates',
     styleUrls: ['./tax.component.css'],
     providers: [TaxTrackingService],
-    templateUrl: './taxTemplates.component.html'
+    templateUrl: './taxTemplates.component.html',
+    //TN
+    host: { '[@routeAnimation]': 'true' },
+    animations: Animations.page, 
 })
 export class TaxTemplatesComponent implements OnInit {
 

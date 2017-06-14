@@ -64,13 +64,19 @@ export class TaxReportLogComponent {
             }
             //
             if (data.ReportDate !== null) {
-                $(row).find('td:eq(1)').text(moment(data.ReportDate).format("YYYY-MM-DD"));
+                $(row).find('td:eq(1)').html(moment(data.ReportDate).format("DD/MM/YYYY"));
+            }
+            if (data.DistributionReportSentBy !== null) {
+                $(row).find('td:eq(3)').html(data.DistributionReportSentBy.replace(/,/g, '<br/>'));
             }
             if (data.DistributionReportSentDateTime !== null) {
-                $(row).find('td:eq(4)').text(moment(data.DistributionReportSentDateTime).format("YYYY-MM-DD"));
+                $(row).find('td:eq(4)').html(data.DistributionReportSentDateTime.replace(/,/g, '<br/>'));
             }
+            if (data.TaxReportBy !== null) {
+                $(row).find('td:eq(6)').html(data.TaxReportSentBy.replace(/,/g, '<br/>'));
+            }            
             if (data.TaxReportSentDateTime !== null) {
-                $(row).find('td:eq(7)').text(moment(data.TaxReportSentDateTime).format("YYYY-MM-DD"));
+                $(row).find('td:eq(7)').html(data.TaxReportSentDateTime.replace(/,/g, '<br/>'));
             }
         }
     }
@@ -79,6 +85,7 @@ export class TaxReportLogComponent {
         var rptDate = moment($dateTime, "DD/MM/YYYY").format("YYYYMMDD");
         this.dt.refreshData('api/tax/reports/' + rptDate);
     }
+
 }
 
 

@@ -19,7 +19,8 @@
         <div class="form-group has-feedback">
             <label class="col-sm-2 control-lable">To:</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" name="emailto" [(ngModel)]="taxEmail.EmailTo" placeholder="Enter the email address"
+                <input type="text" class="form-control" name="emailto" 
+                [(ngModel)]="taxEmail.EmailTo" placeholder="Enter the email address"
                     #apirCodeInput (keyup.enter)="addEmailBCC()" disabled />
                 <span (click)="addEmailBCC()" class="glyphicon glyphicon-plus form-control-feedback"></span>
             </div>
@@ -30,9 +31,9 @@
         <div class="form-group has-feedback">
             <label class="col-sm-2 control-lable">CC:</label>
             <div class="col-sm-6">
-                <input type="text" class="form-control" name="emailcc" [(ngModel)]="taxEmail.EmailCC" placeholder="Enter the email address"
-                    #apirCodeInput (keyup.enter)="addEmailBCC()" />
-                <span (click)="addEmailBCC()" class="glyphicon glyphicon-plus form-control-feedback"></span>
+                <input type="text" class="form-control" name="emailcc" 
+                [(ngModel)]="taxEmail.EmailCC" placeholder="Enter the email address" (keyup.enter)="addCC()"/>
+                <span (click)="addCC()" class="glyphicon glyphicon-plus form-control-feedback"></span>
             </div>
             <div class="col-sm-4">
             </div>
@@ -79,8 +80,9 @@
 
         <div class="form-gorup">
             <label class="col-sm-2 control-lable"></label>
-            <div class="col-sm-7">
-                <button class="btn btn-primary" type="submit"  [disabled]="f.invalid || submitting">
+
+            <div class="col-sm-7"> <!--type="submit"-->
+                <button type="button" class="btn btn-default" [disabled]="f.invalid || submitting" (click)= "onSubmit(f.value)"><!--class="btn btn-primary"-->
                     <span *ngIf="submitting"><i class='fa fa-circle-o-notch fa-spin'></i> Sending...</span>
                     <span *ngIf="!submitting">Send Emails</span>                    
                 </button>
@@ -90,3 +92,18 @@
     </form>
 
 </div>
+
+<modal #modal (onClose)="onClose()" (onDismiss)="onDismiss()" (onOpen)="onOpen()">
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">Confirmation</h4>
+    </modal-header>
+
+    <modal-body>
+        Do you want to send mail?
+    </modal-body>
+
+    <modal-footer>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="modal.close()">OK</button>
+    </modal-footer>
+</modal>

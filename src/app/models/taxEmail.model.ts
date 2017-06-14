@@ -1,6 +1,7 @@
 
 export class TaxEmail {
-
+    public EmailCCs : string[] = [];
+    public EmailCCLabels: string[] = [];
     constructor(
         public TemplateName:string,
         public ClientCode:string,

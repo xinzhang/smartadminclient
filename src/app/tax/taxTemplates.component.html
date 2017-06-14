@@ -34,7 +34,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-lable">CC:</label>
                                 <div class="col-sm-10">
-                                    <input required type="text" class="form-control" name="emailCC" [(ngModel)]="selectedTemplate.EmailCC" placeholder="Email CC"
+                                    <input type="text" class="form-control" name="emailCC" [(ngModel)]="selectedTemplate.EmailCC" placeholder="Email CC"
                                     />
                                 </div>
                             </div>
@@ -62,7 +62,7 @@
                             <div class="form-gorup">
                                 <label class="col-sm-2 control-lable"></label>
                                 <div class="col-sm-7">
-                                    <button class="btn btn-primary"  type="submit" [disabled]="submitting">
+                                    <button class="btn btn-primary"  type="submit" [disabled]="f.invalid || submitting"> <!--TN-->
                                         <span *ngIf="submitting"><i class='fa fa-circle-o-notch fa-spin'></i> Sending...</span>
                                         <span *ngIf="!submitting"><i class="fa fa-gravel"></i>Save</span>                    
                                     </button>

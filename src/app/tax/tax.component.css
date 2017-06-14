@@ -17,3 +17,11 @@ textarea {
   width: 700px;
   height: 200px;
 }
+/*TN: display red border (not valid) / green (valid) */
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}

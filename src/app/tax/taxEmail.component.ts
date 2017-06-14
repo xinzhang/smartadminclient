@@ -1,9 +1,11 @@
 
-import {Component, OnDestroy, Input, Output, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, Input, Output, OnInit, ViewChild, EventEmitter} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { TaxTrackingService } from '../services/taxTracking.service';
 import { TaxEmail } from '../models/taxEmail.model';
+//TN
+import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import * as FileSaver from 'file-saver';
 
@@ -28,6 +30,9 @@ export class TaxEmailComponent implements OnInit, OnDestroy{
 
     //removed the summer note as it is not working as expected
     //@ViewChild('summernote') summernote: any;
+
+    //TN
+    @ViewChild('modal') modal: ModalComponent;
 
     constructor(private taxTrackingService: TaxTrackingService,
         private route: ActivatedRoute,
@@ -83,17 +88,9 @@ export class TaxEmailComponent implements OnInit, OnDestroy{
         //summer note br cleanup
         // this.taxEmail.EmailBody = this.taxEmail.EmailBody.split('<br>').join('');
         // this.taxEmail.EmailBody = this.taxEmail.EmailBody.split('<p></p>').join('');
-
-        this.taxTrackingService.sendTaxEmail(this.taxEmail)
-         .subscribe(
-            values => {                
-                this.router.navigateByUrl('/tax/reports');
-            },
-            error => {
-                console.log(error);
-                this.submitting = false;
-                this.errorMessage = error;
-         });
+        
+        //TN:
+        this.modal.open();
     }
 
     downloadTax() {
@@ -117,4 +114,37 @@ export class TaxEmailComponent implements OnInit, OnDestroy{
                 this.downloadingDist = false;
             })
     }
+
+    //TN: Dialog
+    onClose() {    
+        this.taxTrackingService.sendTaxEmail(this.taxEmail)
+         .subscribe(
+            values => {                
+                this.router.navigateByUrl('/tax/reports');
+            },
+            error => {
+                console.log(error);
+                this.submitting = false;
+                this.errorMessage = error;
+         });
+    }
+
+    onOpen() {
+        
+    }
+
+    onDismiss() {
+        this.submitting = false;
+    }
+    
+
+    
+    addCC() {
+        if (this.currentEmailCC != "") {
+        this.taxEmail.EmailCCs.push(this.currentEmailCC);
+        this.taxEmail.EmailCCLabels.push(this.currentEmailCC);
+        this.currentEmailCC = "";
+        }
+  }
+    
 }
