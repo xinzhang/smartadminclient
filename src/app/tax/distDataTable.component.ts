@@ -7,6 +7,7 @@ import * as FileSaver from 'file-saver';
 @Component({
     selector: 'dist-datatable',
     providers: [TaxTrackingService],
+    //styleUrls: ['./taxDataTable.component.css'],
     styleUrls: ['./taxDataTable.component.css'],
     templateUrl: './distDataTable.component.html'
 })

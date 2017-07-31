@@ -25,10 +25,10 @@
           <li routerLinkActive="active">
               <a routerLink="/tax/reports">Reports</a>
           </li>          
-          <li routerLinkActive="active" *ngIf="userRoles.indexOf('AVPSAdmins') > -1">
+          <li routerLinkActive="active" *ngIf="userRoles.indexOf('avpsadmin') > -1">
               <a routerLink="/tax/clients">Client Setup</a>
           </li>
-          <li routerLinkActive="active" *ngIf="userRoles.indexOf('AVPSAdmins') > -1">
+          <li routerLinkActive="active" *ngIf="userRoles.indexOf('avpsadmin') > -1">
               <a routerLink="/tax/templates">Template Setup</a>
           </li>          
         </ul>
@@ -47,12 +47,6 @@
           <li routerLinkActive="active">
               <a routerLink="/corporateaction/offline-list">Drafts ({{draftCount()}})</a>
           </li>
-          <!--<li routerLinkActive="active">
-              <a routerLink="/corporateaction/sharepoint-docs">SharePoint Documents</a>
-          </li>-->
-          <!--<li routerLinkActive="active">
-              <a routerLink="/corporateaction/test">Test</a>
-          </li>-->
         </ul>
       </li>
 
@@ -68,6 +62,23 @@
           </li>
           <li routerLinkActive="active">
               <a routerLink="/staticdata-eventtypes">Event Types</a>
+          </li>
+        </ul>
+      </li>
+      <!--Transfer Double Keying-->
+      <li routerLinkActive="active">
+        <a href="#" title="Transfer Dbl Keying">
+          <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">{{'Transfer Dbl Keying'}}</span>
+        </a>
+        <ul>
+          <li routerLinkActive="active">
+              <a routerLink="/transfer/add">New Transfer</a>
+          </li>
+          <li routerLinkActive="active">
+              <a routerLink="/transfer/update">Update Transfer</a>
+          </li>
+          <li routerLinkActive="active">
+              <a routerLink="/transfer/confirm">Confirm Transfer</a>
           </li>
         </ul>
       </li>

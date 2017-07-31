@@ -16,7 +16,7 @@
                 <i class='glyphicon glyphicon-refresh' (click)="refreshClients()"></i>
             </header>
 
-            <div class="no-padding">
+            
                 <div class="widget-body">
                     <h3>Client details</h3>
                     <form #f="ngForm" class="form-horizontal" novalidate (ngSubmit)="onSubmit(f)">
@@ -63,9 +63,8 @@
                         </div>                        
                     </form>
                 </div>
-            </div>
-
-            <div class="no-padding">
+            
+            
                 <div class="widget-body">
                     <h3>Contact details</h3>
                      &nbsp;&nbsp;&nbsp;&nbsp;
@@ -75,7 +74,7 @@
                     <tax-contacts [taxContacts]="this.selectedClientCode.Contacts" #taxContacts (saveContactDetail)="saveContactDetail($event)">
                     </tax-contacts>
                 </div>
-            </div>
+            
 
             <div>
                 <button class="btn btn-primary" (click)="submit()"><i class="fa fa-gravel">Save Contact</i></button>

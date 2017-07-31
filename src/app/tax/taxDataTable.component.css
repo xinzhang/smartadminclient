@@ -1,6 +1,8 @@
 @media (min-width: 1350px) {
     .container{
         width: 1350px;
+        margin-top:-50px;
+        margin-left:10px;
     }
 }
 
@@ -13,9 +15,10 @@ table {
 th {
     padding: 5px;
     /* NOTE: th padding must be set explicitly in order to support IE */
-    text-align: right;
+    /*text-align: right; */
+    vertical-align: top;
     font-weight:bold;
-    line-height: 2em;
+    /*line-height: 2em;*/
     color: #FFF;
     background-color: #555;
 }

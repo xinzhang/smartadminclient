@@ -32,13 +32,13 @@ import {IssuerComponent} from './datasetup/issuer.component';
 import {EventTypesComponent} from './datasetup/eventtypes.component';
 import {ArchiveComponent} from './archive/archive.component';
 import {TradeComponent} from './archive/trade.component';
-import {TransferComponent} from './archive/transfer.component';
 
 import {UserModule} from "./shared/user/user.module";
 import {UserService} from "./shared/user/user.service";
 
 import { CorporateActionService} from './services/corporateaction.service';
 import { StaticDataService} from './services/staticdata.service';
+import { TransferModule } from './transfer/transfer.module';
 
 
 // Application wide providers
@@ -62,7 +62,7 @@ type StoreType = {
     AppComponent,
     AboutComponent,
     AssetComponent, IssuerComponent, EventTypesComponent,
-    ArchiveComponent, TradeComponent, TransferComponent        
+    ArchiveComponent, TradeComponent        
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -76,6 +76,7 @@ type StoreType = {
 
     CorpActionModule,
     TaxModule,
+    TransferModule,
     SmartadminModule,
     UserModule.forRoot()        
   ],

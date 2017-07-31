@@ -1,0 +1,67 @@
+
+<div class="container">
+  <h3>&nbsp;</h3>
+  <!--
+  <div *ngIf="errorMessage != ''" class="alert alert-error">
+        Error: {{errorMessage}}
+  </div>
+  -->
+  <div class="row">
+      <div class="col-md-12">
+        <sa-widget [colorbutton]="false" [editbutton]="false">
+            <header>
+                <span class="widget-icon"> <i class="fa fa-eye"></i> </span>
+                <h2>Add Transfers</h2>
+            </header>
+            <div>
+                <div class="widget-body">
+                    <form #f="ngForm" class="form-horizontal" novalidate (ngSubmit)="onSubmit(f)">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <fieldset>
+                              <legend>Transfer Header</legend>
+                              <transfer-header 
+                                [transfer]="transfer" 
+                                (getSequenceIDEvent)="getSequenceID($event)"
+                                (newTransferButtonClickEvent)="newTransfer($event)"></transfer-header>
+                          </fieldset>                          
+                        </div>
+                        <div class="col-md-6">
+                          <fieldset>
+                              <legend>Transfer Detail</legend>
+                              <transfer-detail 
+                                [IsFormValid] = "true"
+                                [transferDetail]="transferDetail" 
+                                (transferDetailSavedEvent)="saveTransferDetail($event)" ></transfer-detail>
+                          </fieldset>            
+                        </div>
+                      </div>
+                    </form>
+                </div>
+            </div>
+        </sa-widget>
+      </div>
+
+      <div class="col-md-12">
+          <transfer-header-detail [transferList]="addedTransferList"></transfer-header-detail>
+      </div>
+    
+  </div>
+  
+</div>
+
+<modal #modal  (onClose)="onClose()" (onDismiss)="onDismiss()" (onOpen)="onOpen()">
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">Warning</h4>
+    </modal-header>
+
+    <modal-body>
+        {{modalMessage}}
+    </modal-body>
+
+    <modal-footer>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">No</button>
+        <button type="button" class="btn btn-primary" (click)="modal.close()">Yes</button>
+    </modal-footer>
+</modal>
+

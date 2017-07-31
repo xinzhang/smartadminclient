@@ -1,0 +1,39 @@
+<sa-widget [colorbutton]="false" [editbutton]="false">
+    <header>
+        <span class="widget-icon"> <i class="fa fa-eye"></i> </span>
+        <h2>Transfers Details List</h2>
+    </header>
+    <div>
+        <div class="widget-body">
+            <fieldset>
+                  <legend>Current Request With Details</legend>
+                  <div class="table-responsive">
+                      <table class="table table-bordered">
+                          <thead>
+                              <tr>
+                                  <th>ID</th>
+                                  <th>SubType</th>
+                                  <th>Asset</th>
+                                  <th>Qty</th>
+                                  <th>Received</th>
+                                  <th>Reference</th>
+                                  <th></th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let item of transferList;let i=index">
+                                  <td>{{item.SequenceID}}</td>
+                                  <td>{{item.TransferDetails[0].SubType}}</td>
+                                  <td>{{item.TransferDetails[0].Asset}}</td>
+                                  <td>{{item.TransferDetails[0].QtyInstructed}}</td>
+                                  <td>{{item.TransferDetails[0].RecDate}}</td>
+                                  <td>{{item.TransferDetails[0].TransferReference}}</td>      
+                                  <td><i class="fa fa-remove"></i>&nbsp;Remove</td>                            
+                              </tr>
+                          </tbody>                        
+                      </table>                   
+                  </div>
+            </fieldset>            
+        </div>
+    </div>
+</sa-widget>

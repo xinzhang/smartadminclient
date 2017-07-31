@@ -22,10 +22,11 @@ import {EventTypesComponent} from './datasetup/eventtypes.component';
 
 import {ArchiveComponent} from './archive/archive.component';
 import {TradeComponent} from './archive/trade.component';
-import {TransferComponent} from './archive/transfer.component';
 
 import {TaxComponent} from './tax/tax.component';
 import {TaxClientsComponent} from './tax/taxClients.component';
+
+import {TransferComponent} from './transfer/TransferComponent';
 
 export const routes: Routes = [
     {
@@ -52,10 +53,12 @@ export const routes: Routes = [
             {path: 'staticdata-issuer', component: IssuerComponent},
             {path: 'staticdata-eventtypes', component: EventTypesComponent},
             {path: 'archive', component: ArchiveComponent, children: [
-                {path: 'trade', component: TradeComponent},
-                {path: 'transfer', component: TransferComponent}
-                ]
-            },
+                {path: 'trade', component: TradeComponent}
+            ]},
+            {
+                path:'transfer',
+                loadChildren: 'app/transfer/transfer.module#TransferModule'
+            }
         ]
     },
 

@@ -14,7 +14,7 @@
             <div>
                 <div class="widget-body">        
 
-<div class="container">
+
   <div class="row">
       <span *ngIf="this.dataLoading"> <i className="glyphicon glyphicon-refresh txt-color-darken"></i> Loading...</span>
       <div class="panel panel-default">
@@ -29,12 +29,12 @@
               <th>Description</th>
               <th>Security</th>
               <th>Expected Date</th>
-              <th>Age</th>
+              
               <th>Statement Received</th>
               <th>Cash Received</th>
               <th>Distribution Status</th>              
               <th>Date Completed</th>              
-              <th>Comments</th>
+              <th width="300px">Comments</th>
             </tr>
           </thead>
           <tbody>
@@ -44,18 +44,18 @@
               <td>{{r.Description}}</td>
               <td>{{r.Security}}</td>
               <td>{{r.ExpectedDate | date:'dd/MM/yyyy'}}</td>
-              <td>{{r.Age}}&nbsp;</td>
+              
               <td>{{r.StatementReceived}}&nbsp;</td>
               <td>{{r.CashReceived}}&nbsp;</td>
               <td>{{r.DistributionStatus}}&nbsp;</td>
-              <td>{{r.DistributionCompletedDate | date:'dd/MM/yyyy'}}&nbsp;</td>              
-              <td>{{r.Comments}}&nbsp;</td>
+              <td>{{r.DistributionCompletedDate | date:'dd/MM/yyyy'}}&nbsp;</td>                            
+              <td style="white-space:pre-wrap;">{{r.Comments | multipleLines:'|'}}</td>
             </tr>            
           </tbody>
         </table>
       </div>
   </div>
-</div>
+
 
               </div>
             </div>

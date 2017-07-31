@@ -22,6 +22,8 @@ import {TaxEmailComponent} from './taxEmail.component';
 import {TaxTemplatesComponent} from './taxTemplates.component';
 import {TaxReportLogComponent} from './taxReportLog.component';
 
+import {MultipleLinesPipe} from '../shared/pipes/multiple-lines.pipe';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -44,7 +46,8 @@ import {TaxReportLogComponent} from './taxReportLog.component';
     DistDataTableComponent,
     TaxEmailComponent,
     TaxTemplatesComponent,
-    TaxReportLogComponent
+    TaxReportLogComponent,
+    MultipleLinesPipe
   ]
 })
 export class TaxModule { }
