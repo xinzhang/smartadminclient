@@ -8,7 +8,9 @@ import {TransferUpdateComponent} from './transfer-update.component';
 import {TransferConfirmComponent} from './transfer-confirm.component';
 import {TransferDetailComponent} from './components/transfer-detail.component';
 import {TransferHeaderComponent} from './components/transfer-header.component';
+import {TransferSearchComponent} from './components/transfer-search.component';
 import {TransferHeaderDetailComponent} from './components/transfer-header-detail.component';
+import {TransferConfirmInputComponent} from './components/transfer-confirm-input.component';
 
 import {TransferRoutes} from "./transfer.router";
 
@@ -34,7 +36,7 @@ import {StorageModule} from '../localStorage/storage.module';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    
+    StorageModule,
     TransferRoutes,
     SmartadminModule,
     SmartadminInputModule,
@@ -51,7 +53,9 @@ import {StorageModule} from '../localStorage/storage.module';
     TransferConfirmComponent,
     TransferDetailComponent,
     TransferHeaderComponent,
-    TransferHeaderDetailComponent
+    TransferHeaderDetailComponent,
+    TransferConfirmInputComponent,
+    TransferSearchComponent
     ],
   providers: [
     TransferDblKeyService

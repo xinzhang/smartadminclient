@@ -1,33 +1,35 @@
-<div>
-    <!-- <div class="form-group">
-          <label class="col-sm-2 control-lable">Reference No:</label>
-          <div class="col-sm-4">
-              <input type="text" disabled class="form-control" name="reference" [(ngModel)]="transfer.Reference" placeholder=""
-              />
-          </div>            
-    </div> -->
+<div>  <!--[formGroup]="transferHeaderForm"-->
+
     <div class="form-group">
         <div class="col-sm-4">
-            <button type="button" (click)="newTransferButtonClick()" class="btn btn-default"><i class="fa fa-file-o"></i>&nbsp;New Transfer</button>
+            <button type="button" (click)="newTransferButtonClick()" 
+                *ngIf="!updateMode"
+                class="btn btn-default"><i class="fa fa-file-o"></i>&nbsp;New Transfer</button>
         </div>
         <div class="col-sm-8">
-            <label class="control-label pull-right">SequenceID: <strong>{{transfer.SequenceID}}</strong></label>
+            <label class="control-label pull-right" *ngIf="!updateMode">SequenceID: <strong>{{transfer.SequenceID}}</strong></label>
+            <label class="control-label" *ngIf="updateMode"><strong>{{transfer.SequenceID}}</strong></label>
         </div>
     </div>
 
     <div class="form-group">
           <label class="col-sm-4 control-lable">Organisation:</label>
-          <div class="col-sm-8">
-              <input type="text" class="form-control" name="organistation" required
-               placeholder="Organisation" [formControl]="organisation" maxlength="3"
-               style="text-transform: uppercase;"
+          <div class="col-sm-8" [ngSwitch]="updateMode">
+              <label *ngSwitchCase="true" class="control-label">{{transfer.Organisation}}</label>
+              <input *ngSwitchCase="false" type="text" class="form-control" name="organistation" required
+               placeholder="Organisation" [formControl]="organisation" maxlength="3"               
+               style="text-transform: uppercase;" 
                />
           </div>
     </div>
     <div class="form-group">
         <label class="col-sm-4 control-lable">Investor:</label>
         <div class="col-sm-8">
-            <input type="number" class="form-control" name="investor" required [(ngModel)]="transfer.Investor" placeholder="Investor" />
+            <input type="number" class="form-control"
+                name="investor"
+                [(ngModel)]="transfer.Investor"
+                required 
+                placeholder="Investor" />
         </div>
     </div>
  <div class="form-group">
@@ -35,7 +37,7 @@
             <div class="col-sm-8">
                 <select class="form-control" name="requestType" [(ngModel)]="transfer.RequestType" required>
                     <option value="default" default>Please select a request type</option>
-                    <option *ngFor="let t of requestTypes" value={{t}}>{{t}}</option>
+                    <option *ngFor="let t of requestTypes" value={{t.ListValue}}>{{t.DisplayText}}</option>
                 </select>
             </div>
         </div>
@@ -57,11 +59,13 @@
             </div>
         </div>
         <div class="form-group">
-          <label class="col-sm-4 control-lable">Transferee:</label>
+          <label class="col-sm-4 control-lable">Transferee/or:</label>
           <div class="col-sm-8">
-              <input type="text" class="form-control" name="transferee" 
+              <input type="text" class="form-control"
                 required
-                [(ngModel)]="transfer.Transferee" placeholder="Tranferee" />
+                name="investor"
+                [(ngModel)]="transfer.Transferee"                
+                placeholder="Tranferee" />
           </div>
         </div>
         <div class="form-group">
@@ -92,7 +96,7 @@
             <div class="col-sm-6">
                 <select class="form-control" name="ncbo" [(ngModel)]="transfer.Ncbo" required>
                     <option value="default" default>Please select a Yes/No</option>
-                    <option *ngFor="let t of ncboValues" value={{t}}>{{t}}</option>
+                    <option *ngFor="let t of ncboValues" value={{t.ListValue}}>{{t.DisplayText}}</option>
                 </select>
             </div>
         </div>

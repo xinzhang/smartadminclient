@@ -8,9 +8,9 @@ module.exports = {
                 maxSockets: 100,
                 keepAlive: true,
                 maxFreeSockets: 10,
-                keepAliveMsecs: 100000,
-                timeout: 6000000,
-                keepAliveTimeout: 90000
+                keepAliveMsecs: 100000000,
+                timeout: 6000000000,
+                keepAliveTimeout: 90000000
             }),
             onProxyRes: proxyRes => {
                 let key = 'www-authenticate';

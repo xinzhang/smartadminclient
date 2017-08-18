@@ -1,0 +1,72 @@
+<div>
+        <div class="form-group" *ngIf="!updateMode">
+            <label class="col-sm-4 control-lable">SequeceID :</label>
+            <div class="col-sm-8">
+                <label control-label><b>{{sequenceID}}</b></label>
+            </div>
+        </div>
+
+        <div class="form-group" *ngIf="!updateMode">
+            <label class="col-sm-4 control-lable">Sub Type:</label>
+            <div class="col-sm-8">
+                <select class="form-control" name="subType" [(ngModel)]="transferDetail.SubType" required>
+                    <option value="default" default>Please select a sub type</option>
+                    <option *ngFor="let t of SubType" value={{t.ListValue}}>{{t.DisplayText}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group" *ngIf="!updateMode">
+          <label class="col-sm-4 control-lable">Asset:</label>
+          <div class="col-sm-8">
+              <input type="text" class="form-control" name="asset" 
+              style="text-transform: uppercase;" maxlength="10"
+              required [(ngModel)]="transferDetail.Asset" placeholder="Asset" />
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="col-sm-4 control-lable">Qty Confirmed:</label>
+          <div class="col-sm-8">
+              <input type="number" class="form-control" name="qtyConfirmed" required [(ngModel)]="transferDetail.QtyConfirmed" placeholder="Qty Confirmed" />
+          </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-4 control-lable">Date Confirmed:</label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <input type="text" name="dateConfirmed" placeholder="Select a date confirmed (dd/mm/yyyy)" class="form-control datepicker" required
+                        #recDate="ngModel" [(ngModel)]="transferDetail.DateConfirmed"
+                        (onSelectDate)="confirmDateChanged($event)" 
+                        [saUiDatepicker]="{
+                                dateFormat: 'dd/mm/yy'                            
+                            }">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>                                     
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-lable">Unit Price:</label>
+          <div class="col-sm-8">
+              <input type="number" class="form-control" name="unitPrice" required [(ngModel)]="transferDetail.UnitPrice" placeholder="Unit Price " />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-sm-4 control-lable">Status:</label>
+          <div class="col-sm-8">
+              <strong>{{transferDetail.Status}}</strong>
+          </div>
+        </div>
+
+        <div class="form-gorup" *ngIf="!updateMode">
+            <label class="col-sm-4 control-lable"></label>
+            <div class="col-sm-8" >
+                <button type="button" class="btn btn-default"                
+                 (click)="saveConfirmAction()"><i class="fa fa-floppy-o"></i>&nbsp;Save</button>
+            </div>
+        </div>
+
+</div>

@@ -1,313 +1,74 @@
 <div class="container">
-  <h3>&nbsp;</h3>
-  <!--
-  <div *ngIf="errorMessage != ''" class="alert alert-error">
-        Error: {{errorMessage}}
-  </div>
-  -->
-  <form #f="ngForm" class="form-horizontal" novalidate (ngSubmit)="onSubmit(f)">
-    <label class="col-sm-2 control-lable"></label>
-    <div class="col-sm-10">
-        <ul class="list-inline">
-            <li>
-                <input type="text" class="text-primary padding3" placeholder="Reference Number..." >
-                <input type="text" class="text-primary padding3" placeholder="APIR..." >
-                <input type="text" class="text-primary padding3" placeholder="Received Date..." >
-                <input type="text" class="text-primary padding3" placeholder="Qty Instructed..." >
-                <button type="button" (click)="searchAction()">Seach</button>
-            </li>
-        </ul>
+    <h3>&nbsp;</h3>
+    <div class="row">         
+         <transfer-search 
+            [search]="search" 
+            (transferSearchEvent)="searchAction($event)">
+         </transfer-search>
     </div>
-    
-    <div class="form-group">
-          <label class="col-sm-2 control-lable">Reference No:</label>
-          <div class="col-sm-4">
-              <input type="text" disabled class="form-control" name="reference" [(ngModel)]="transfer.Reference" placeholder=""
-              />
-          </div>            
-    </div>
-    <!--
-    <div class="form-group">
-          <label class="col-sm-2 control-lable">Organisaion:</label>
-          <div class="col-sm-10">
-              <input type="text" class="form-control" name="organistation" required [ngModel]="transfer.Organisation" placeholder="Organisation" />
-          </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-lable">Investor:</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" name="investor" required [ngModel]="transfer.Investor" placeholder="Investor" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-lable">Investor Name:</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" name="investor-name" required [ngModel]="transfer.InvestorName" placeholder="Investor Name" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-2 control-lable">Investor Id:</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" name="investor-id" required [ngModel]="transfer.InvestorId" placeholder="Investor Id" />
-        </div>
-      </div>
-      <div class="form-group">
-            <label class="col-sm-2 control-lable">Request Type:</label>
-            <div class="col-sm-10">
-                <select class="form-control" name="requestType" [(ngModel)]="transfer.RequestType" required>
-                    <option value="default" default>Please select a request type</option>
-                    <option *ngFor="let t of requestType" value={{t}}>{{t}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-lable">Received Date:</label>
-            <div class="col-sm-4">
-                <div class="input-group">
-                    <input type="text" name="receivedDate" placeholder="Select a received date (dd/mm/yyyy)" class="form-control datepicker" validateDueDate required
-                        #receivedDate="ngModel" [ngModel]="transfer.ReceivedDate"
-                        (onSelectDate)="receivedDateChanged($event)" 
-                        [saUiDatepicker]="{
-                                dateFormat: 'dd/mm/yy'                            
-                            }">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                     
-                </div>
-                <div class="">
-                    <small [hidden]="receivedDate.valid" class="text-danger">
-                            Received date has to be today or prior today
-                        </small>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-lable">Transferee:</label>
-          <div class="col-sm-10">
-              <input type="text" class="form-control" name="transferee" [ngModel]="transfer.Tranferee" placeholder="Tranferee" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-lable">Group:</label>
-          <div class="col-sm-10">
-              <input type="text" class="form-control" name="group" [ngModel]="transfer.Group" placeholder="Group" />
-          </div>
-        </div>
-        
-        <div class="form-group">
-            <label class="col-sm-2 control-lable">NCBO:</label>
-            <div class="col-sm-10">
-                <select class="form-control" name="ncbo" [(ngModel)]="transfer.Ncbo" >
-                    <option value="default" default>Please select a Yes/No</option>
-                    <option *ngFor="let t of Ncbo" value={{t}}>{{t}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label style="font: bold" class="col-sm-2 control-lable">Detail:</label>       
-        </div>
-        -->
-        <div class="form-group">
-            <label class="col-sm-2 control-lable">Sub Type:</label>
-            <div class="col-sm-10">
-                <select class="form-control" name="subType" [(ngModel)]="transfer.SubType" required>
-                    <option value="default" default>Please select a sub type</option>
-                    <option *ngFor="let t of subType" value={{t}}>{{t}}</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-lable">Asset:</label>
-          <div class="col-sm-10">
-              <input type="text" class="form-control" name="asset" required [ngModel]="transfer.Asset" placeholder="Asset" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-lable">Qty Instructed:</label>
-          <div class="col-sm-10">
-              <input type="text" class="form-control" name="qtyInstructed" required [ngModel]="transfer.QtyInstructed" placeholder="Qty Instructed" />
-          </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-lable">Received Date:</label>
-            <div class="col-sm-4">
-                <div class="input-group">
-                    <input type="text" name="recDate" placeholder="Select a received date (dd/mm/yyyy)" class="form-control datepicker" validateDueDate required
-                        #recDate="ngModel" [ngModel]="transfer.RecDate"
-                        (onSelectDate)="recDateChanged($event)" 
-                        [saUiDatepicker]="{
-                                dateFormat: 'dd/mm/yy'                            
-                            }">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                     
-                </div>
-                <div class="">
-                    <small [hidden]="recDate.valid" class="text-danger">
-                            Received date can not be blank
-                        </small>
-                </div>
-            </div>
-        </div>
-        <!--<div class="form-group">
-          <label class="col-sm-2 control-lable">Reference:</label>
-          <div class="col-sm-10">
-              <input type="text" class="form-control" name="reference" required [ngModel]="transfer.Reference" placeholder="Transfer Reference" />
-          </div>
-        </div>-->
-        <div class="form-gorup">
-            <label class="col-sm-2 control-lable"></label>
-            <div class="col-sm-7">
-                <button class="btn btn-primary" type="submit"  [disabled]="f.invalid || submitting">
-                    Complete                  
-                </button>
-            </div>
-            <div class="col-sm-3" >
-                <button type="button" (click)="saveDetailAction()">Save Detail</button>
 
-            </div>
-        </div>
-  </form>
+    <div class="row" *ngIf="searchedTransferList.length >= 0 ">
+        <transfer-header-detail
+            [transferList]="searchedTransferList"
+            [showUpdate]="true"
+            (updateItemEvent)="updateItemEvent($event)"
+        >
+        </transfer-header-detail>        
+    </div>
 
+    <div class="row top10" *ngIf="searchedTransferList.length == 0 && searchReturnResult">
+        <span class="alert alert-info">
+            <strong>Can not find any records matching your search.</strong>
+        </span> 
+    </div>
 
 </div>
 
 
+<modal #modal>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">{{modalTitle}}</h4>
+    </modal-header>
+
+    <modal-body>
+        <form #f="ngForm" class="form-horizontal" novalidate (ngSubmit)="onSubmit(f)">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <fieldset>
+                              <legend>Transfer Header</legend>
+                              <transfer-header 
+                                [updateMode] = "true"
+                                [transfer]="transfer" 
+                                (getSequenceIDEvent)="getSequenceID($event)"
+                                (newTransferButtonClickEvent)="newTransfer($event)"></transfer-header>
+                          </fieldset>                          
+                        </div>
+                        <div class="col-md-6">
+                          <fieldset>
+                              <legend>Transfer Detail</legend>
+                              <transfer-detail 
+                                [updateMode] = "true"
+                                [IsFormValid] = "true"
+                                [transferDetail]="transferDetail" 
+                                (transferDetailSavedEvent)="saveTransferDetail($event)" ></transfer-detail>
+
+                              <transfer-confirm-input
+                                [updateMode] = "true"
+                                [transferDetail]="transferDetail"                                
+                              >
+                              </transfer-confirm-input>
+
+                          </fieldset>            
+                        </div>
+                      </div>
+                    </form>
+    </modal-body>
+
+    <modal-footer>        
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="updateTransfer()">Save</button>
+    </modal-footer>
+
+</modal>
 
 
-
-
-<!--
-<div>
-    <div class="page-wrapper">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{vm.title}}</h3>
-        </div>
-
-        <div class="panel-body">
-            <form role="form" name="ratesForm" novalidate>
-                <div class="row bottom7">
-                    <div class="col-md-4">
-                        <ul class="list-inline">
-                           
-                            <li><a ng-click="vm.setFilterObject('AllRequests');">All Requests</a></li>
-                            <li><a ng-click="vm.setFilterObject('MyRequests');">My Requests</a></li>
-                            <li><a ng-click="vm.refresh()"><i class=" fa fa-refresh"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-4">
-                        <ul class="list-inline">
-                            <li>
-                                Request Type:
-                                <select class="text-primary padding3" ng-model="vm.filterObject.requestType" ng-options="item for item in vm.selectionRequestTypes" ng-change="vm.filterCustomObject()">
-                                    <option value="">All</option>
-                                </select>
-
-                                Status:
-                                <select class="text-primary padding3" ng-model="vm.filterObject.requestStatus" ng-options="item for item in vm.selectionRequestStatuses" ng-change="vm.filterCustomObject()">
-                                    <option value="">All</option>
-                                </select>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 col-md-offset-1 pull-right">
-                        <input type="text" class="form-control input-sm" placeholder="Search by request Reference..." ng-model-options="{ debounce: 500 }" ng-model="vm.freeQuery" ng-change="vm.filterCustomObject()">
-                    </div>
-                </div>
-                <div class="row">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                               
-                                <td>
-                                    <a ng-click="vm.sortData('requestReference')">
-                                        Reference
-                                        <span ng-show="vm.sortColumn == 'requestReference' && vm.sortOrder" class="fa fa-caret-down"></span>
-                                        <span ng-show="vm.sortColumn == 'requestReference' && !vm.sortOrder" class="fa fa-caret-up"></span>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a ng-click="vm.sortData('requestType')">
-                                        Request Type
-                                        <span ng-show="vm.sortColumn == 'requestType' && vm.sortOrder" class="fa fa-caret-down"></span>
-                                        <span ng-show="vm.sortColumn == 'requestType' && !vm.sortOrder" class="fa fa-caret-up"></span>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a ng-click="vm.sortData('clientCode')">
-                                        Client
-                                        <span ng-show="vm.sortColumn == 'clientCode' && vm.sortOrder" class="fa fa-caret-down"></span>
-                                        <span ng-show="vm.sortColumn == 'clientCode' && !vm.sortOrder" class="fa fa-caret-up"></span>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a ng-click="vm.sortData('addedBy')">
-                                        Added by
-                                        <span ng-show="vm.sortColumn == 'addedBy' && vm.sortOrder" class="fa fa-caret-down"></span>
-                                        <span ng-show="vm.sortColumn == 'addedBy' && !vm.sortOrder" class="fa fa-caret-up"></span>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a ng-click="vm.sortData('dateTimeAdded')">
-                                        Added Datetime
-                                        <span ng-show="vm.sortColumn == 'dateTimeAdded' && vm.sortOrder" class="fa fa-caret-down"></span>
-                                        <span ng-show="vm.sortColumn == 'dateTimeAdded' && !vm.sortOrder" class="fa fa-caret-up"></span>
-                                    </a>
-
-                                </td>
-                                <td>
-                                    <a ng-click="vm.sortData('status')">
-                                        Status
-                                        <span ng-show="vm.sortColumn == 'status' && vm.sortOrder" class="fa fa-caret-down"></span>
-                                        <span ng-show="vm.sortColumn == 'status' && !vm.sortOrder" class="fa fa-caret-up"></span>
-                                    </a>
-                                </td>
-                                <td></td>                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="r in vm.pageRequestList" >
-                                <td>{{r.requestReference}}</td>
-                                <td>{{r.requestType}}</td>
-                                <td>{{r.clientCode}}</td>
-                                <td>{{r.addedBy}}</td>
-                                <td>{{r.dateTimeAdded | date: 'yyyy-MM-dd HH:mm'}}</td>
-                                <td>
-                                    <span ng-switch="r.status">
-                                        <span ng-switch-when="AwaitingAuthorisation">Awaiting Authorisation</span>
-                                        <span ng-switch-default>{{r.status}}</span>
-                                    </span>
-                                </td>
-                                <td>
-                                    <a title="View Detail" alt="View Detail" ng-click="vm.showRequestDetail(r.clientCode, r.requestReference, r.requestType)">
-                                        <i class="fa fa-info"></i> View Detail
-                                    </a>
-                                    &nbsp;
-                                    <a ng-click="vm.showNote(r.requestId, r.requestReference);" ng-show="r.hasnote">
-                                        <i class="fa fa-file-text"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="6">
-                                    <div class="pagination">
-                                        Page {{vm.paging.currentPage+1}} of {{vm.paging.totalPage}}
-                                        <a ng-click="vm.gotoPage(vm.paging.currentPage - 1)" ng-show="vm.paging.isPrev">
-                                            <i class="fa fa-chevron-left fa-fw"></i>
-                                        </a>
-                                        <a ng-click="vm.gotoPage(vm.paging.currentPage + 1)" ng-show="vm.paging.isNext">
-                                            <i class="fa fa-chevron-right fa-fw"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-                <div class="row">
-                </div>
-
-            </form>
-        </div>
-    </div>
-    -->

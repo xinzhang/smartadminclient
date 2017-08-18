@@ -8,42 +8,48 @@
   -->
   <div class="row">
       <div class="col-md-12">
-        <sa-widget [colorbutton]="false" [editbutton]="false">
+        <sa-widget #transferForm [colorbutton]="false" [editbutton]="false"> <!--[formGroup]="myForm"-->
             <header>
                 <span class="widget-icon"> <i class="fa fa-eye"></i> </span>
                 <h2>Add Transfers</h2>
             </header>
             <div>
                 <div class="widget-body">
-                    <form #f="ngForm" class="form-horizontal" novalidate (ngSubmit)="onSubmit(f)">
+                    <form class="form-horizontal" novalidate (ngSubmit)="onSubmit(f)">
                       <div class="row">
                         <div class="col-md-6">
                           <fieldset>
                               <legend>Transfer Header</legend>
                               <transfer-header 
-                                [transfer]="transfer" 
+                                [transfer]="transfer"                                 
                                 (getSequenceIDEvent)="getSequenceID($event)"
                                 (newTransferButtonClickEvent)="newTransfer($event)"></transfer-header>
+                                <!--[group]="myForm.controls.transferHeader"-->
                           </fieldset>                          
                         </div>
                         <div class="col-md-6">
                           <fieldset>
                               <legend>Transfer Detail</legend>
-                              <transfer-detail 
+                              <transfer-detail                                 
                                 [IsFormValid] = "true"
                                 [transferDetail]="transferDetail" 
                                 (transferDetailSavedEvent)="saveTransferDetail($event)" ></transfer-detail>
                           </fieldset>            
                         </div>
-                      </div>
+                      </div>                      
                     </form>
                 </div>
             </div>
+
         </sa-widget>
       </div>
 
       <div class="col-md-12">
-          <transfer-header-detail [transferList]="addedTransferList"></transfer-header-detail>
+          <transfer-header-detail 
+            [showRemove]="false"
+            [showSelect]="false"
+            [transferList]="addedTransferList">
+          </transfer-header-detail>
       </div>
     
   </div>
@@ -52,16 +58,21 @@
 
 <modal #modal  (onClose)="onClose()" (onDismiss)="onDismiss()" (onOpen)="onOpen()">
     <modal-header [show-close]="true">
-        <h4 class="modal-title">Warning</h4>
+        <h4 class="modal-title">{{modalTitle}}</h4>
     </modal-header>
 
     <modal-body>
         {{modalMessage}}
     </modal-body>
 
-    <modal-footer>
+    <modal-footer *ngIf="modalTitle == 'Warning'">        
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">No</button>
-        <button type="button" class="btn btn-primary" (click)="modal.close()">Yes</button>
+        <button type="button" class="btn btn-primary" (click)="newRequest()">Yes</button>
+    </modal-footer>
+
+    <modal-footer *ngIf="modalTitle == 'Information'">        
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">OK</button>        
     </modal-footer>
 </modal>
+
 

@@ -2,9 +2,9 @@
         <div class="form-group">
             <label class="col-sm-4 control-lable">Sub Type:</label>
             <div class="col-sm-8">
-                <select class="form-control" name="subType" [(ngModel)]="transferDetail.SubType" required>
+                <select class="form-control" name="subType" [(ngModel)]="transferDetail.SubType" required #txtSubType>
                     <option value="default" default>Please select a sub type</option>
-                    <option *ngFor="let t of SubType" value={{t}}>{{t}}</option>
+                    <option *ngFor="let t of SubType" value={{t.ListValue}}>{{t.DisplayText}}</option>
                 </select>
             </div>
         </div>
@@ -46,11 +46,12 @@
               <input type="text" class="form-control" name="transferReference" required [(ngModel)]="transferDetail.TransferReference" placeholder="Transfer Reference" />
           </div>
         </div>
-        <div class="form-gorup">
+        <div class="form-gorup" *ngIf="!updateMode">
             <label class="col-sm-4 control-lable"></label>
             <div class="col-sm-8" >
-                <button type="button" class="btn btn-default"                
-                 (click)="saveDetailAction()"><i class="fa fa-floppy-o"></i>&nbsp;Save</button>
+                <button type="button" class="btn btn-default"
+                    [disabled]="!IsFormValid"
+                    (click)="saveDetailAction()"><i class="fa fa-floppy-o"></i>&nbsp;Save</button>
             </div>
         </div>    
 </div>

@@ -17,6 +17,7 @@
                                   <th>Qty</th>
                                   <th>Received</th>
                                   <th>Reference</th>
+                                  <th>Status</th>
                                   <th></th>
                               </tr>
                           </thead>
@@ -28,7 +29,18 @@
                                   <td>{{item.TransferDetails[0].QtyInstructed}}</td>
                                   <td>{{item.TransferDetails[0].RecDate}}</td>
                                   <td>{{item.TransferDetails[0].TransferReference}}</td>      
-                                  <td><i class="fa fa-remove"></i>&nbsp;Remove</td>                            
+                                  <td>{{item.TransferDetails[0].Status}}</td>
+                                  <td>
+                                      <span *ngIf="showRemove">
+                                          <button class="icon-button" (click)="removeItemAction(item)"><i class="fa fa-remove"></i>&nbsp;Remove</button>
+                                       </span>
+                                      <span *ngIf="showSelect">
+                                          <button class="icon-button" (click)="selectItemAction(item)"><i class="fa fa-share-square-o"></i>&nbsp;Select</button>
+                                      </span>
+                                      <span *ngIf="showUpdate">
+                                          <button class="icon-button" (click)="updateItemAction(item)"><i class="fa fa-share-square-o"></i>&nbsp;Update</button>
+                                      </span>                                        
+                                </td>
                               </tr>
                           </tbody>                        
                       </table>                   

@@ -13,7 +13,8 @@ import {TransferDblKeyService} from '../services/transferDblKey.service';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { Animations } from '../shared/animations';
 
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 @Component({
   selector: 'transfer-add',
@@ -27,22 +28,47 @@ export class TransferAddComponent implements OnInit {
 
   transfer = new TransferDblKeyModel ("", "", 0,"", "","", "","", "",false);
   transferDetail = new TransferDetailModel("","",0,"","",0,"",0,"");
-   
-  modalMessage :string = '';
+  
   @ViewChild('modal') modal: ModalComponent;
+  modalMessage :string = '';
+  modalTitle: string = '';
 
-  constructor(private transferService: TransferDblKeyService) {     
+  //public myForm: FormGroup;
+  
+  constructor(private transferService: TransferDblKeyService,
+              private localStorageService: LocalStorageService,
+              private _fb:FormBuilder) {     
     this.addedTransferList = new Array();
   }
 
   ngOnInit() {
+    this.loadOfflineTransfersList();    
+    // this.myForm = this._fb.group({
+    //   transferHeader: this._fb.group({
+    //     investor:[this.transfer.Investor],
+    //     transferee:[this.transfer.Transferee]
+    //   })
+    // })
+    // console.log(this.myForm.controls)
+  }
 
+  loadOfflineTransfersList() {
+      const key = "offline-doublekeys-transfer_" + moment().format("YYYY-MM-DD")      
+      if (this.localStorageService.get( key ) != null) {
+        this.addedTransferList = JSON.parse(this.localStorageService.get(key).toString());
+      }
+  }
+
+  saveOfflineTransfersList() {
+      const key = "offline-doublekeys-transfer_" + moment().format("YYYY-MM-DD")
+      this.localStorageService.set(key, JSON.stringify(this.addedTransferList) );
   }
 
   newTransfer($event:any) {  
     console.log('newTransfer: ', $event.value);   
+    this.modalTitle = 'Warning';    
     this.modalMessage = 'This will clean out the current transfer request header and start a new transfer. Are you sure you want to do this?';
-    this.modal.open();
+    this.modal.open();    
   }
 
   getSequenceID($event:any) {
@@ -81,15 +107,31 @@ export class TransferAddComponent implements OnInit {
 
     this.transferService.addTansferDetail(newTransfer)
       .subscribe(x => {                
-        this.transferDetail = new TransferDetailModel("","",0,"","",0,"",0,"");
-        
-        console.log(this, this.transferDetail, this.transfer);
-        console.log(this.addedTransferList);
+        this.transferDetail = new TransferDetailModel("","",0,"","",0,"",0,"");        
 
+        //don't need to show it, as this will be added in the below grid.
+        //this.showModalConfirm(x);
+        
+        //add the item to the result list
+        newTransfer.SequenceID = x.TransferSequenceID;
+        newTransfer.TransferDetails[0].Status = "Added";
+        this.addedTransferList.push(newTransfer);
+        this.saveOfflineTransfersList();
+
+        //get a new sequence
         this.transferService.getTransferSequenceID(this.transfer.Organisation.toUpperCase())
           .subscribe(x => this.transfer.SequenceID  = x);
-        this.addedTransferList.push(newTransfer);
+        
       });
+  }
+
+  showModalConfirm(x: any) {
+    this.modalTitle = "Information";
+    this.modalMessage = `Your sequence ID is ${x.TransferSequenceID}.`
+    if (x.Message != "") {
+      this.modalMessage += `<p></p> {$x.Message}.`;
+    }
+    this.modal.open();
   }
 
   onClose() {    
@@ -102,5 +144,12 @@ export class TransferAddComponent implements OnInit {
   onDismiss() {
       console.log('modal dismissed event');
   }  
+
+  newRequest() {
+    console.log('request new');
+    this.modal.close();
+    this.transfer = new TransferDblKeyModel ("", "", 0,"", "","", "","", "",false);
+    this.transferDetail = new TransferDetailModel("","",0,"","",0,"",0,"");    
+  }
 
 }

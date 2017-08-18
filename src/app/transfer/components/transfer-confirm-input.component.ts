@@ -1,27 +1,25 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ViewChildren  } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter  } from '@angular/core';
 import * as moment from 'moment';
 import { TransferDetailModel } from '../../models/transfer-detail.model';
-import {SelectListValue} from '../../models/selectListValue.model';
+import { SelectListValue } from '../../models/selectListValue.model';
 
 @Component({
-  selector: 'transfer-detail',
-  templateUrl: './transfer-detail.component.html',
+  selector: 'transfer-confirm-input',
+  templateUrl: './transfer-confirm-input.component.html',
   styleUrls: ['../transfer.component.css']
 })
-export class TransferDetailComponent implements OnInit {
+export class TransferConfirmInputComponent implements OnInit {
   @Input()
-  updateMode:boolean = false;
+  sequenceID:string;
+
+  @Input()
+  updateMode: boolean = true;
 
   @Input()
   transferDetail:TransferDetailModel;
 
-  @Input()
-  IsFormValid:boolean;
-
   @Output()
-  transferDetailSavedEvent = new EventEmitter();
-
-  @ViewChildren('txtSubType') txtSubType;
+  transferConfirmedEvent = new EventEmitter();
   
   SubType : SelectListValue[] = [
     new SelectListValue("TAC", "TransferIn - Adjustment Credit"),
@@ -42,15 +40,14 @@ export class TransferDetailComponent implements OnInit {
   ngOnInit() {    
   }
 
-  recDateChanged($dateTime: string) {
-    this.transferDetail.RecDate = $dateTime;        
+  confirmDateChanged($dateTime: string) {
+    this.transferDetail.DateConfirmed = $dateTime;        
   }
 
-  saveDetailAction() {
-    this.transferDetailSavedEvent.emit({
+  saveConfirmAction() {
+    console.log(this.transferDetail);
+    this.transferConfirmedEvent.emit({
       value: this.transferDetail
-    });
-    
-    this.txtSubType.first.nativeElement.focus();
+    })
   }
 }

@@ -5,6 +5,7 @@ import * as moment from 'moment';
 
 import { TransferDblKeyModel } from '../../models/transfer-dblkey.model';
 import { TransferDblKeyService } from '../../services/transferDblKey.service';
+import {SelectListValue} from '../../models/selectListValue.model';
 
 @Component({
   selector: 'transfer-header',
@@ -13,6 +14,9 @@ import { TransferDblKeyService } from '../../services/transferDblKey.service';
 })
 export class TransferHeaderComponent implements OnInit {
   @Input()
+  updateMode:boolean = false;
+
+  @Input()
   transfer : TransferDblKeyModel;   
 
   @Output()
@@ -20,24 +24,37 @@ export class TransferHeaderComponent implements OnInit {
 
   @Output()
   getSequenceIDEvent = new EventEmitter();
+
+  // @Input('group')
+  // public transferHeaderForm: FormGroup;
   
-  requestTypes : string[] = ["Transfer In", "Transfer Out"];
-  ncboValues: string[] = ["Yes", "No"];
+  requestTypes : SelectListValue[] = [
+    new SelectListValue("AA", "Acount to Account"),
+    new SelectListValue("ADJ", "Adjustment"),
+    new SelectListValue("EXT", "External Transfer")
+  ]
+
+  ncboValues : SelectListValue[] = [
+    new SelectListValue("true", "Yes"),
+    new SelectListValue("false", "No")
+  ]
+
   organisation = new FormControl();
 
   constructor(private transferService: TransferDblKeyService) {  
   }
 
   ngOnInit() {
-    console.log('header constructor');
-    
-    this.organisation.valueChanges
-      .debounceTime(400)
-      .distinctUntilChanged()
-      .subscribe( v => {
-        this.getSequenceID(v)
-      })
-      //.switchMap( v => this.getSequenceID(v));
+
+    if (!this.updateMode) {
+      this.organisation.valueChanges
+        .debounceTime(400)
+        .distinctUntilChanged()
+        .subscribe( v => {
+          this.getSequenceID(v)
+        })
+        //.switchMap( v => this.getSequenceID(v));
+    }
   }
 
   receivedDateChanged($dateTime: string) {

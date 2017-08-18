@@ -66,6 +66,20 @@ div.modal-footer {
     margin-right: 5px!important;
 }
 
+.icon-button {
+    appearance: none;
+    padding: 2px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: 0;
+    background: transparent;
+}
+
 .widget-body {
     padding: 15px;
+}
+
+.td {
+    padding: 5px 5px 0px 5px;
 }

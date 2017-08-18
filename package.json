@@ -22,7 +22,7 @@
     "preversion": "npm test",
     "protractor": "protractor",
     "rimraf": "rimraf",
-    "server:dev": "./node_modules/.bin/ng serve --proxy-config proxy.config.js",    
+    "server:dev": "./node_modules/.bin/ng serve --proxy-config proxy.config.js --port 4500",    
     "server": "npm run server:dev",
     "test": "./node_modules/.bin/ng test",
     "tslint": "tslint",

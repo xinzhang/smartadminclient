@@ -1,0 +1,20 @@
+ <sa-widget [togglebutton]="false" [editbutton]="false" [fullscreenbutton]="false" [colorbutton]="false" [deletebutton]="false">
+
+            <header>
+                <span class="widget-icon"><i class="glyphicon glyphicon-stats txt-color-darken"></i></span>
+                <h2>Search</h2>
+            </header>
+            
+            <div>
+                <ul class="list-inline">
+                    <li>
+                        <input type="text" class="text-primary padding3" placeholder="Sequence ID..." [(ngModel)]="search.SequenceID" >
+                        <input type="text" class="text-primary padding3" placeholder="APIR..." [(ngModel)]="search.APIR" >
+                        <input type="text" class="text-primary padding3" placeholder="Received Date..." [(ngModel)]="search.ReceivedDate" >
+                        <input type="text" class="text-primary padding3" placeholder="Qty Instructed..." [(ngModel)]="search.Qty">
+                        <button type="button" class="icon-button" (click)="searchAction()"><i class="glyphicon glyphicon-search"></i> Seach</button>
+                    </li>
+                </ul>
+            </div>
+            
+         </sa-widget>
